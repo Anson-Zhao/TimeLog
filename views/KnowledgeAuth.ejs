@@ -1,0 +1,172 @@
+<!-- views/KnowledgeAuth.ejs -->
+<!doctype html>
+<html>
+<head>
+    <title>CitySmart - User Management - Knowledge Authentication</title>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <link rel="icon" href="/images/download%20(2).jpeg">
+    <!-- load fontawesome -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <!--<link rel="stylesheet" href="//unpkg.com/flatpickr/dist/flatpickr.min.css">-->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/flatpickr"></script>
+    <!--<script src="//unpkg.com/flatpickr"></script>-->
+    <style>
+        .banner {
+            position: relative;
+            width: 100%;
+        }
+        .button1 {
+            width: 500px;
+            height: 50px;
+            border-radius: 15px;
+            -webkit-transition-duration: 0.4s;
+            transition-duration: 0.4s;
+            cursor: pointer;
+            background-color: white;
+            color: #f0ad4e;
+            border: 1px solid #f0ad4e;
+        }
+        .button1:hover {
+            background-color: #f0ad4e;
+            color: white;
+        }
+        .form-group {
+            margin: auto;
+            width: 100%;
+            padding: 0px;
+        }
+        .questions {
+            border: 0px none;
+            box-shadow: none;
+            color: #000;
+        }
+        #falldown {
+            text-align: center;
+        }
+    </style>
+</head>
+<div class="navul" style="height: 80px;
+    background: #000000;">
+    <a class="navul" href="//aworldbridge.com" style="background: #000000;
+    width: 500px;
+    height: 80px;">
+        <img class="banner" src="../images/NewWBBanner.jpg" style="width: 550px;
+    height: 80px;
+    margin: auto; display: block;" />
+    </a>
+</div>
+<body ononline="onFunction()" onoffline="offFunction()">
+<div class="container" style="width: 500px; padding: 0px;">
+    <h1 style="margin-top: 30px;"><span class="fa fa-list"></span>  Knowledge Authentication</h1>
+    <!-- show any messages that come back with authentication -->
+    <!-- ADD USER FORM -->
+    <p id="falldown"></p>
+    <div class="form-group">
+        <label>Security Question #1:</label>
+        <p class="form-control questions" id="firstQuestion" > <%= question1%> </p>
+        <input type="text" id="firstAnswer" class="form-control" name="answer1" style="height: 50px;margin-bottom: 20px;" minlength="1" maxlength="200" spellcheck="true" autofocus required>
+    </div>
+    <div class="form-group">
+        <label>Security Question #2:</label>
+        <p class="form-control questions" id="secondQuestion" > <%= question2%> </p>
+        <input type="text" id="secondAnswer" class="form-control" name="answer2" style="height: 50px;" minlength="1" maxlength="200" spellcheck="true" required>
+    </div>
+    <br>
+    <button id="kauthSubmit" type="submit" class="button1" onclick="submitForm()"><a href="/userhome" id="submitk" hidden></a> Submit </button>
+
+    <hr style="margin-bottom: 10px;">
+    <p style="margin-left: 225px;"> <a href="/authentication">Cancel</a></p>
+</div>
+<br>
+<script>
+    let username = '<%= user.username %>';
+    let formAnswer1 = $('#firstAnswer').val();
+    let formAnswer2 = $('#secondAnswer').val();
+    let a1 = "<%= answer1%>";
+    let a2 = "<%= answer2%>";
+    let numClicks = 0;
+    let input1 = document.getElementById("firstAnswer");
+    let input2 = document.getElementById("secondAnswer");
+
+    $(document).ready(function() {
+
+
+        $(function() {
+
+        });
+
+        let today = new Date();
+        let date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+        let time2 = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        let dateTime = date + ' ' + time2;
+        // document.getElementById("DATE").value = dateTime;
+        function timedRefresh() {
+        setTimeout(function(){ window.location.replace("/"); }, 180000);
+    }
+    timedRefresh();
+    })
+
+
+
+    function submitForm() {
+        // console.log($("#ksub").serialize());
+        console.log("this");
+        numClicks++;
+
+
+        if(numClicks > 3) {
+            window.location.replace("/");
+            alert("Login attempts exceeded!");
+        } else {}
+
+
+        let formAnswer1 = $('#firstAnswer').val().toLowerCase();
+        let formAnswer2 = $('#secondAnswer').val().toLowerCase();
+        let answer1 = a1.toLowerCase();
+        let answer2 = a2.toLowerCase();
+
+        if (formAnswer1 !== "" && formAnswer2 !== "") {
+            if (formAnswer1 === answer1 && formAnswer2 === answer2 ) {
+                console.log("pass");
+                $('#submitk').get(0).click();
+                $.ajax({
+                    type: "get",
+                    url: "/loginUpdate",
+                    dataType: 'json'
+                })
+            } else {
+                alert("Your answer(s) is/are incorrect. Please check your responses.");
+            }
+        } else if (formAnswer1 === "" || formAnswer2 === "") {
+            alert("Please make sure all the fields are filled!");
+        }
+
+    }
+
+    input1.addEventListener("keyup", function(event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            submitForm();
+        }
+    });
+
+    input2.addEventListener("keyup", function(event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            submitForm();
+        }
+    });
+
+    function onFunction() {
+        alert("You are now online.");
+    }
+
+    function offFunction() {
+        alert("Your are offline. Some functionality may be unavailable.");
+    }
+</script>
+</body>
+</html>

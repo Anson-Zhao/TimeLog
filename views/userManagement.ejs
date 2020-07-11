@@ -1,0 +1,599 @@
+<!-- views/userManagement.ejs -->
+<!doctype html>
+<html>
+<head>
+    <title>CitySmart - User Management</title>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="//cdn.datatables.net/buttons/1.4.2/css/buttons.dataTables.min.css">
+    <link rel="stylesheet" href="//unpkg.com/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <!--<link rel="stylesheet" href="//unpkg.com/flatpickr/dist/flatpickr.min.css">-->
+    <link rel="stylesheet" href="../css/Title.css" type="text/css">
+    <script src="../3rdPartyLibs/jquery-3.3.1.min.js"></script>
+    <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="//cdn.datatables.net/buttons/1.4.2/js/dataTables.buttons.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/flatpickr"></script>
+    <!--<script src="//unpkg.com/flatpickr"></script>-->
+
+    <style>
+        body 		{ padding-bottom: 80px; word-wrap:break-word; }
+
+
+        form{
+            margin: 20px 0;
+        }
+        form input, button{
+            padding: 5px;
+        }
+
+        .selected {
+            background-color: brown;
+            color: #FFF;
+        }
+        .banner{
+            position:relative;
+            width: 100%;
+        }
+        .floating-Box{
+            display: inline;
+        }
+        .floatingBox {
+            display: inline-block;
+            /*width:350px;*/
+        }
+        table{
+            overflow-x: auto;
+            width: 100%;
+            display: block;
+            margin-bottom: 20px;
+            border-collapse: collapse;
+        }
+        table, th, td{
+            border: 1px solid #cdcdcd;
+            text-align:center;
+        }
+        table th, table td{
+            padding: 10px;
+            text-align: left;
+        }
+        table::-webkit-scrollbar-thumb {
+            border-radius: 2px;
+            background-color: rgba(0, 0, 0, .5);
+            -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
+        }
+        table::-webkit-scrollbar {
+            -webkit-appearance: none;
+            height: 7px;
+        }
+        .navul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            /*overflow: hidden;*/
+        }
+        .navbutton1 {
+            width: 150px;
+            font-size: 15px;
+            height:80px;
+            margin: 0;
+            border-radius: 0px 0 0;
+            background-color: #000000;
+            border: 0 solid;
+            color: #ffffff;
+            -webkit-transition-duration: 0.4s;
+            transition-duration: 0.4s;
+        }
+
+        .navbutton1:hover {
+            background-color: #333;
+            color: white;
+        }
+        .dropbutton {
+            float: right;
+            width: 150px;
+            height: 80px;
+            padding: 16px;
+            color: white;
+            background-color: #337ab7;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            -webkit-transition-duration: 0.4s;
+            transition-duration: 0.4s;
+        }
+        .dropbutton:hover, .dropbutton:focus {
+            background-color: #2b6699;
+        }
+        .dropdown-content {
+            display: none;
+            background-color: #f1f1f1;
+            min-width: 160px;
+            overflow: auto;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            right: 0;
+            z-index: 1;
+        }
+        .dropdown-content a {
+            color: black;
+            padding: 20px;
+            text-decoration: none;
+            display: block;
+        }
+        .dropdown a:hover {
+            background-color: #ddd;
+        }
+        .show {
+            display: block;
+        }
+        .button1 {
+            height: 40px;
+            width: 110px;
+            float: right;
+            border-radius: 5px;
+            -webkit-transition-duration: 0.4s;
+            transition-duration: 0.4s;
+            cursor: pointer;
+            background-color: white;
+            color: #a7cb9f;
+            border: 1px solid #a7cb9f;
+        }
+
+        .button1:hover {
+            background-color: #a7cb9f;
+            color: white;
+        }
+
+        .button2 {
+            width: 110px;
+            color: #ffffff;
+            height: 40px;
+            background-color: #a7cb9f;
+        }
+
+        .button2:hover {
+            background-color: #9BBF93;
+            color: white;
+        }
+    </style>
+
+</head>
+<div class="navul" style="height:80px;background:#000000;">
+    <a class="navul" style="background:#000000;" href="http://aworldbridge.com">
+        <img class="banner" src="/images/NewWBBanner.jpg" style="width:500px;height:76px;"/>
+    </a>
+    <a href="/userHome" style="width:110px;">
+        <button class="navbutton1"> User Home </button>
+    </a>
+    <a href="/addUser" id= "Request" style="width:110px;">
+        <button class="navbutton1" style="width: 140px"> Add User </button>
+    </a>
+    <div class="dropdown" style="height: 80px; width: 200px; float: right; margin: 0;">
+        <button onclick="dropDown()" class="dropbutton" id="Username">
+            <%= firstName%>
+            <span class="caret"></span>
+        </button>
+        <div id="userMenuAdmin" class="dropdown-content">
+            <a href="/userProfile"> User Profile </a>
+            <a href="/userManagement"> User Management </a>
+            <a href="/signout"> Sign Out </a>
+        </div>
+        <div id="userMenuRegular" class="dropdown-content">
+            <a href="/userProfile"> User Profile </a>
+            <a href="/signout"> Sign Out </a>
+        </div>
+    </div>
+</div>
+<body ononline="onFunction()" onoffline="offFunction()">
+<div class="container" style="width: 900px">
+    <div class="container" style="width: 850px">
+        <div class="page-header text-center">
+            <h1><span class="fa fa-list"></span><strong> CitySmart - User Management </strong></h1>
+            <h4><span class="fa fa-user"></span>&nbsp;<strong>Account Name</strong>:  <%= user.username %> </h4>
+        </div>
+    </div>
+    <!--<a href="/newEntry" class="btn btn-default btn-lg" id="class1">New Entry</a>-->
+    <!--<a href="/query" class="btn btn-default btn-lg" id="class2">Data History</a>-->
+    <div id="userListForm" style="width: 900px;padding: 0px 10px;">
+        <div class="floatingBox" style="width: 500px;padding: 0px;">
+            <h4 class="floatingBox" style="width: 500px;"><strong style="width: 365px;">Date Created:</strong></h4>
+            <h5 class="floatingBox" style="width: 50px;">From:</h5>
+            <input class="inputBoxDate datePicker date" type="text" id="dateCreated" placeholder="Select Date" style="width: 265px;
+    height: 40px;
+    margin: 5px 150px 5px 0px;
+    padding-left: 10px;
+    border-radius: 5px;
+    border: 1px solid #c8c8c8;">
+            <h5 class="floatingBox" style="width: 50px;">To:</h5>
+            <input class="inputBoxDate datePicker date" type="text" id="dateCreated" placeholder="Select Date" style="width: 265px;
+    height: 40px;
+    margin: 5px 5px 5px 0px;
+    padding-left: 10px;
+    border-radius: 5px;
+    border: 1px solid #c8c8c8;">
+        </div>
+        <div class="container floatingBox" style="width: 360px;
+    margin: 0px;
+    padding: 0px;">
+            <h4 class="floatingBox DateModified1" style="width: 325px;"><strong>Date Modified:</strong></h4>
+            <h5 class="floatingBox DateModified2" style="width: 50px;">From:</h5>
+            <input class="inputBoxDate datePicker date DateModified3" type="text" id="dateModified" placeholder="Select Date" style="width: 280px;
+    height: 40px;
+    margin: 5px 5px 5px 0px;
+    padding-left: 10px;
+    border-radius: 5px;
+    border: 1px solid #c8c8c8;">
+            <h5 class="floatingBox DateModified2" style="width: 50px;">To:</h5>
+            <input class="inputBoxDate datePicker date DateModified3" type="text" id="dateModified" placeholder="Select Date" style="width: 280px;
+    height: 40px;
+    margin: 5px 5px 5px 0px;
+    padding-left: 10px;
+    border-radius: 5px;
+    border: 1px solid #c8c8c8;">
+        </div>
+        <br>
+        <div class="container floatingBox" style="width: 500px;
+    padding: 0px;">
+            <h4 class="floatingBox" style="width: 500px;"><strong>User Name:</strong></h4>
+            <h5 class="floatingBox" style="width: 100px">First Name:</h5>
+            <input class="inputBoxDate select" type="text" id="firstName" placeholder="Enter First Name" style="width: 210px;
+    height: 40px;
+    padding-left: 10px;
+    margin: 5px 150px 5px 5px;
+    border-radius: 5px;
+    border: 1px solid #c8c8c8;" minlength="1" maxlength="99" >
+            <h5 id="123" class="floatingBox" style="width: 100px">Last Name:</h5>
+            <input class="inputBoxDate select" type="text" id="lastName" placeholder="Enter Last Name" style="width: 210px;
+    height: 40px;
+    padding-left: 10px;
+    margin: 5px 150px 5px 5px;
+    border-radius: 5px;
+    border: 1px solid #c8c8c8;" minlength="1" maxlength="99" >
+            <h5 class="floatingBox">Phone Number:</h5>
+            <input class="inputBoxDate select" type="tel" id="Phone_Number" pattern="[0-9]{10}" placeholder="Enter Phone Number" maxlength="10" onkeypress="isInputNumber (event)" style="width: 210px; height: 40px; padding-left: 10px; margin: 5px; border-radius: 5px;border: 1px solid #c8c8c8;">
+        </div>
+        <div class="container floatingBox" style="width: 100px;
+    padding: 0px;">
+            <h4 class="floatingBox" style="width: 100px;
+    margin-bottom: 10px;"><strong>Status:</strong></h4>
+            <select class="select" id="status" style="width: 335px;height: 40px;background-color: white;margin-bottom: 20px;padding-left: 10px;border-radius: 5px;border: 1px solid #c8c8c8;">
+                <option value=""> SELECT THE STATUS </option>
+                <option value="Active">Active</option>
+                <option value="Never Logged In">Never Logged In</option>
+                <option value="Suspended">Suspended</option>
+            </select>
+
+            <h4 class="floatingBox" style="width: 100px;
+    margin-bottom: 10px;"><strong>User Role:</strong></h4>
+            <select class="select" id="userrole" style="width: 335px;
+    height: 40px;
+    background-color: white;
+    padding-left: 10px;
+    border-radius: 5px;
+    border: 1px solid #c8c8c8;">
+                <option value=""> SELECT THE USER ROLE </option>
+                <option value="Admin">Admin</option>
+                <option value="Regular">Regular</option>
+            </select>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div style="width: 850px;">
+        <input type="submit" onclick="query()" id="Filter" class="button1" value="Filter">
+        <button id="editUserButton" class="btn delete-row btn-default button2">Edit User</button>
+        <button id="suspendUserButton" class="btn btn-default button2" style="width: 140px;">Suspend User(s)</button>
+        <button id="showButton" class="btn btn-default button2">Show All</button>
+    </div>
+    <br>
+    <h4 style="margin-left:80px;"><strong>Most Recent Records:</strong></h4>
+
+    <div id="dvData" style="width: 850px;">
+
+        <table id="dataDisplay" cellspacing="0" width="100%">
+            <thead>
+            <tr>
+                <th>User Name</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>User Role</th>
+                <th>Phone Number</th>
+                <th>Country</th>
+                <th>State Province Region</th>
+                <th>City</th>
+                <th>Date Created</th>
+                <th>Modified User</th>
+                <th>Date Modified</th>
+                <th>Last Login Time</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+            <tfoot>
+            <tr>
+                <th>User Name</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>User Role</th>
+                <th>Phone Number</th>
+                <th>Country</th>
+                <th>State Province Region</th>
+                <th>City</th>
+                <th>Date Created</th>
+                <th>Modified User</th>
+                <th>Date Modified</th>
+                <th>Last Login Time</th>
+                <th>Status</th>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    <script type="text/javascript">
+
+        let rowSelected, thArray, DropMenu, queryString1, queryString2;
+        let table = $('#dataDisplay').DataTable({ "lengthMenu": [[5, 10, 25, -1], [5, 10, 25, "All"]]});
+        let querystr = "";
+        let userrole = "";
+        let UserRole = "<%= user.userrole %>";
+        let rowUserName = [];
+
+        $(document).ready(function() {
+            $(function () {
+                queryAndDisplay();
+
+                flatpickr(".date", {
+                    dateFormat: "Y-m-d",
+                    time_24hr: true
+                });
+            });
+
+            $('#dataDisplay tbody').on('click', 'tr', function () {
+                thArray = [];
+                rowUserName = [];
+
+                $(this).toggleClass('selected');    //toggle class for the rows selected
+
+                rowSelected = table.rows('.selected').data();    //Store all the data for selected rows'
+
+                $('#dataDisplay > thead > tr > th').each(function () {
+                    thArray.push($(this).text())
+                })
+
+                for (let i = 0; i < rowSelected.length; i ++) {
+//                    console.log("rowSelected[" + i + "][2]: " + rowSelected[i][2]);
+                    rowUserName.push(rowSelected[i][0]);
+                }
+            });
+
+
+            $("#editUserButton").on("click", function () {
+                if (rowSelected.length >= 2) {
+                    confirm("Please make sure to only select ONE of the users to edit.")
+                } else if (rowSelected.length === 0) {
+                    confirm("No rows have been selected---- please choose ONE.")
+                } else {
+                    let tstring = "";
+                    for (let i = 0; i < thArray.length; i++) {
+                        if (i === 0) {
+                            tstring += thArray[i] + "=" + rowSelected[0][i];
+                        } else {
+                            tstring += "&" + thArray[i] + "=" + rowSelected[0][i];
+                        }
+                    }
+
+                    let getvalue = table.rows('.selected').data();
+                    localStorage.setItem("getvalue", JSON.stringify(getvalue[0]));
+                    console.log(getvalue);
+
+                    window.location.replace('/editUser');
+
+                }
+            });
+
+            $("#suspendUserButton").on("click", function () {
+                if (confirm("Are you sure you would like to suspend the user(s)?")) {
+
+                    let usernameStr = "usernameStr=" + rowUserName.toString();
+                    console.log("usernameStr: " + usernameStr);
+
+                    $.ajax({
+                        url: '/suspendUser', //this inside routes
+                        type: 'GET',
+                        dataType: 'json', //result in json format
+                        async: false,
+                        data: usernameStr,
+                        success: function (result) {
+                            console.log(result);
+                            if (!result.error) {
+                                window.location.reload()
+                            } else {
+                                alert(result.message);
+                            }
+                        }
+                    })
+                } else { return false;}
+            });
+            $("#showButton").on("click", function () {
+                table.clear();
+                table.draw();
+                queryAndDisplay("statusDel=" + "Active");
+                $(".clearForm input[type='text']").val('');
+                $(".date").val('');
+                $(".select").val('');
+                // document.getElementById("userListForm").reset();
+            });
+        });
+
+        function dropDown() {
+            console.log(UserRole);
+            if (UserRole === "Admin") {
+                document.getElementById("userMenuAdmin").classList.toggle("show");
+            } else if (UserRole === "Regular") {
+                document.getElementById("userMenuRegular").classList.toggle("show");
+            }
+        }
+        window.onclick = function(event) {
+            if (!event.target.matches('.dropbutton')) {
+                let dropdowns = document.getElementsByClassName("dropdown-content");
+                for (let i = 0; i < dropdowns.length; i++) {
+                    let openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+
+        function query() {
+            let dateCreatedFrom = document.getElementsByClassName("datePicker")[0].value;
+            let dateCreatedTo = document.getElementsByClassName("datePicker")[1].value;
+            let dateModifiedFrom = document.getElementsByClassName("datePicker")[2].value;
+            let dateModifiedTo = document.getElementsByClassName("datePicker")[3].value;
+            let firstName = document.getElementById("firstName").value;
+            let lastName = document.getElementById("lastName").value;
+            let Phone_Number = document.getElementById("Phone_Number").value;
+            let status = document.getElementById("status").value;
+            let userrole = document.getElementById("userrole").value;
+            /*if ($("input[name='userrole']").is(":checked")) {
+                userrole = $("input[name='userrole']:checked").val();
+            } else {
+                userrole = "";
+            }*/
+
+            queryString1 = "dateCreatedFrom=" + dateCreatedFrom + "&dateCreatedTo=" + dateCreatedTo + "&dateModifiedFrom=" + dateModifiedFrom + "&dateModifiedTo=" + dateModifiedTo + "&userrole=" + userrole;
+            queryString2 = "&firstName=" + firstName + "&lastName=" + lastName + "&Phone_Number=" + Phone_Number + "&status=" + status;
+
+
+            querystr = queryString1 + queryString2;
+            // alert(querystr);
+
+            if (dateCreatedFrom || dateCreatedTo || dateModifiedFrom || dateModifiedTo || firstName || lastName || Phone_Number || status || userrole) {
+                table.clear();
+                queryAndDisplay(querystr);
+            } else {
+                queryAndDisplay(querystr);
+            }
+        }
+
+        let queryAndDisplay = function (querystr) {
+            // alert(querystr);
+//            console.log("querystr: " + querystr);
+
+            $.ajax({
+                url: '/filterUser',
+                type: 'GET',
+                dataType: 'json',
+                async: false,
+                data: querystr,
+                success: function (resp) {
+                    console.log(resp)
+                    for (let i = 0; i < resp.length; i++) {
+                        table.row.add( [
+                            resp[i].username,
+                            resp[i].firstName,
+                            resp[i].lastName,
+                            resp[i].userrole,
+                            resp[i].Phone_Number,
+                            resp[i].Country,
+                            resp[i].State_Province_Region,
+                            resp[i].City,
+                            resp[i].dateCreated,
+                            resp[i].modifiedUser,
+                            resp[i].dateModified,
+                            resp[i].lastLoginTime,
+                            resp[i].status
+                        ] ).draw( false );
+                    }
+                }
+
+            });
+        }
+
+        // // Format the phone number as the user types it
+        // document.getElementById('Phone_Number').addEventListener('keyup',function(evt){
+        //     let phoneNumber = document.getElementById('Phone_Number');
+        //     let charCode = (evt.which) ? evt.which : evt.keyCode;
+        //     // phoneNumber.value = phoneFormat(phoneNumber.value);
+        // });
+        //
+        // // We need to manually format the phone number on page load
+        // // document.getElementById('Phone_Number').value = phoneFormat(document.getElementById('Phone_Number').value);
+        //
+        // // A function to determine if the pressed key is an integer
+        // function numberPressed(evt){
+        //     let charCode = (evt.which) ? evt.which : evt.keyCode;
+        //     if(charCode > 31 && (charCode < 48 || charCode > 57) && (charCode < 36 || charCode > 40)){
+        //         return false;
+        //     }
+        //     return true;
+        // }
+        //
+        // // A function to format text to look like a phone number
+        // function phoneFormat(input){
+        //     // Strip all characters from the input except digits
+        //     input = input.replace(/\D/g,'');
+        //
+        //     // Trim the remaining input to ten characters, to preserve phone number format
+        //     input = input.substring(0,10);
+        //
+        //     // Based upon the length of the string, we add formatting as necessary
+        //     let size = input.length;
+        //     if(size == 0){
+        //         input = input;
+        //     }else if(size < 4){
+        //         input = '('+input;
+        //     }else if(size < 7){
+        //         input = '('+input.substring(0,3)+') '+input.substring(3,6);
+        //     }else{
+        //         input = '('+input.substring(0,3)+') '+input.substring(3,6)+' - '+input.substring(6,10);
+        //     }
+        //     return input;
+        // }
+
+        function isInputNumber (evt) {
+            let char = String.fromCharCode(evt.which);
+
+            if(!(/[0-9]/.test(char))) {
+                evt.preventDefault();
+            }
+        }
+
+        function showFilter(){
+            document.getElementById("submitButton").disabled = false;
+            document.getElementById("submitButton").hidden = false;
+        }
+
+        function donTShowFilter() {
+            document.getElementById("submitButton").disabled = true;
+            document.getElementById("submitButton").hidden = true;
+        }
+
+        function showAll() {
+            document.getElementById("showButton").disabled = false;
+            document.getElementById("showButton").hidden = false;
+        }
+
+        function donTShowAll() {
+            document.getElementById("showButton").disabled = true;
+            document.getElementById("showButton").hidden = true;
+        }
+
+
+        function onFunction() {
+            alert ("You are now online.");
+        }
+
+        function offFunction() {
+            alert ("Your are offline. Some functionality may be unavailable.");
+        }
+
+    </script>
+</div>
+</body>
+</html>

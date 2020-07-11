@@ -1,0 +1,191 @@
+<!-- views/login.ejs -->
+<!doctype html>
+<html>
+<head>
+    <title>CitySmart - Login</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <!-- load fontawesome -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <!--<link rel="stylesheet" href="//unpkg.com/flatpickr/dist/flatpickr.min.css">-->
+    <script src="../3rdPartyLibs/jquery-3.3.1.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://www.google.com/recaptcha/api.js?render=6Ld7fq8UAAAAAOv8ZEiVj6P972pR_Vf3ko5R0JB_"></script>
+    <?php include 'reCaptcha.php';?>
+    <!--<script src="//unpkg.com/flatpickr"></script>-->
+    <style>.floating-Box {
+            display: inline-block;
+        }
+
+        .banner {
+            position: relative;
+            width: 100%;
+            text-align: center;
+            display: inline-block;
+        }
+
+        .button1 {
+            width: 500px;
+            height: 50px;
+            border-radius: 15px;
+            -webkit-transition-duration: 0.4s;
+            transition-duration: 0.4s;
+            cursor: pointer;
+            background-color: white;
+            color: #f0ad4e;
+            border: 1px solid #f0ad4e;
+        }
+
+        .button1:hover {
+            background-color: #f0ad4e;
+            color: white;
+        }
+        #capsWarning {
+            color: red;
+            text-align: center;
+        }
+    </style>
+</head>
+<div class="navul" style="height: 80px;
+    background: #000000;">
+    <a class="navul" href="//aworldbridge.com" style="background: #000000;
+    width: 500px;
+    height: 80px;">
+        <img class="banner" src="../images/NewWBBanner.jpg" style="width: 550px;
+    height: 80px;
+    margin: auto; display: block;" />
+    </a>
+</div>
+<body ononline="onFunction()" onoffline="offFunction()">
+<div class="container" style="width: 500px;
+    padding: 0px;">
+    <h1 style="text-align: center;"><span class="fa fa-sign-in"></span> Login</h1>
+    <!--show any messages that come back with authentication -->
+    <% if (message.length > 0) { %>
+        <div class="alert alert-danger" style="text-align: center;"><%= message %></div>
+    <% } %>
+    <!-- LOGIN FORM -->
+    <p id="capsWarning" hidden><strong>WARNING: Caps lock is enabled.</strong></p>
+    <form action="/login" method="post">
+        <div class="form-group">
+            <label>Username:</label>
+            <input type="text" class="form-control" id="username" name="username" autocomplete="off" style="height: 50px;" minlength="2" maxlength="99" autofocus required>
+        </div>
+        <div class="form-group">
+            <label>Password:</label>
+            <input type="password" id="password" class="form-control" name="password" style="width: 95%; height: 50px;  display: inline-block" minlength="8" maxlength="99" required>
+            <span toggle="#password" class="fa fa-fw fa-eye-slash field-icon toggle-password" style="float: right; margin-top: 15px; display: inline-block"></span>
+        </div>
+        <div class="form-group" hidden>
+            <label>Login Time:</label>
+            <input type="text" id="date" class="form-control" name="lastLoginTime" readonly>
+        </div>
+        <div class="form-group" hidden>
+            <label>Status:</label>
+            <input type="text" id="status" class="form-control" name="status" value="Active" readonly>
+        </div>
+        <button type="submit" class="button1" style="width: 500px;height: 50px;"  onsubmit="loginAttempts()"> Login </button>
+        <div class="form-group" style="margin-bottom: 0px;margin-top: 10px;">
+            <label style="font-weight: normal;">
+                <input type="checkbox" name="remember" value="yes"> Remember me
+            </label>
+            <a href="/forgot" style="float: right;">Forgot Password?</a>
+        </div>
+        <input type="hidden" id="token">
+    </form>
+    <hr>
+    <!--<p>Need an account? <a href="/signup"> Signup </a></p>-->
+    <!--<p>Or go <a href="/">home</a>.</p>-->
+
+    <p class="floating-Box">Don't have an account?<a href="/signup"> Sign Up</a></p>
+    <p class="floating-Box" style="float: right">Or go back to <a href="/">Homepage >></a></p>
+</div>
+<script>
+    let username = document.getElementById("username");
+    let password = document.getElementById("password");
+    let capsWarning = document.getElementById("capsWarning");
+    let numClicks = 0;
+
+    username.addEventListener("keydown", function(e) {
+
+        if (e.getModifierState("CapsLock")) {
+            capsWarning.hidden = false;
+        } else {}
+    });
+    username.addEventListener("keyup", function(e) {
+
+        if (e.getModifierState("CapsLock")) {}
+        else {
+            capsWarning.hidden = true;
+        }
+    });
+    password.addEventListener("keydown", function(e) {
+
+        if (e.getModifierState("CapsLock")) {
+            capsWarning.hidden = false;
+        } else {}
+    });
+    password.addEventListener("keyup", function(e) {
+
+        if (e.getModifierState("CapsLock")) {}
+        else {
+            capsWarning.hidden = true;
+        }
+    });
+
+    $(".toggle-password").click(function() {
+        $(this).toggleClass("fa-eye-slash fa-eye");
+        let input = $($(this).attr("toggle"));
+        if (input.attr("type") === "password") {
+            input.attr("type", "text");
+        } else {
+            input.attr("type", "password");
+        }
+    });
+
+    $(function () {
+        flatpickr(".date", {
+            dateFormat: "Y-m-d",
+            time_24hr: true
+        });
+    });
+    let today = new Date();
+    let date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+    let time2 = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    let dateTime = date + ' ' + time2;
+    document.getElementById("date").value = dateTime;
+
+    grecaptcha.ready(function() {
+        grecaptcha.execute('6Ld7fq8UAAAAAOv8ZEiVj6P972pR_Vf3ko5R0JB_', {action: '/'}).then(function (token) {
+            console.log(token);
+            document.getElementById("token").value = token;
+        });
+    });
+
+    grecaptcha.ready(function() {
+        grecaptcha.execute('6Ld7fq8UAAAAAOv8ZEiVj6P972pR_Vf3ko5R0JB_', {action: '/login'}).then(function (token) {
+            console.log(token);
+            document.getElementById("token").value = token;
+        });
+    });
+
+    function onFunction() {
+        alert ("You are now online.");
+    }
+
+    function offFunction() {
+        alert ("Your are offline. Some functionality may be unavailable.");
+    }
+
+    function loginAttempts() {
+        numClicks++;
+
+        if(numClicks > 3) {
+            window.location.replace("/");
+            alert("Too many requests to the server can cause the server to slow down or not function properly.");
+        } else {}
+    }
+
+</script>
+</body>
+</html>

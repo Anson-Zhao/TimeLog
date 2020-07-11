@@ -1,0 +1,1071 @@
+<!-- views/LayerRequestForm_edit.ejs -->
+<!doctype html>
+<html>
+<head>
+    <title>CitySmart - WMS Layer Customized Request</title>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../3rdPartyLibs/jquery-validation-1.17.0/demo/css/screen.css">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/file-uploader/5.16.2/fine-uploader-gallery.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/css/ol.css">    <!--<script src="../src/jquery.form.min.js"></script>-->
+    <script src="../3rdPartyLibs/jquery-3.3.1.min.js"></script>
+    <script src="../3rdPartyLibs/jquery.multi-select.js"></script>
+    <script src="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/build/ol.js"></script>
+    <script src="../3rdPartyLibs/jquery.form.min.js"></script>
+    <script src="../3rdPartyLibs/jquery-validation-1.17.0/dist/jquery.validate.js"></script>
+    <script src="../scripts/LayerNameSearch.js"></script>
+<!--    <script src="../3rdPartyLibs/fine-uploader/fine-uploader.min.js"></script>-->
+    <script src="https://www.google.com/recaptcha/api.js?render=6Ld7fq8UAAAAAOv8ZEiVj6P972pR_Vf3ko5R0JB_"></script>
+    <?php include 'reCaptcha.php';?>
+<!--    <script src="../3rdPartyLibs/fine-uploader/fine-uploader.min.js"></script>-->
+    <!--    <script src="//cdnjs.cloudflare.com/ajax/libs/file-uploader/5.16.2/all.fine-uploader/all.fine-uploader.min.js"></script>-->
+    <!--    <script src="../src/country/dist/country.js"></script>-->
+    <script src="../3rdPartyLibs/fine-uploader/fine-uploader.js"></script>
+    <link href="../3rdPartyLibs/fine-uploader/fine-uploader-new.css" rel="stylesheet">
+
+    <script type="text/template" id="qq-template-manual-trigger">
+        <div class="qq-uploader-selector qq-uploader" qq-drop-area-text="Drop files here">
+            <div class="qq-total-progress-bar-container-selector qq-total-progress-bar-container">
+                <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-total-progress-bar-selector qq-progress-bar qq-total-progress-bar"></div>
+            </div>
+            <div class="qq-upload-drop-area-selector qq-upload-drop-area" qq-hide-dropzone>
+                <span class="qq-upload-drop-area-text-selector"></span>
+            </div>
+            <div class="buttons">
+                <div class="qq-upload-button-selector qq-upload-button">
+                    <div>Select files</div>
+                </div>
+                <button type="button" id="trigger-upload" class="btn btn-primary">
+                    <i class="icon-upload icon-white"></i> Upload
+                </button>
+            </div>
+            <span class="qq-drop-processing-selector qq-drop-processing">
+                <span>Processing dropped files...</span>
+                <span class="qq-drop-processing-spinner-selector qq-drop-processing-spinner"></span>
+            </span>
+            <ul class="qq-upload-list-selector qq-upload-list" aria-live="polite" aria-relevant="additions removals">
+                <li>
+                    <div class="qq-progress-bar-container-selector">
+                        <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-progress-bar-selector qq-progress-bar"></div>
+                    </div>
+                    <span class="qq-upload-spinner-selector qq-upload-spinner"></span>
+                    <img class="qq-thumbnail-selector" qq-max-size="100" qq-server-scale>
+                    <span class="qq-upload-file-selector qq-upload-file"></span>
+                    <span class="qq-edit-filename-icon-selector qq-edit-filename-icon" aria-label="Edit filename"></span>
+                    <input class="qq-edit-filename-selector qq-edit-filename" tabindex="0" type="text">
+                    <span class="qq-upload-size-selector qq-upload-size"></span>
+                    <button type="button" class="qq-btn qq-upload-cancel-selector qq-upload-cancel">Cancel</button>
+                    <button type="button" class="qq-btn qq-upload-retry-selector qq-upload-retry">Retry</button>
+                    <!--                    <button type="button" class="qq-btn qq-upload-delete-selector qq-upload-delete">Delete</button>-->
+                    <span role="status" class="qq-upload-status-text-selector qq-upload-status-text"></span>
+                </li>
+            </ul>
+
+            <dialog class="qq-alert-dialog-selector">
+                <div class="qq-dialog-message-selector"></div>
+                <div class="qq-dialog-buttons">
+                    <button type="button" class="qq-cancel-button-selector">Close</button>
+                </div>
+            </dialog>
+
+            <dialog class="qq-confirm-dialog-selector">
+                <div class="qq-dialog-message-selector"></div>
+                <div class="qq-dialog-buttons">
+                    <button type="button" class="qq-cancel-button-selector">No</button>
+                    <button type="button" class="qq-ok-button-selector">Yes</button>
+                </div>
+            </dialog>
+
+            <dialog class="qq-prompt-dialog-selector">
+                <div class="qq-dialog-message-selector"></div>
+                <input type="text">
+                <div class="qq-dialog-buttons">
+                    <button type="button" class="qq-cancel-button-selector">Cancel</button>
+                    <button type="button" class="qq-ok-button-selector">Ok</button>
+                </div>
+            </dialog>
+        </div>
+    </script>
+
+    <style>
+        body      { padding-bottom:80px; word-wrap:break-word; }
+
+        .banner{
+            position:relative;
+            width:100%;
+        }
+        .column {
+            float:right;
+            position:relative;
+            width:10%;
+
+        }
+        #clear{
+            background-color: white;
+            width: 105px;
+            height: 60px;
+            border-radius:15px;
+            font-size:16px;
+            -webkit-transition-duration: 0.4s;
+            transition-duration: 0.4s;
+            color: #31a0ba;
+            border-color: #31a0ba;
+            margin-left:6px;
+        }
+        #clear:hover {
+            background-color: #31a0ba;
+            color: white;
+        }
+        #submit{
+            background-color: #31a0ba;
+            width: 700px;
+            height: 60px;
+            border-radius:15px;
+            font-size:16px;
+            -webkit-transition-duration: 0.4s;
+            transition-duration: 0.4s;
+            color:white;
+        }
+        #submit:hover{
+            background-color: #ff758f;
+            color:white;
+        }
+        #approve{
+            background-color: #31a0ba;
+            width: 700px;
+            height: 60px;
+            margin-top: 10px;
+            border-radius:15px;
+            font-size:16px;
+            -webkit-transition-duration: 0.4s;
+            transition-duration: 0.4s;
+            color:white;
+        }
+        #approve:hover{
+            background-color: #ff758f;
+            color:white;
+        }
+        input[type="text"] {
+            height: 60px;
+        }
+        .selectpicker {
+            height: 60px;
+        }
+        #continent2, #City, #country2 {
+            height: 60px;
+        }
+        .other {
+            padding-left: 10px;
+            height: 40px;
+            margin-top: 10px;
+            width: 100%;
+            border-radius: 5px;
+            border: 1px solid lightgray;
+        }
+
+        #reject{
+            width: 105px;
+            height: 60px;
+            background-color: white;
+            border-radius:15px;
+            font-size:16px;
+            -webkit-transition-duration: 0.4s;
+            transition-duration: 0.4s;
+            color: #31a0ba;
+            display: inline-block;
+            border-color: #31a0ba;
+            margin-left: 6px;
+        }
+        #reject:hover {
+            background-color: #31a0ba;
+            color: white;
+        }
+        #reject:disabled {
+            color: white;
+            border-color: lightgray;
+        }
+        hr.style3 {
+            border: 0;
+            height: 1px;
+            background-image: -webkit-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+            background-image: -moz-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+            background-image: -ms-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+            background-image: -o-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+        }
+    </style>
+
+</head>
+
+<body ononline="onFunction()" onoffline="offFunction()">
+<!--<body onload="init()">-->
+    <!--<div class="navul" style="height: 150px;-->
+        <!--background: #000000;">-->
+        <a class="navul" href="//aworldbridge.com" style="background: #000000;
+        width: 500px;
+        height: 60px;">
+            <img class="banner" src="../images/NewWBBanner.jpg" style="width: 950px;
+        height: 150px;
+        margin: auto; display: block;" />
+        </a>
+    </div>
+
+
+    <div class="container" style="width: 850px;">
+    <h1 class="text-center page-header"><strong>Layer Request Form</strong></h1>
+    <h3 class="text-center" style="margin:30px;">Layer Information</h3>
+        <div class="generalForm">
+            <form class="well form-horizontal" id="layer">
+                <fieldset >
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Date</label>
+                        <div class="col-md-8 inputGroupContainer">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                <input id="date" name="Date" class="form-control" required readonly type="text" value="" >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Request ID</label>
+                        <div class="col-md-8 inputGroupContainer">
+                            <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                <input id="RID" name="RID" style="background:WhiteSmoke;" readonly class="form-control" required type="text" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">User ID</label>
+                        <div class="col-md-8 inputGroupContainer">
+                            <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                <input id="User ID" name="UID" style="background:WhiteSmoke;"  readonly class="form-control" required type="text" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Main-Category</label>
+                        <div class="col-md-8 inputGroupContainer">
+                            <div class="input-group">
+                                <span class="input-group-addon" style="max-width: 100%;"><i class="glyphicon glyphicon-list"></i></span>
+                                <select required id="main" class="selectpicker form-control" name="FirstLayer" onchange="ChangeMainCategory(this.value); Check(this.value);" autofocus>
+                                    <option value="">SELECT MAIN CATEGORY</option>
+                                    <option>Middletown</option>
+                                    <option>CustomLayers_Energy</option>
+                                    <option>CustomLayers_Water</option>
+                                    <option>CustomLayers_Agriculture</option>
+                                    <option>CustomLayers_Transportation</option>
+                                    <option>CustomLayers_Economics</option>
+                                    <option>CustomLayers_Health_Services</option>
+                                    <option>CustomLayers_Risk_Management</option>
+                                    <option>CustomLayers_Education</option>
+                                    <option>BaseMap</option>
+                                    <option>NaturalHazards</option>
+                                    <option>OtherFeaturedData</option>
+                                    <option>Small-Scale</option>
+                                    <option>ThemeOverlays</option>
+                                    <option value="other">Other(Please specify)</option>
+                                </select>
+                                <div id="other1" style="display:none;">
+                                    <input class="other" type="text" name="FirstOther" id="inputone" spellcheck="true">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Sub-Category</label>
+                        <div class="col-md-8 inputGroupContainer">
+                            <div class="input-group">
+                                <span class="input-group-addon" style="max-width: 100%;"><i class="glyphicon glyphicon-list"></i></span>
+                                <select id="sub" class="selectpicker form-control" name="SecondLayer" value="">
+                                    <option value="Category">SELECT SUBCATEGORY</option>
+                                    <option value="other" id="secondOther">Other(Please specify)</option>
+                                </select>
+                                <div id="other2" style="display:none;">
+                                    <input class="other" type="text" name="SecondOther" id="inputtwo">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" hidden>
+                        <label class="col-md-4 control-label">Layer Name</label>
+                        <div class="col-md-8 inputGroupContainer">
+                            <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                <input id="LayerNameInput" name="LayerName" value="" placeholder="Layer Name.  NOTE: Do not include spaces." class="form-control" required  type="text" onchange="SearchLayerName(this.value)"></div>
+                            <p id="LayerName1" style="color: palevioletred;margin-top:15px;"></p>
+                        </div>
+                    </div>
+                    <div class="form-group" id="adminonly">
+                        <label class="col-md-4 control-label">Layer Display Name</label>
+                        <div class="col-md-8 inputGroupContainer">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                <input id="DisplayName" name="ThirdLayer" value="" placeholder="ThirdLayer Name.  NOTE: Do not include spaces." class="form-control" required  type="text" onchange="SearchThirdLayer(this.value)"></div>
+                            <p id="LayerName2" style="color:palevioletred; margin-top:15px;"></p>
+                        </div>
+                    </div>
+                    <div class="form-group" hidden>
+                        <label class="col-md-4 control-label">Layer Continent</label>
+                        <div class="col-md-8 inputGroupContainer">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+                                <select name="ContinentName" class="crs-country form-control" data-region-id="two" data-default-option="SELECT CONTINENT" id="continent" onchange="changeContinent(this.value)">
+                                    <option selected="selected" value="AL" id="continent-option">SELECT A CONTINENT</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" hidden>
+                        <label class="col-md-4 control-label">Layer Country</label>
+                        <div class="col-md-8 inputGroupContainer">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+                                <select  id="country" name="CountryName" class="crs-country form-control" data-region-id="two" data-default-option="SELECT COUNTRY">
+                                    <option value="select">SELECT COUNTRY</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Layer Continent</label>
+                        <div class="col-md-8 inputGroupContainer">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+                                <select class="crs-country form-control" data-region-id="two" data-default-option="SELECT CONTINENT" id="continent2" onchange="changeContinent(this.value)">
+                                    <option selected="selected" value="AL" id="continent-option">SELECT A CONTINENT</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Layer Country</label>
+                        <div class="col-md-8 inputGroupContainer">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+                                <select  id="country2" class="crs-country form-control" data-region-id="two" data-default-option="SELECT COUNTRY">
+                                    <option value="select">SELECT COUNTRY</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Layer State</label>
+                        <div class="col-md-8 inputGroupContainer">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+                                <input name="StateName" value="" placeholder="State Name" class="form-control" required  type="text" id="LayerStateInput">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Layer City</label>
+                        <div class="col-md-8 inputGroupContainer">
+                            <div class="input-group">
+                                <span class="input-group-addon" style="max-width: 100%;"><i class="glyphicon glyphicon-globe"></i></span>
+                                <!--<input id="LayerCityInput" name="CityName" placeholder="Layer City" class="form-control" required value="" type="text"></div>-->
+                                <input name="CityName" id="City" value="" placeholder="Please enter full City name" class="form-control selectpicker" type="text">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Layer Description</label>
+                        <div class="col-md-8 inputGroupContainer">
+                            <div>
+                                <textarea class="form-control" id="message" name="Layer_Description" placeholder="Enter your description here..." required type="text" rows="6" maxlength="400" spellcheck="true"></textarea>
+                                <p style="color:palevioletred;margin-top:15px;">Please include image resolution, drone altitude, date created and other conditions.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Layer Format</label>
+                        <div class="col-md-8 inputGroupContainer">
+                            <div class="input-group">
+                                <span class="input-group-addon" style="max-width: 100%;"><i class="glyphicon glyphicon-list"></i></span>
+                                <select required class="selectpicker form-control" name="LayerFormat" id="LayerFormat">
+                                    <option value="" disabled selected>SELECT LAYER FORMAT</option>
+                                    <option value="GeoTIFF">GeoTIFF - Tagged Image File Format with Geographic information (.tif)</option>
+                                    <option value="ShapeFile">Shapefile - ESRI(tm) Shapefiles (.shp)</option>
+<!--                                    <option value="JPEG">JP2ECW - JP2K (.jp2/.j2k)</option>-->
+<!--                                    <option value="ArcBinary">AIG - Arc/Info Binary Grid (.adf)</option>-->
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" hidden>
+                        <label class="col-md-4 control-label">Layer Format</label>
+                        <div class="col-md-8 inputGroupContainer">
+                            <div class="input-group">
+                                <span class="input-group-addon" style="max-width: 100%;"><i class="glyphicon glyphicon-list"></i></span>
+                                <select required class="selectpicker form-control" id="LayerFormat2">
+                                    <option value="" disabled selected>SELECT LAYER FORMAT</option>
+                                    <option value="GeoTIFF">GeoTIFF - Tagged Image File Format with Geographic information (.tif)</option>
+                                    <option value="ShapeFile">Shapefile - ESRI(tm) Shapefiles (.shp)</option>
+<!--                                    <option value="JPEG">JP2ECW - JP2K (.jp2/.j2k)</option>-->
+<!--                                    <option value="ArcBinary">AIG - Arc/Info Binary Grid (.adf)</option>-->
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" hidden>
+                        <label class="col-md-4 control-label">Picture String Name</label>
+                        <div class="col-md-8 inputGroupContainer">
+                            <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                <input id="pictureStr" name="Layer_Uploader_name" value="" placeholder="Layer Name.  NOTE: Do not include spaces." class="form-control" required  type="text" onchange="SearchLayerName(this.value)"></div>
+                            <p id="LayerUploaderName" style="color: palevioletred;margin-top:15px;"></p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" id="msg">Layer Uploader <p>(You can only upload one file)</p> </label>
+                        <div class="col-md-8 inputGroupContainer">
+                            <div id="fine-uploader-manual-trigger"></div>
+                        </div>
+                    </div>
+                    <br>
+                    <hr class="style3">
+                    <br>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Comments <p>(official use only)</p></label>
+                        <div class="col-md-8 inputGroupContainer">
+                            <div>
+                                <textarea class="form-control" id="comment" name="Comments" disabled type="text" rows="8" maxlength="500" spellcheck="true"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="col-md-4 control-label">Status</label>
+                        <div class="col-md-8 inputGroupContainer">
+                            <div>
+                                <textarea class="form-control" id="Status" name="Status" disabled required readonly type="text" rows="1" maxlength="100" spellcheck="true"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <input type="hidden" id="token">
+            </form>
+        </div>
+        <div>
+            <button id="submit" form="layer" disabled title="this is only for Regular Users">Submit</button>
+            <button id="clear" type="reset" onclick="clearForm()" value="  Clear  ">Clear</button>
+            <button id="approve" type="submit" form="layer" disabled  title="Admin Users Only">Approve</button>
+            <button id="reject" disabled  title="Admin Users Only">Reject</button>
+
+        </div>
+        <hr>
+        <p class="text-center"><a id="cancel" onclick="userHome();">Cancel</a></p>
+</div>
+
+    <script>
+    let UserRole = "<%= user.userrole %>";
+    let rowSelectedValue = JSON.parse(localStorage.getItem("rowSelectedValue"));
+    let continentList = document.getElementById("continent2");
+    let layerformat;
+    let continentabbrvalue;
+    let valueboy;
+    // let countryList = document.getElementById("country2");
+    // let obedientvalue = countryList[countryList.selectedIndex].value;
+
+
+    $(document).ready(function() {
+        changeContinent(rowSelectedValue[4]);
+        document.getElementById('date').value = rowSelectedValue[0];
+        document.getElementById('User ID').value = rowSelectedValue[1];
+        document.getElementById('RID').value = rowSelectedValue[2];
+        document.getElementById('pictureStr').value = rowSelectedValue[15];
+        document.getElementById('Status').value = rowSelectedValue[16];
+        document.getElementById('main').value = rowSelectedValue[8];
+        document.getElementById('LayerStateInput').value = rowSelectedValue[6];
+        // document.getElementById('LayerFormat').value = document.getElementById('LayerFormat2').value;
+        // $("#LayerFormat").html("<option>" + rowSelectedValue[14]+ "</option>");
+        // $("#LayerFormat2").html("<option>" + rowSelectedValue[14]+ "</option>");
+        document.getElementById('message').value = rowSelectedValue[13];
+        document.getElementById('City').value = rowSelectedValue[7];
+        $('#continent option[value="AL"]').val(rowSelectedValue[4]);
+        // $('#continent2 option[value="AL"]').val(rowSelectedValue[4]);
+        // $("#continent2").html("<option>" + rowSelectedValue[4]+ "</option>");
+        // $('#country option[value="selected"]').val(rowSelectedValue[5]);
+        // $('#country2 option[value="select"]').val(rowSelectedValue[5]);
+        $("#country").html("<option selected>" + rowSelectedValue[5]+ "</option>");
+        $("#country2").html("<option selected>" + rowSelectedValue[5]+ "</option>");
+        document.getElementById('DisplayName').value = rowSelectedValue[12];
+        document.getElementById('comment').value = rowSelectedValue[17];
+        // $("#country2 option:selected").val(rowSelectedValue[5]);
+
+            document.getElementById('LayerFormat').value = rowSelectedValue[14];
+        document.getElementById('LayerFormat2').value = rowSelectedValue[14];
+
+        //getAttributeNode("value").value
+
+        if(rowSelectedValue[8] === "other" || rowSelectedValue[10] === "other"){
+            document.getElementById("other1").style.display = "block";
+            document.getElementById("inputone").value = rowSelectedValue[9];
+            $('#sub option[value="Category"]').val(rowSelectedValue[10]);
+            $("#sub").html("<option>" + rowSelectedValue[10]+ "</option>")
+            document.getElementById("other2").style.display = "block";
+            document.getElementById("inputtwo").value = rowSelectedValue[11];
+        }else{
+            $('#sub option[value="Category"]').val(rowSelectedValue[10]);
+            $("#sub").html("<option>" + rowSelectedValue[10]+ "</option>")
+        }
+
+        if (UserRole === "Admin") {
+            document.getElementById("comment").disabled = false;
+            document.getElementById("approve").disabled = false;
+            document.getElementById("reject").disabled = false;
+            document.getElementById('message').readOnly = true;
+            document.getElementById('LayerFormat').disabled = true;
+            document.getElementById('City').readOnly = true;
+            document.getElementById('LayerStateInput').readOnly = true;
+            document.getElementById('country').disabled = false;
+            document.getElementById('continent').disabled = false;
+            document.getElementById('country2').disabled = true;
+            document.getElementById('continent2').disabled = true;
+            document.getElementById('main').disabled = true;
+            document.getElementById('sub').disabled = false;
+            document.getElementById('main').disabled = false;
+            document.getElementsByClassName('qq-uploader-selector').disabled = true;
+            document.getElementById("submit").style.backgroundColor = "lightgray";
+            document.getElementById("adminonly").style.display = "block";
+            document.getElementById("comment").placeholder = "Please describe why you are rejecting the request.";
+            console.log(document.getElementsByClassName('qq-upload-button'));
+            // document.getElementsByClassName('qq-upload-button')[0].disabled = true;
+            // document.getElementById('upload-button').disabled = true;
+            document.getElementById("approve").disabled = false;
+            // document.getElementById("uploader").hidden = true;
+            document.getElementById('LayerFormat').value = rowSelectedValue[14];
+            // $('#upload-button').prop('disabled',true);
+        } else if (UserRole === "Regular") {
+            document.getElementById("comment").disabled = true;
+            document.getElementById("submit").disabled = false;
+            document.getElementById("continent2").disabled = false;
+            document.getElementById("country2").disabled = false;
+            document.getElementById("adminonly").style.display = "none";
+            document.getElementById("approve").style.backgroundColor = "lightgray";
+            document.getElementById("reject").style.backgroundColor = "lightgray";
+        }
+
+        $("#main").change(function () {
+            let val = $(this).val();
+            if (val === "") {
+                $("#sub").html("<option value='Category'>SELECT SUBCATEGORY</option>");
+            }else if(val ==="other") {
+                $("#sub").html("<option value='other'>Other(Please specify)</option>");
+            }
+        })
+
+        $("#City").change(function () {
+            let val = $(this).val();
+            if (val === "select") {
+                $("#country2").html("<option value='select'>SELECT SUBCATEGORY</option>");
+            }
+        })
+
+
+
+        $.ajax({
+            url: "layerRequestContinent",
+            method: 'GET',
+            dataType: 'json',
+            success: function (results) {
+                for (let i = 0; i < results.length; i++) {
+                    if (results[i].Continent !== rowSelectedValue[4]) {
+                        continentList.add(new Option(results[i].Continent_name, results[i].Continent));//Continent name refers to the actual name while the continent just refers to the abbreviation of the continent
+                    } else {}
+
+
+                    console.log(continentList);
+                    console.log(results);
+                }
+            }
+        });
+
+
+        if(rowSelectedValue[4] === "OC") {
+            continentabbrvalue = "Oceania";
+            valueboy = rowSelectedValue[4];
+        } else if (rowSelectedValue[4] === "NA") {
+            continentabbrvalue = "North America";
+            valueboy = rowSelectedValue[4];
+        } else if (rowSelectedValue[4] === "SA") {
+            continentabbrvalue = "South America";
+            valueboy = rowSelectedValue[4];
+        } else if (rowSelectedValue[4] === "EU") {
+            continentabbrvalue = "Europe";
+            valueboy = rowSelectedValue[4];
+        } else if (rowSelectedValue[4] === "AF") {
+            continentabbrvalue = "Africa";
+            valueboy = rowSelectedValue[4];
+        } else if (rowSelectedValue[4] === "AS") {
+            continentabbrvalue = "Asia";
+            valueboy = rowSelectedValue[4];
+        } else if (rowSelectedValue[4] === "AN") {
+            continentabbrvalue = "Antarctica";
+            valueboy = rowSelectedValue[4];
+        } else if (rowSelectedValue[4] === "Others") {
+            continentabbrvalue = rowSelectedValue[4];
+            valueboy = rowSelectedValue[4];
+        } else if(rowSelectedValue[4] === "Oceania") {
+            continentabbrvalue = rowSelectedValue[4];
+            valueboy = 'OC';
+        } else if (rowSelectedValue[4] === "North America") {
+            continentabbrvalue = rowSelectedValue[4];
+            valueboy = 'NA';
+        } else if (rowSelectedValue[4] === "South America") {
+            continentabbrvalue = rowSelectedValue[4];
+            valueboy = 'SA';
+        } else if (rowSelectedValue[4] === "Europe") {
+            continentabbrvalue = rowSelectedValue[4];
+            valueboy = 'EU';
+        } else if (rowSelectedValue[4] === "Africa") {
+            continentabbrvalue = rowSelectedValue[4];
+            valueboy = 'AF';
+        } else if (rowSelectedValue[4] === "Asia") {
+            continentabbrvalue = rowSelectedValue[4];
+            valueboy = 'AS';
+        } else if (rowSelectedValue[4] === "Antarctica") {
+            continentabbrvalue = rowSelectedValue[4];
+            valueboy = 'AN';
+        } else {
+            continentabbrvalue = rowSelectedValue[4];
+        }
+        $("#continent2").html('<option selected value = ' + "'"+ valueboy + "'" +">"+ continentabbrvalue + "</option>");
+
+
+
+
+        //resubmit the photo
+        let photoDiv = $("#photo");
+        photoDiv.empty();
+
+        let editIDSr = "editIDSr=" + rowSelectedValue[2];
+        $.ajax({
+            url: 'edit',
+            type: 'GET',
+            dataType: 'json',
+            data: editIDSr,
+            success: function (results) {
+                if(results[0].Layer_Uploader_name !== "") {
+                    if (!results.error) {
+                        globalResults = results;
+                        let list = [];
+                        for (let i = 0; i < globalResults.length; i++) {
+                            let first = {
+                                id: i,
+                                size: 561276,
+                                thumbnailUrl: globalResults[i].Layer_Uploader,
+                                name: globalResults[i].Layer_Uploader_name
+                            };
+                            list.push(first);
+                        }
+                        // uploader.addInitialFiles(list);
+                    } else {
+                        console.log("didn't work :(");
+                    }
+                }
+            }
+        });
+
+
+        let manualUploader = new qq.FineUploader({
+            element: document.getElementById('fine-uploader-manual-trigger'),
+            template: 'qq-template-manual-trigger',
+            request: {
+                endpoint: 'upload'
+            },
+            cors: {
+                //all requests are expected to be cross-domain requests
+                expected: true
+            },
+            thumbnails: {
+                placeholders: {
+                    waitingPath: '/source/placeholders/waiting-generic.png',
+                    notAvailablePath: '/source/placeholders/not_available-generic.png'
+                }
+            },
+            deleteFile: {
+                enabled: true, // defaults to false
+                method: 'DELETE',
+                forceConfirm: true,
+                endpoint: 'deleteFiles'
+            },
+            callbacks: {
+                onDeleteComplete: function(id, xhr, isError) {
+                    if (isError) {
+                        console.log(isError);
+                    }
+                },
+                onError: function(id, name, errorReason, xhrOrXdr) {
+                    alert(qq.format("Error on file number {} - {}.  Reason: {}", id, name, errorReason));
+                },
+                onComplete: function (id, name, responseJSON) {
+                    manualUploader.setUuid(id, responseJSON.newuuid);
+                }
+            },
+            autoUpload: false,
+            validation:{
+                allowedExtensions: ['tif', 'shp', 'zip'],
+                itemLimit: 1
+            },
+            resume: {
+                enabled: true
+            },
+            retry: {
+                enableAuto: true,
+                showButton: true
+            },
+            debug: false
+        });
+
+        qq(document.getElementById("trigger-upload")).attach("click", function() {
+            manualUploader.uploadStoredFiles();
+        });
+
+        // Wait for the DOM to be ready
+        $('#layer').validate({
+            // Specify validation rules
+            success: "valid",
+            debug: true,
+            rules: {
+                // The key name on the left side is the name attribute
+                // of an input field. Validation rules are defined
+                // on the right side
+                Layer_Name: "required",
+                StateName:"required",
+                CountryName:"required",
+                CityName:"required",
+                FirstLayer:"required",
+                SecondLayer:"required",
+                Layer_Description: "required",
+                LayerFormat:"required"
+
+            },
+            // Specify validation error messages
+            messages: {
+                Layer_Name: "Please enter the layer name.",
+                StateName:"Please enter the layer state.",
+                CountryName:"Please enter the layer country.",
+                CityName:"Please enter the layer City.",
+                FirstLayer: "Please select the main category.",
+                SecondLayer:"Please select the subcategory.",
+                Layer_Description: "Please write the description of the layer.",
+                LayerFormat:"Please choose your layer format."
+            },
+
+            // Make sure the form is submitted to the destination defined
+            // in the "action" attribute of the form when valid
+            submitHandler: function (form) {
+                submitForm();
+            }
+        });
+
+        $("#City").click(function () {
+            new dgCitysCountries({
+                CityVal: document.getElementById("City").val,
+                countryVal: document.getElementById("country2").val,
+                City: document.getElementById("City"),
+                country: document.getElementById("country2"),
+                change: true
+            });
+        });
+
+        $("#reject").click(function () {
+            if (confirm("Are you sure you would like to reject this request?") === true) {
+            let tID = "reject=" + document.getElementById('RID').value;
+            let Comment = "comment=" + document.getElementById('comment').value;
+            let rejectPicPath = "picturePath="+ rowSelectedValue[15];
+            // $(".form-group").fadeOut("slow");
+            $.ajax({
+                url: 'reject',
+                type: "GET",
+                dataType: 'json',
+                data: tID + "&" + Comment + "&" +rejectPicPath,
+                success: function (result) {
+
+                    alert(result.message);
+                    window.location.replace('/userHome');
+                }
+            });
+            } else{
+                return false;
+            }
+
+
+            // if (confirm("Are you sure to reject the data?") === true) {
+            //     let tID = "reject=" + document.getElementById('RID').value;
+            //     let Comment = "comment=" + document.getElementById('comment').value;
+            //     let rejectPicPath = "picturePath="+ rowSelectedValue[15];
+            //     $.ajax({
+            //         url: 'reject',
+            //         type: "GET",
+            //         dataType: 'json',
+            //         data: tID + "&" + Comment + "&" +rejectPicPath,
+            //         success: function (result) {
+            //             console.log(result.message);
+            //             console.log(result.error);
+            //
+            //             if(result.error === true){
+            //                 alert(result.message)
+            //             }else{
+            //                 alert(result.message);
+            //             }
+            //             window.location.replace('/userHome')
+            //         }
+            //     });
+            // }else {
+            //     return false;
+            // }
+        });
+        document.getElementById('country').value = document.getElementById('country2').value;
+        document.getElementById('continent').value = document.getElementById('continent2').value;
+    });
+
+    function Check(that) {
+        if (that === "other") {
+            document.getElementById("other1").style.display = "block";
+            document.getElementById("other2").style.display = "block";
+        } else {
+            document.getElementById("other1").style.display = "none";
+            document.getElementById("other2").style.display = "none";
+        }
+    }
+
+    // $(document).ready(function() {
+    //     let continentList = document.getElementById("continent")
+    //     $.ajax({
+    //         url: "layerRequestContinent",
+    //         dataType: 'json',
+    //         success: function (results) {
+    //             console.log(results);
+    //             let option;
+    //             for (let i = 0; i < results.length; i++) {
+    //                 option = new Option(results[i].Contitent_name, results[i].Continent);
+    //                 continentList.add(option);
+    //                 // console.log(option);
+    //             }
+    //         }
+    //     });
+    // });
+
+    // $("select").change(function() {
+    //         var str = "";
+    //         $( "select option:selected" ).each(function() {
+    //             str += $( this ).text() + " ";
+    //         });
+    //         $( "div" ).text( str );
+    //     }).trigger( "change" );
+
+
+
+
+    function changeContinent (continentValue){
+
+        let country = "country="+continentValue;
+        let countryList = document.getElementById("country2");
+
+        while (countryList.options.length) {
+            countryList.remove(0);
+        }
+
+        if(continentValue !== 'SAS'){
+            countryList.disabled = false;
+        }
+
+        if(continentValue === "AL"){
+            countryList.disabled = true;
+            $("#country2").html("<option>SELECT A COUNTRY</option>")
+        }
+
+        $.ajax({
+            url: "layerRequestCountry",
+            method: 'GET',
+            dataType: 'json',
+            data: country,
+            success: function (results) {
+                for(let j = 0; j < results.length; j++){
+                    countryList.add(new Option(results[j].Country_name, results[j].Country_name));
+                }
+            }
+        });
+    }
+
+
+    function submitForm() {
+        if (UserRole === "Admin") {
+            if (confirm("Are you sure you would like to approve this data?") === true) {
+                let tID = "tID=" + document.getElementById('RID').value;
+                let LUN = "LUN=" + rowSelectedValue[15];
+                let lForm = "lForm=" + rowSelectedValue[14];
+                let fName = "fName=" + rowSelectedValue[12];
+                let data = $("#layer").serialize();
+                console.log(fName);
+                $.ajax({
+                    url: 'approve',
+                    type: "GET",
+                    dataType: 'json',
+                    data: tID + '&' + LUN + '&' + lForm + '&' + fName,
+                });
+                $.ajax({
+                    url: 'replace',
+                    method: "post",
+                    data: data,
+                    dataType: 'json',
+                    success: function (d) {
+                        console.log(data);
+                    }
+                });
+                window.location.replace('/userHome');
+            } else {
+                return false;
+            }
+        }else if (UserRole === "Regular") {
+            let regulardata = $("#layer").serialize();
+            let status = "Current_Status=" + rowSelectedValue[16];
+            console.log('status');
+            console.log(status);
+            console.log('regular data');
+            console.log(regulardata);
+            if (confirm("Are you sure you would like to submit this data?") === true) {
+                let regulardata = $("#layer").serialize();
+                let status = "Current_Status=" + rowSelectedValue[16];
+                console.log('status');
+                console.log(status);
+                console.log('regular data');
+                console.log(regulardata);
+                $.ajax({
+                    url: 'rsubmit',
+                    method: "post",
+                    data: regulardata + "&" + status,
+                    dataType: 'json',
+                    success: function (d) {
+                    }
+                });
+                window.location.replace('/userHome');
+                console.log('status');
+                console.log(status);
+                console.log('regular data');
+                console.log(regulardata);
+            } else {
+                return false;
+            }
+        }
+    }
+
+    function ChangeMainCategory(Category){
+        let subList = document.getElementById("sub");
+        while (subList.options.length){
+            subList.remove(0);
+        }
+        $.ajax({
+            url: "MainCategory",
+            dataType: 'json',
+            success:function (results) {
+                let option;
+                for (let i = 0; i < results.length; i++) {
+                    if (Category === results[i]. FirstLayer) {
+                        option = new Option(results[i].SecondLayer, results[i].SecondLayer);
+                        subList.add(option);
+                        document.getElementById("sub").disabled = false;
+                    }
+                }
+            }
+        })
+    }
+
+    function userHome() {
+        if (confirm("Are you sure you to leave this page? All the data will be cleared accordingly!") === true) {
+            window.location.replace('/userHome')
+        }
+    }
+
+    function clearForm(){
+        if (confirm("Are you sure to clear the form? All the data will be reset accordingly!") === true) {
+           $('input,select,textarea').not('[readonly],[disabled],:button').val('');
+           $("#main").value = "Category";
+            $("#sub").html("<option>SELECT SUBCATEGORY</option>");
+            $("#City").html("<option>SELECT CONTINENT</option>");
+            $("#country2").html("<option>SELECT COUNTRY</option>");
+        }
+    }
+
+    function onFunction() {
+        alert ("You are now online.");
+    }
+
+    function offFunction() {
+        alert ("Your are offline. Some functionality may be unavailable.");
+    }
+    function SearchLayerName(value){
+        $.ajax({
+            url: "SearchLayerName",
+            dataType:"json",
+            success: function (results) {
+                for(let i = 0; i < results.length; i++) {
+                    if (value === results[i].LayerName) {
+                        document.getElementById("LayerName1").innerHTML = "The Layer Name has already been used";
+                        document.addEventListener("keyup", function (e) {
+                            if (event.keyCode === 8) {
+                                document.getElementById("LayerName1").innerHTML = "Please enter the layer name. NOTE: Do not include spaces.";
+                            }
+                        }, false);
+                        break;
+                    } else{
+                        document.getElementById("LayerName1").innerHTML = "This Layer Name is available";
+                    }
+                }
+                if(value.length === 0){
+                    document.getElementById("LayerName1").innerHTML = "Please enter the layer name. NOTE: Do not include spaces.";
+                }
+            }
+        })
+        //use if to check
+        //false replace the <p> to the Layer Name is duplicated
+        //ture --> nothing
+    }
+
+    grecaptcha.ready(function() {
+        grecaptcha.execute('6Ld7fq8UAAAAAOv8ZEiVj6P972pR_Vf3ko5R0JB_', {action: '/rsubmit'}).then(function (token) {
+            console.log(token);
+            document.getElementById("token").value = token;
+        });
+    });
+    grecaptcha.ready(function() {
+        grecaptcha.execute('6Ld7fq8UAAAAAOv8ZEiVj6P972pR_Vf3ko5R0JB_', {action: '/approve'}).then(function (token) {
+            console.log(token);
+            document.getElementById("token").value = token;
+        });
+    });
+
+    grecaptcha.ready(function() {
+        grecaptcha.execute('6Ld7fq8UAAAAAOv8ZEiVj6P972pR_Vf3ko5R0JB_', {action: '/replace'}).then(function (token) {
+            console.log(token);
+            document.getElementById("token").value = token;
+        });
+    });
+
+    function SearchThirdLayer(thisvalue){
+        $.ajax({
+            url: "SearchThirdLayer",
+            dataType:"json",
+            success: function (results) {
+                for(let i = 0; i < results.length; i++) {
+                    if (thisvalue === results[i].ThirdLayer) {
+                        document.getElementById("LayerName2").innerHTML = "The ThirdLayer Name has already been used";
+                        document.addEventListener("keyup", function (e) {
+                            if (event.keyCode === 8) {
+                                document.getElementById("LayerName2").innerHTML = "Please enter the ThirdLayer name. NOTE: Do not include spaces.";
+                            }
+                        }, false);
+                        break;
+                    } else{
+                        document.getElementById("LayerName2").innerHTML = "This ThirdLayer Name is available";
+                    }
+                }
+                if(value.length === 0){
+                    document.getElementById("LayerName2").innerHTML = "Please enter the ThirdLayer name. NOTE: Do not include spaces.";
+                }
+            }
+        })
+    }
+
+</script>
+</body>
+</html>

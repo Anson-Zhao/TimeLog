@@ -1,0 +1,436 @@
+<!-- views/signup.ejs -->
+<!doctype html>
+<html>
+<head>
+	<title>CitySmart -  Sign Up</title>
+	<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+	<!-- load fontawesome -->
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+	<!--<link rel="stylesheet" href="//unpkg.com/flatpickr/dist/flatpickr.min.css">-->
+	<script src="../3rdPartyLibs/jquery-3.3.1.min.js"></script>
+	<script src="../3rdPartyLibs/jquery-validation-1.17.0/dist/jquery.validate.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/flatpickr"></script>
+	<script src="https://www.google.com/recaptcha/api.js?render=6Ld7fq8UAAAAAOv8ZEiVj6P972pR_Vf3ko5R0JB_"></script>
+	<?php include 'reCaptcha.php';?>
+	<!--<script src="//unpkg.com/flatpickr"></script>-->
+	<style>
+		body{
+			padding-bottom: 80px;
+			word-wrap:break-word;
+		}
+		.floatingBox {
+			display: inline-block;
+		}
+
+		.banner {
+			position: relative;
+			width: 100%;
+		}
+
+		.navul {
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+			overflow: hidden;
+		}
+
+		.button1 {
+			width: 500px;
+			height: 50px;
+			border-radius: 15px;
+			-webkit-transition-duration: 0.4s;
+			transition-duration: 0.4s;
+			cursor: pointer;
+			background-color: white;
+			color: #f0ad4e;
+			border: 1px solid #f0ad4e;
+		}
+
+		.button1:hover {
+			background-color: #f0ad4e;
+			color: white;
+		}
+		.button2 {
+			width: 500px;
+			height: 50px;
+			border-radius: 15px;
+			-webkit-transition-duration: 0.4s;
+			transition-duration: 0.4s;
+			cursor: pointer;
+			background-color: lightgray;
+			color: #ffffff;
+		}
+		.error {
+			color: palevioletred;
+			margin-top:15px;
+			font-weight: 400;
+		}
+	</style>
+</head>
+<div class="navul" style="height: 80px;
+    background: #000000;">
+	<a class="navul" href="//aworldbridge.com" style="background: #000000;
+    width: 500px;
+    height: 80px;">
+		<img class="banner" src="../images/NewWBBanner.jpg" style="width: 550px;
+    height: 80px;
+    margin: auto; display: block;" />
+	</a>
+</div>
+<body ononline="onFunction()" onoffline="offFunction()">
+<div class="container" style="width: 500px; padding: 0px;">
+
+	<h1 style="margin-top: 30px"><span class="fa fa-sign-in"></span> Sign Up </h1>
+	<!-- show any messages that come back with authentication -->
+	<% if (message.length > 0) { %>
+		<div class="alert alert-danger">
+			<%= message %>
+		</div>
+	<% } %>
+	<!-- LOGIN FORM -->
+	<!--<form onsubmit="return checkForm()" action="/signup" method="post" id="signup">-->
+	<p id="capsWarning" style="color:red; text-align: center;" hidden><strong>WARNING: Caps lock is enabled.</strong></p>
+	<form action="/signup" method="post" id="signup">
+		<div class="form-group">
+			<label>Username (email address):</label>
+			<input type="email" id="username" class="form-control" name="username" onchange="SearchUsername(this.value)" style="height: 50px;" minlength="2" maxlength="99" autofocus required>
+			<p id="emailUser" style="text-align: center; color: palevioletred; margin-top:15px;"></p>
+		</div>
+		<div class="form-group">
+			<label>First Name:</label>
+			<input type="text" id="firstname" class="form-control" name="firstName" style="height: 50px;" minlength="1" maxlength="99" required>
+		</div>
+		<div class="form-group">
+			<label>Last Name:</label>
+			<input type="text" id="lastname" class="form-control" name="lastName" style="height: 50px;" minlength="1" maxlength="99" required>
+		</div>
+		<div class="form-group">
+			<label>Password:</label>
+			<input type="password" id="password" class="form-control" name="password" style="width: 95%; height: 50px;  display: inline-block" minlength="8" maxlength="99" required>
+			<span toggle="#password" class="fa fa-fw fa-eye-slash field-icon toggle-password" style="float: right; margin-top: 15px; display: inline-block"></span>
+		</div>
+		<div class="form-group" hidden>
+			<label>User Role:</label>
+			<br>
+			<input type="radio" name="userrole" value="Admin" disabled>
+			<h5 class="floatingBox">&nbsp;&nbsp;&nbsp;Admin</h5>&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="radio" name="userrole" value="Regular" checked>
+			<h5 class="floatingBox">&nbsp;&nbsp;&nbsp;Regular</h5>
+		</div>
+		<div class="form-group">
+			<label>Phone Number (Optional):</label>
+			<input type="tel" id="PhoneNumber" class="form-control" name="phoneNumber" style="height: 50px;" onkeypress="isInputNumber (event)" placeholder="1233211234" title="XXXXXXXXXX" minlength="10" maxlength="10" pattern="[0-9]{10}" >
+		</div>
+		<div class="form-group">
+			<label>Security Question #1:</label>
+			<br>
+			<select id="q1" name="question1" class="form-control" style="height: 50px;" required>
+				<option value="" disabled selected>SELECT SECURITY QUESTION</option>
+				<option value="In what city or town did your mother and father meet?">In what city or town did your mother and father meet?</option>
+				<option value="What is the middle name of your oldest child?">What is the middle name of your oldest child?</option>
+				<option value="What was your favorite food as a child?">What was your favorite food as a child?</option>
+				<option value="What is the last name of the boy or girl that you first kissed?">What is the last name of the boy or girl that you first kissed?</option>
+				<option value="What was the name of the hospital where you were born?">What was the name of the hospital where you were born?</option>
+				<option value="Who was your childhood hero?">Who was your childhood hero?</option>
+				<option value="What was the last name of your third grade teacher?">What was the last name of your third grade teacher?</option>
+				<option value="What was the name of your first pet?">What was the name of your first pet?</option>
+				<option value="What\’s your parent\’s birthday?">What’s your parent’s birthday?</option>
+				<option value="What was the name of your second pet?">What was the name of your second pet?</option>
+				<option value="Where were you on New Year\’s Eve in 2000?">Where were you on New Year’s Eve in 2000?</option>
+				<option value="What was your favorite sport in high school?">What was your favorite sport in high school?</option>
+				<option value="What is the name of your best friend from childhood?">What is the name of your best friend from childhood?</option>
+				<option value="When you were young, what did you want to be when you grew up?">When you were young, what did you want to be when you grew up?</option>
+				<option value="What was the name of your first teacher?">What was the name of your first teacher?</option>
+				<option value="What is the name of your manager at your first job?">What is the name of your manager at your first job?</option>
+				<option value="What is your youngest sibling’s birthday?">What is your youngest sibling’s birthday?</option>
+				<option value="What was your first job?">What was your first job?</option>
+				<option value="What was the make of your first car?">What was the make of your first car?</option>
+			</select>
+			<br>
+			<label>Answer:</label>
+			<input type="text" class="form-control" id="answer1" style="height: 50px;" minlength="1" maxlength="200" required>
+			<br>
+			<label>Security Question #2:</label>
+			<br>
+			<select id="q2" name="question2" class="form-control" style="height: 50px;" required>
+				<option value="" disabled selected>SELECT SECURITY QUESTION</option>
+				<option value="In what city or town did your mother and father meet?">In what city or town did your mother and father meet?</option>
+				<option value="What is the middle name of your oldest child?">What is the middle name of your oldest child?</option>
+				<option value="What was your favorite food as a child?">What was your favorite food as a child?</option>
+				<option value="What is the last name of the boy or girl that you first kissed?">What is the last name of the boy or girl that you first kissed?</option>
+				<option value="What was the name of the hospital where you were born?">What was the name of the hospital where you were born?</option>
+				<option value="Who was your childhood hero?">Who was your childhood hero?</option>
+				<option value="What was the last name of your third grade teacher?">What was the last name of your third grade teacher?</option>
+				<option value="What was the name of your first pet?">What was the name of your first pet?</option>
+				<option value="What\’s your parent\’s birthday?">What’s your parent’s birthday?</option>
+				<option value="What was the name of your second pet?">What was the name of your second pet?</option>
+				<option value="Where were you on New Year\’s Eve in 2000?">Where were you on New Year’s Eve in 2000?</option>
+				<option value="What was your favorite sport in high school?">What was your favorite sport in high school?</option>
+				<option value="What is the name of your best friend from childhood?">What is the name of your best friend from childhood?</option>
+				<option value="When you were young, what did you want to be when you grew up?">When you were young, what did you want to be when you grew up?</option>
+				<option value="What was the name of your first teacher?">What was the name of your first teacher?</option>
+				<option value="What is the name of your manager at your first job?">What is the name of your manager at your first job?</option>
+				<option value="What is your youngest sibling’s birthday?">What is your youngest sibling’s birthday?</option>
+				<option value="What was your first job?">What was your first job?</option>
+				<option value="What was the make of your first car?">What was the make of your first car?</option>
+			</select>
+			<br>
+			<label>Answer:</label>
+			<input type="text" class="form-control" id="answer2" style="height: 50px;" minlength="1" maxlength="200" required>
+		</div>
+		<div class="form-group" hidden>
+			<label>Date Created:</label>
+			<input id="DATE" class="form-control date" name="dateCreated" readonly>
+		</div>
+		<div class="form-group" hidden>
+			<label>Created By User:</label>
+			<input type="text" id="createdUser" class="form-control" name="createdUser" value="Anonymous" readonly>
+		</div>
+		<div class="form-group" hidden>
+			<label>Status:</label>
+			<input type="text" id="status" class="form-control" name="status" value="Pending" readonly>
+		</div>
+		<br>
+		<div class="container" style="width: 500px; padding: 0px;">
+			<button type="submit" form="signup" id="submitButton" class="button1"> Sign Up </button>
+		</div>
+		<input type="hidden" id="token">
+	</form>
+	<hr>
+	<p style="margin-left: 190px;">
+		Or go back to <a href="/login">Log In</a></p>
+</div>
+<script>
+	let username = document.getElementById("username");
+	let firstname = document.getElementById("firstname");
+	let lastname = document.getElementById("lastname");
+	let password = document.getElementById("password");
+	let capsWarning = document.getElementById("capsWarning");
+	let answer1 = document.getElementById("answer1");
+	let answer2 = document.getElementById("answer2");
+	let PhoneNumber = document.getElementById("PhoneNumber");
+
+	username.addEventListener("keydown", function(e) {
+
+		if (e.getModifierState("CapsLock")) {
+			capsWarning.hidden = false;
+		} else {}
+	});
+	username.addEventListener("keyup", function(e) {
+
+		if (e.getModifierState("CapsLock")) {}
+		else {
+			capsWarning.hidden = true;
+		}
+	});
+
+	firstname.addEventListener("keydown", function(e) {
+
+		if (e.getModifierState("CapsLock")) {
+			capsWarning.hidden = false;
+		} else {}
+	});
+	firstname.addEventListener("keyup", function(e) {
+
+		if (e.getModifierState("CapsLock")) {}
+		else {
+			capsWarning.hidden = true;
+		}
+	});
+
+	lastname.addEventListener("keydown", function(e) {
+
+		if (e.getModifierState("CapsLock")) {
+			capsWarning.hidden = false;
+		} else {}
+	});
+	lastname.addEventListener("keyup", function(e) {
+
+		if (e.getModifierState("CapsLock")) {}
+		else {
+			capsWarning.hidden = true;
+		}
+	});
+
+	password.addEventListener("keydown", function(e) {
+
+		if (e.getModifierState("CapsLock")) {
+			capsWarning.hidden = false;
+		} else {}
+	});
+	password.addEventListener("keyup", function(e) {
+
+		if (e.getModifierState("CapsLock")) {}
+		else {
+			capsWarning.hidden = true;
+		}
+	});
+
+	$(".toggle-password").click(function() {
+		$(this).toggleClass("fa-eye-slash fa-eye");
+		let input = $($(this).attr("toggle"));
+		if (input.attr("type") === "password") {
+			input.attr("type", "text");
+		} else {
+			input.attr("type", "password");
+		}
+	});
+
+	$(document).ready(function() {
+		$(function() {
+			flatpickr(".date", {
+				enableTime: true,
+				dateFormat: "Y-m-d H:i:S",
+				time_24hr: true
+			});
+			// console.log($('#signup'));
+			// console.log($("#signup").serialize());
+
+
+		});
+		let today = new Date();
+		let date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+		let time2 = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+		let dateTime = date + ' ' + time2;
+		document.getElementById("DATE").value = dateTime;
+
+		$('#signup').validate({
+			password: {
+				presence: true,
+				length: {
+					minimum: 8
+				}
+			}
+		})
+
+		$('#signup').submit(function(e) {
+			// console.log($("#signup").serialize());
+			// console.log($('#signup'));
+			//
+			e.preventDefault();
+			var fail = false;
+			var fail_log = '';
+			var name;
+			$( '#signup' ).find( 'select, textarea, input' ).each(function(){
+				if( ! $( this ).prop( 'required' )){
+
+				} else {
+					if ( ! $( this ).val() ) {
+						fail = true;
+						fail_log = "All fields are required to be filled before submitting!";
+						// name = $( this ).attr( 'name' );
+						// fail_log += name + " is required \n";
+					} else {
+
+					}
+
+				}
+			});
+
+			if (!fail) {
+
+				let a1 = $('#answer1').val().replace("\'", "\\'");
+				let a2 = $('#answer2').val().replace("\'", "\\'");
+				let answer1 = "answer1=" + a1;
+				let answer2 = "answer2=" + a2;
+				// console.log("here");
+
+				if (confirm("Are you sure you would like to proceed?")=== true) {
+					alert("We are sending you the email verification. Please check your email before logging in");
+					$.ajax({
+						type: "post",
+						url: "/signup",
+						dataType: 'json',
+						data: $("#signup").serialize() + "&" + answer1 + "&" + answer2,
+						success: function (result) {
+							console.log(result);
+							if (!result.error) {
+								// alert(result.message);
+								alert("We are sending you the email verification. Please check your email before logging in");
+								console.log(("#signup").serialize);
+							} else {
+								alert(result.message);
+							}
+						}
+					});
+					window.location.replace('/login');
+				} else {
+					return false;
+				}
+			} else {
+				alert(fail_log);
+			}
+
+		});
+	});
+
+	$('select[name=question1]').on('change', function() {
+		let self = this;
+		$('select[name=question2]').find('option').prop('disabled', function() {
+			return this.value === self.value
+		});
+	});
+
+	$('select[name=question2]').on('change', function() {
+		let self = this;
+		$('select[name=question1]').find('option').prop('disabled', function() {
+			return this.value === self.value
+		});
+	});
+
+	function SearchUsername(value) {
+		$.ajax({
+			url: "SearchUsername",
+			method: 'GET',
+			dataType: "json",
+			success: function (results) {
+				for (let i = 0; i < results.length; i++) {
+					// let newRes = JSON.stringify(results);
+					console.log(value);
+					console.log(results[i].username);
+					if (value === results[i].username) {
+						alert("This username is already taken. Please use a different one.");
+						document.getElementById("emailUser").innerHTML = "This username is already taken. Please use a different one.";
+						document.getElementById("submitButton").disabled = true;
+						document.getElementById("submitButton").classList.remove("button1");
+						document.getElementById("submitButton").classList.add("button2");
+						break;
+					} else {
+						document.getElementById("emailUser").innerHTML = "";
+						document.getElementById("submitButton").disabled = false;
+						document.getElementById("submitButton").classList.add("button1");
+						document.getElementById("submitButton").classList.remove("button2");
+					}
+				}
+			}
+		});
+	}
+
+	function isInputNumber (evt) {
+		let char = String.fromCharCode(evt.which);
+
+		if(!(/[0-9]/.test(char))) {
+			evt.preventDefault();
+		}
+	}
+
+	grecaptcha.ready(function() {
+		grecaptcha.execute('6Ld7fq8UAAAAAOv8ZEiVj6P972pR_Vf3ko5R0JB_', {action: '/signup'}).then(function (token) {
+			console.log(token);
+			document.getElementById("token").value = token;
+		});
+	});
+
+	function onFunction() {
+		alert ("You are now online.");
+	}
+
+	function offFunction() {
+		alert ("Your are offline. Some functionality may be unavailable.");
+	}
+
+</script>
+</body>
+</html>
