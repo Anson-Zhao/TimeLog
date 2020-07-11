@@ -1,0 +1,181 @@
+<!-- views/PhoneAuthP2.ejs -->
+<!doctype html>
+<html>
+<head>
+    <title>CitySmart - User Management - Phone Authentication</title>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <link rel="icon" href="/images/download%20(2).jpeg">
+    <!-- load fontawesome -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <!--<link rel="stylesheet" href="//unpkg.com/flatpickr/dist/flatpickr.min.css">-->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/flatpickr"></script>
+    <!--<script src="//unpkg.com/flatpickr"></script>-->
+    <style>
+        .banner {
+            position: relative;
+            width: 100%;
+        }
+        .button1 {
+            width: 500px;
+            height: 50px;
+            border-radius: 15px;
+            -webkit-transition-duration: 0.4s;
+            transition-duration: 0.4s;
+            cursor: pointer;
+            background-color: white;
+            color: #f0ad4e;
+            border: 1px solid #f0ad4e;
+        }
+        .button1:hover {
+            background-color: #f0ad4e;
+            color: white;
+        }
+        .form-group {
+            margin: auto;
+            width: 50%;
+            padding: 10px;
+            text-align: center;
+        }
+        #falldown {
+            text-align: center;
+        }
+    </style>
+</head>
+<div class="navul" style="height: 80px;
+    background: #000000;">
+    <a class="navul" href="//aworldbridge.com" style="background: #000000;
+    width: 500px;
+    height: 80px;">
+        <img class="banner" src="../images/NewWBBanner.jpg" style="width: 550px;
+    height: 80px;
+    margin: auto; display: block;" />
+    </a>
+</div>
+<body ononline="onFunction()" onoffline="offFunction()">
+<div class="container" style="width: 500px; padding: 0;">
+    <h1 class="text-center" style="margin-top: 30px;"><span class="fa fa-list"></span>  Phone Authentication</h1>
+    <!-- show any messages that come back with authentication -->
+    <p id="falldown">In order to continue, enter the code consisting of letters, numbers, and symbols sent to your phone. <br>Then click <strong>Submit</strong>.</p>
+    <div class="form-group">
+        <input type="password" id="enterCode" placeholder="Enter Code Here" class="form-control" name="code" style="width: 90%; height: 50px; margin-bottom: 20px;display: inline-block" minlength="8" maxlength="8" autofocus required>
+        <span toggle="#enterCode" class="fa fa-fw fa-eye-slash field-icon toggle-password" style="display: inline-block"></span>
+    </div>
+    <br>
+    <button id="pauthSubmit" type="submit" class="button1" onclick="submitForm()"><a href="/userhome" id="submitp" hidden></a> Submit </button>
+
+    <hr style="margin-bottom: 10px;">
+    <p style="text-align: center;"> <a onclick="SendCode()">Didn't receive the code? Send another one.</a></p>
+    <p style="text-align: center;">or</p>
+    <p style="text-align: center;"> <a href="/authentication">Try Another Way</a></p>
+</div>
+<br>
+<script>
+    let username = '<%= user.username %>';
+    let userrole = '<%= user.userrole %>';
+    let Phone_Number = '<%= Phone_Number %>';
+    let Code = '<%= Code %>';
+    let enterCode = $('#enterCode');
+    let input = document.getElementById("enterCode");
+    let numClicks = 0;
+
+
+    $(document).ready(function() {
+
+
+        let today = new Date();
+        let date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+        let time2 = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        let dateTime = date + ' ' + time2;
+        // document.getElementById("DATE").value = dateTime;
+
+
+        function timedRefresh() {
+            setTimeout(function(){ window.location.replace("/"); }, 180000);
+        }
+        timedRefresh();
+
+        alert("Your new code will only be valid for three minutes.");
+
+    })
+
+    $(window).on('beforeunload', SendCode);
+
+
+    function submitForm() {
+        // console.log($("#ksub").serialize());
+
+        numClicks++;
+
+
+        if(numClicks > 3 ) {
+            window.location.replace("/");
+            alert("Login attempts exceeded!");
+        } else {
+            window.addEventListener("beforeunload", confirmLeave);
+        }
+
+        if (enterCode.val() === "") {
+            alert("Please make sure the code has been entered.");
+        } else if (enterCode.val() === Code) {
+            console.log("pass");
+            window.removeEventListener("beforeunload", confirmLeave);
+            $(window).off('beforeunload', SendCode);
+            $('#submitp').get(0).click();
+            $.ajax({
+                type: "get",
+                url: "/loginUpdate",
+                dataType: 'json'
+            })
+        } else {
+            alert("Invalid code.");
+
+        }
+    }
+
+    function SendCode() {
+        $.ajax({
+            type: "post",
+            url: "/pcode",
+            dataType: 'json',
+            data: Phone_Number,
+            success: function (result) {
+                console.log(result);
+            }
+
+        })
+    }
+
+    $(".toggle-password").click(function() {
+        $(this).toggleClass("fa-eye-slash fa-eye");
+        let input = $($(this).attr("toggle"));
+        if (input.attr("type") === "password") {
+            input.attr("type", "text");
+        } else {
+            input.attr("type", "password");
+        }
+    });
+
+    function confirmLeave(event) {
+        event.returnValue = "Are you sure you want to leave this page? Your code will become invalid.";
+    }
+
+    input.addEventListener("keyup", function(event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            submitForm();
+        }
+    });
+
+    function onFunction() {
+        alert("You are now online.");
+    }
+
+    function offFunction() {
+        alert("Your are offline. Some functionality may be unavailable.");
+    }
+</script>
+</body>
+</html>

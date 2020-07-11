@@ -1,0 +1,833 @@
+<!-- views/homepageUSER.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--NOTE: Most Web WorldWind bak use jquery, Bootstrap and requirejs but those technologies are NOT-->
+    <!--required by Web WorldWind. See SimplestExample.html for an example of using Web WorldWind without them.-->
+    <meta charset="utf-8"/>
+    <title>CitySmart - MapService Viewer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <link rel="icon" href="/images/download%20(2).jpeg">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,400italic,900' rel='stylesheet' type='text/css'>
+    <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css">-->
+    <link href="//www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="../css/menu.css"/>
+    <script src="../3rdPartyLibs/jquery-3.3.1.min.js" type="text/javascript"></script>
+    <script src="../3rdPartyLibs/build/WorldWind-built.js"></script>
+    <script src="../scripts/AutoMenu.js"></script>
+    <script src="../scripts/OptionList.js"></script>
+    <script src="../3rdPartyLibs/popper-1.14.0.min.js"></script>
+    <script src="../3rdPartyLibs/bootstrap-3.3.4.min.js"></script>
+    <script data-main="../scripts/Home" src="../3rdPartyLibs/requirejs-2.3.6.min.js"></script>
+    <style>
+        .popup-group {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 120%;
+            background-color: rgba(290, 220, 220, 0.51);
+            display: none
+
+        }
+        .popupBoxWrapper{
+            width: 510px; margin: 50px auto; text-align: left; max-height:800px; overflow-y: auto;
+        }
+        .popupBoxContent{
+            background-color: #FFF; padding: 25px; width:100%;
+
+        }
+        .popup-Header {
+            padding: 10px 16px;
+            background-color: #84c77d;
+            color: white;
+        }
+        .close {
+            color: red;
+            float: right;
+            font-size: 38px;
+            font-weight: bold;
+        }
+        .popup-Body {padding: 2px 16px;}
+
+        body{
+            padding-bottom: 80px;
+            word-wrap:break-word;
+        }
+
+        .note {
+            color: #959595;
+        }
+
+        .button1 {
+            width: 100px;
+            height: 30px;
+            border-radius: 100px;
+            -webkit-transition-duration: 0.4s;
+            transition-duration: 0.4s;
+            cursor: pointer;
+            background-color: white;
+            color: #337ab7;
+            border: 1px solid #337ab7;
+            font-size: 18px;
+            margin-left: 5px;
+        }
+
+        .button1:hover {
+            background-color: #337ab7;
+            color: white;
+        }
+
+        .log-form {
+            font-size : 18px;
+        }
+
+        .box1 {
+            /*margin-left: -30px;*/
+            padding: 30px;
+            position: absolute;
+            width: 380px;
+            height: 930px;
+            box-shadow: 9px 4px 10px 0 rgba(0, 0, 0, 0.21), -4px 6px 18px 0 rgba(0, 0, 0, 0.17);
+        }
+
+        #accordion::-webkit-scrollbar-thumb {
+            border-radius: 2px;
+            background-color: rgba(0, 0, 0, .5);
+            /*-webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);*/
+        }
+
+        #accordion::-webkit-scrollbar {
+            -webkit-appearance: none;
+            width: 7px;
+        }
+
+        #accordion::-webkit-scrollbar-corner  {
+            display: block;
+        }
+
+        .previous {
+            background-color: #0fbad6;
+            color: white;
+        }
+
+        .next {
+            background-color: #0fbad6;
+            color: white;
+        }
+
+        .arrow {
+            border-radius: 50%;
+            text-decoration: none;
+            display: inline-block;
+            padding: 8px 16px;
+        }
+
+        #currentSelectedLayer{
+            width: 236px;
+            background-color: #66ccff;
+            color:white;
+            border-radius: 10px;
+            font-family: 'Lato','cursive';
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        #globeOrigin{
+            font-size:20px;
+            border:none;
+            color:#007ab3;
+        }
+
+        @media screen and (max-width:1000px) {
+            #globe {
+                width:100%;
+                height:auto;
+            }
+        }
+        /* for 414px or less */
+        @media screen and (max-width:600px) {
+            #globe {
+                width:100%;
+                height:auto;
+            }
+        }
+        /* for 375px or less */
+        @media screen and (max-width:375px) {
+            #globe{
+                width:100%;
+                height:auto;
+            }
+        }
+        /* for 320px or less */
+        @media screen and (max-width:320px) {
+            #globe {
+                width:100%;
+                height:auto;
+            }
+        }
+
+        .alert alert-danger {
+        }
+        .popup-group {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 120%;
+            background-color: rgba(290, 220, 220, 0.51);
+            display: none
+
+        }
+        .popupBoxWrapper{
+            width: 510px; margin: 50px auto; text-align: left; max-height:800px; overflow-y: auto;
+        }
+        .popupBoxContent{
+            background-color: #FFF; padding: 25px; width:100%;
+
+        }
+        .popup-Header {
+            padding: 10px 16px;
+            background-color: #84c77d;
+            color: white;
+        }
+        .close {
+            color: red;
+            float: right;
+            font-size: 38px;
+            font-weight: bold;
+        }
+        .popup-Body {padding: 2px 16px;}
+
+        #layers-toggle{
+            position: absolute;
+            top: 417px;
+            left: 330px;
+            width: 60px;
+            height: 34px;
+        }
+
+
+        .btn-lock {
+            position: absolute;
+            top: 340px;
+            left: 10px;
+            /*display: inline-block;*/
+            background: #dadada;
+            width: 50px;
+            height: 50px;
+            box-sizing: border-box;
+            padding: 12px 0 0 18px;
+            border-radius: 50%;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .btn-lock svg {
+            fill: none;
+            transform: translate3d(0, 0, 0);
+        }
+        .btn-lock svg .bling {
+            stroke: #fff;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-dasharray: 3;
+            stroke-dashoffset: 15;
+            transition: all 0.3s ease;
+        }
+        .btn-lock svg .lock {
+            stroke: #fff;
+            stroke-width: 4;
+            stroke-linejoin: round;
+            stroke-linecap: round;
+            stroke-dasharray: 36;
+            transition: all 0.4s ease;
+        }
+        .btn-lock svg .lockb {
+            fill: #fff;
+            fill-rule: evenodd;
+            clip-rule: evenodd;
+            transform: rotate(8deg);
+            transform-origin: 14px 20px;
+            transition: all 0.2s ease;
+        }
+        #inpLock {
+            top: 325px;
+            left: 280px;
+            display: none;
+        }
+        #inpLock:checked + label {
+            background: rgba(0, 158, 199, 0.64);
+        }
+        #inpLock:checked + label svg {
+            opacity: 1;
+        }
+        #inpLock:checked + label svg .bling {
+            animation: bling 0.3s linear forwards;
+            animation-delay: 0.2s;
+        }
+        #inpLock:checked + label svg .lock {
+            stroke-dasharray: 48;
+            animation: locked 0.3s linear forwards;
+        }
+        #inpLock:checked + label svg .lockb {
+            transform: rotate(0);
+            transform-origin: 14px 22px;
+        }
+        @-moz-keyframes bling {
+            50% {
+                stroke-dasharray: 3;
+                stroke-dashoffset: 12;
+            }
+            100% {
+                stroke-dasharray: 3;
+                stroke-dashoffset: 9;
+            }
+        }
+        @-webkit-keyframes bling {
+            50% {
+                stroke-dasharray: 3;
+                stroke-dashoffset: 12;
+            }
+            100% {
+                stroke-dasharray: 3;
+                stroke-dashoffset: 9;
+            }
+        }
+        @-o-keyframes bling {
+            50% {
+                stroke-dasharray: 3;
+                stroke-dashoffset: 12;
+            }
+            100% {
+                stroke-dasharray: 3;
+                stroke-dashoffset: 9;
+            }
+        }
+        @keyframes bling {
+            50% {
+                stroke-dasharray: 3;
+                stroke-dashoffset: 12;
+            }
+            100% {
+                stroke-dasharray: 3;
+                stroke-dashoffset: 9;
+            }
+        }
+        @-moz-keyframes locked {
+            50% {
+                transform: translateY(1px);
+            }
+        }
+        @-webkit-keyframes locked {
+            50% {
+                transform: translateY(1px);
+            }
+        }
+        @-o-keyframes locked {
+            50% {
+                transform: translateY(1px);
+            }
+        }
+        @keyframes locked {
+            50% {
+                transform: translateY(1px);
+            }
+        }
+
+        .navul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            /*overflow: hidden;*/
+        }
+
+        .navbutton1 {
+            width: 110px;
+            font-size: 16px;
+            height: 80px;
+            margin: 0;
+            border-radius: 0px 0 0;
+            background-color: #000000;
+            border: 0 solid;
+            color: #ffffff;
+            -webkit-transition-duration: 0.4s;
+            transition-duration: 0.4s;
+        }
+
+        .navbutton1:hover {
+            background-color: #333;
+            color: white;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .button1 {
+            height: 40px;
+            width: 110px;
+            float: right;
+            border-radius: 5px;
+            -webkit-transition-duration: 0.4s;
+            transition-duration: 0.4s;
+            cursor: pointer;
+            background-color: white;
+            color: #337ab7;
+            border: 1px solid #337ab7;
+        }
+
+        .button1:hover {
+            background-color: #337ab7;
+            color: white;
+        }
+
+        .dropbutton {
+            float: right;
+            width: 150px;
+            height: 80px;
+            padding: 16px;
+            color: white;
+            background-color: #337ab7;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            -webkit-transition-duration: 0.4s;
+            transition-duration: 0.4s;
+        }
+        .dropbutton:hover, .dropbutton:focus {
+            background-color: #2b6699;
+        }
+        .dropdown-content {
+            display: none;
+            background-color: #f1f1f1;
+            min-width: 160px;
+            overflow: auto;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            right: 0;
+            z-index: 1;
+        }
+        .dropdown-content a {
+            color: black;
+            padding: 20px;
+            text-decoration: none;
+            display: block;
+        }
+        .dropdown a:hover {
+            background-color: #ddd;
+        }
+        .show {
+            display: block;
+        }
+
+    </style>
+</head>
+
+<body ononline="onFunction()" onoffline="offFunction()">
+<div class="navul" style="height:80px;background:#000000;">
+    <a class="navul" style="background:#000000;" href="http://aworldbridge.com">
+        <img class="banner" src="/images/NewWBBanner.jpg" style="width: 500px;height:76px;"/>
+    </a>
+    <a href="/userHome" id= "Request" style="width:110px;">
+        <button class="navbutton1" style="width: 140px"> User Home </button>
+    </a>
+    <a href="/newRequest" id= "Request" style="width:110px;">
+        <button class="navbutton1" style="width: 140px"> New Request </button>
+    </a>
+    <a href="/recovery" id ="Restore" style="width:50px;">
+        <button class="navbutton1"> Restore </button>
+    </a>
+    <a href="/dataHistory" style="width:110px;">
+        <button class="navbutton1" style="width: 160px"> Approved Requests </button>
+    </a>
+    <div class="dropdown" style="height: 80px; width: 200px; float: right; margin: 0;">
+        <button onclick="dropDown()" class="dropbutton" id="Username">
+            <%= firstName%>
+            <span class="caret"></span>
+        </button>
+        <div id="userMenuAdmin" class="dropdown-content">
+            <a href="/userProfile"> User Profile </a>
+            <a href="/userManagement"> User Management </a>
+            <a href="/signout"> Sign Out </a>
+        </div>
+        <div id="userMenuRegular" class="dropdown-content">
+            <a href="/userProfile"> User Profile </a>
+            <a href="/signout"> Sign Out </a>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="container center">
+        <div class="page-header text-center header">
+            <h1><span class="fa fa-globe"></span><strong> CitySmart - MapService Viewer </strong></h1><br>
+        </div>
+    </div>
+    <div>
+        <!-- Menu -->
+        <ul class="nav navbar-nav">
+            <li class="dropdown"><a href="#" title="Energy Production" class="dropdown-toggle disabled" data-toggle="dropdown">Energy Production<span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li class="dropdown-submenu">
+                        <a href="#" tabindex="-1" class="dropdown-toggle" data-toggle="dropdown">2012</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="https://www.dropbox.com/s/3pf2nmte3ddqfjb/summary%202012.xls?dl=0" target="_blank" title="SFile2012">Summary File</a></li>
+                            <li><a href="https://www.dropbox.com/s/2pan6s2urnn8ej0/2012.png?dl=0" target="_blank" title="Chart2012">Chart</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown-submenu">
+                        <a href="#" tabindex="-1" class="dropdown-toggle">2013</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="https://www.dropbox.com/s/8d20wicmlh8ra6q/summary%202013.xls?dl=0" target="_blank" title="SFile2013">Summary File</a></li>
+                            <li><a href="https://www.dropbox.com/s/ahl8nz2xngifwv5/2013.png?dl=0" target="_blank" title="Chart2013">Chart</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown-submenu">
+                        <a href="#" tabindex="-1" class="dropdown-toggle">2014</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="https://www.dropbox.com/s/62skykaejow2oix/Summary%202014.xls?dl=0" target="_blank" title="SFile2014">Summary File</a></li>
+                            <li><a href="https://www.dropbox.com/s/qdws7kbjxzod13w/2014.png?dl=0" target="_blank" title="Chart2014">Chart</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown-submenu">
+                        <a href="#" tabindex="-1" class="dropdown-toggle">2015</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="https://www.dropbox.com/s/60s91y69aft4qvb/Summary%202015.xls?dl=0" target="_blank" title="SFile2015">Summary File</a></li>
+                            <li><a href="https://www.dropbox.com/s/7pvrtga0b9h4r16/2015.png?dl=0" target="_blank" title="Chart2015">Chart</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown-submenu">
+                        <a href="#" tabindex="-1" class="dropdown-toggle">2016</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="https://www.dropbox.com/s/byudycgf2rbdubj/Summary%202016.xls?dl=0" target="_blank" title="SFile2016">Summary File</a></li>
+                            <li><a href="https://www.dropbox.com/s/lmmrl01qpakqlrw/2016.png?dl=0" target="_blank" title="Chart2016">Chart</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown-submenu">
+                        <a href="#" tabindex="-1" class="dropdown-toggle">2017</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="https://www.dropbox.com/s/5x578y6aibm1aku/Summary-%20January%2C%202017.pdf?dl=0" target="_blank" title="SFile2017">Summary File</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="dropdown"><a href="#" title="Energy Production" class="dropdown-toggle disabled" data-toggle="dropdown">Economics<span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li class="dropdown-submenu">
+                        <a href="#" tabindex="-1" class="dropdown-toggle"><strong>Grant Application</strong></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="https://www.dropbox.com/s/ktkgty5bqtqvgau/KEA%20Renewable%20Energy%20Fund%20Grant%20Application.pdf?dl=0" target="_blank" title="SFile2016">PDF File</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown-submenu">
+                        <a href="#" tabindex="-1" class="dropdown-toggle">Balance Sheet</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="https://www.dropbox.com/s/d0nr0vhxnhgkd8x/KEA%20Balance%20Sheet.xlsx?dl=0" target="_blank" title="SFile2016">Excel File</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown-submenu">
+                        <a href="#" tabindex="-1" class="dropdown-toggle">Sales Data</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="https://www.dropbox.com/s/wewyxdhrkxdjwrh/KEA%20Historical%20Sales%20Data%202012-2016.xlsx?dl=0" target="_blank" title="2012-16">2012-2016</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown-submenu">
+                        <a href="#" tabindex="-1" class="dropdown-toggle">Revenue Trends Data</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="https://www.dropbox.com/s/mhr4mn2dbkgj0e4/KEA%205-Year%20Revenue%20Trend%20Charts.xlsx?dl=0" target="_blank" title="2012-2016">2012-2016</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            <li class="dropdown"><a href="#" title="Financials" class="dropdown-toggle disabled" data-toggle="dropdown">Financials<span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li class="dropdown-submenu">
+                        <a href="#" tabindex="-1" class="dropdown-toggle">2012</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="https://www.dropbox.com/s/fww6uoabf6r9xtv/KEA%20residential%20consumption%20data%202012%20%28ed1%29.xlsx?dl=0" target="_blank" title="RC2012">Residential Consumption Data</a></li>
+                            <li><a href="https://www.dropbox.com/s/4uictwnsxkcpee4/KEA%20commercial%20consumption%20data%202012%20%28ed1%29.xlsx?dl=0" target="_blank" title="CC2012">Commercial Consumption Data</a></li>
+                            <li><a href="https://www.dropbox.com/s/0h5z6gonaj7ye4m/KEA%20industrial%20consumption%20data%202012%20%28ed1%29.xlsx?dl=0" target="_blank" title="IC2012">Industrial Consumption Data</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown-submenu">
+                        <a href="#" tabindex="-1" class="dropdown-toggle">2013</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="https://www.dropbox.com/s/544qekzdg4fznky/KEA%20residential%20consumption%20data%202013%20%28ed1%29.xlsx?dl=0" target="_blank" title="RC2013">Residential Consumption Data</a></li>
+                            <li><a href="https://www.dropbox.com/s/nly46h6pk97cs6w/KEA%20commercial%20consumption%20data%202013%20%28ed1%29.xlsx?dl=0" target="_blank" title="CC2013">Commercial Consumption Data</a></li>
+                            <li><a href="https://www.dropbox.com/s/5df33491k24qj4k/KEA%20industrial%20consumption%20data%202013%20%28ed1%29.xlsx?dl=0" target="_blank" title="IC2013">Industrial Consumption Data</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown-submenu">
+                        <a href="#" tabindex="-1" class="dropdown-toggle">2016</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="https://www.dropbox.com/s/zumahy8t4e7f9sb/KEA%20residential%20consumption%20data%202016%20%28ed1%29.xlsx?dl=0" target="_blank" title="RC2016">Residential Consumption Data</a></li>
+                            <li><a href="https://www.dropbox.com/s/iwr5llvqinv1xsm/KEA%20commercial%20consumption%20data%202016%20%28ed1%29.xlsx?dl=0" target="_blank" title="CC2016">Commercial Consumption Data</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown-submenu">
+                        <a href="#" tabindex="-1" class="dropdown-toggle">2017</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="https://www.dropbox.com/s/l7oqh124o048cdz/January%202017%20Sales%20Revenues.xlsx?dl=0" target="_blank" title="CombinedJan">Combined, January</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown-submenu">
+                        <a href="#" tabindex="-1" class="dropdown-toggle">Prediction Chart</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="https://www.dropbox.com/s/d7ml3tnonhkhxah/Financials1.jpg?dl=0" target="_blank" title="predictionChart">Chart</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown-submenu">
+                        <a href="#" tabindex="-1" class="dropdown-toggle">Savings Using Renewable Energy</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="https://www.dropbox.com/s/ye2hkars63u2oce/Financials2.jpg?dl=0" target="_blank" title="SUREchart">Chart</a></li>
+                            <li><a href="https://www.dropbox.com/s/reg9oljpcm00h75/Payback.jpg?dl=0" target="_blank" title="SUREsimple">Simpler Chart</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown-submenu">
+                        <a href="#" tabindex="-1" class="dropdown-toggle">Balance Sheet</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="https://www.dropbox.com/s/41xpo5loeon8vri/KEABalanceSheet.jpg?dl=0" target="_blank" title="balanceChart">Chart</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="dropdown"><a href="#" title="Presentations" class="dropdown-toggle disabled" data-toggle="dropdown">Presentations<span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li class="dropdown-submenu">
+                        <a href="#" tabindex="-1" class="dropdown-toggle">Annual Report</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="https://www.dropbox.com/s/5o1u34nvvagl7xo/KEA%202015%20Annual%20Report.pdf?dl=0" target="_blank" title="AR2015">Residential Consumption Data</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown-submenu">
+                        <a href="#" tabindex="-1" class="dropdown-toggle">Student Project</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="https://www.dropbox.com/s/544qekzdg4fznky/KEA%20residential%20consumption%20data%202013%20%28ed1%29.xlsx?dl=0" target="_blank" title="TandPofWT">Tech & Progression of WT</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown-submenu">
+                        <a href="#" tabindex="-1" class="dropdown-toggle">KEA Background</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="https://www.dropbox.com/s/6gc69d04hhxbck4/Kodiak%20Electric%20Association%20Background.docx?dl=0" target="_blank" title="KEAback">WT Construction</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown-submenu">
+                        <a href="#" tabindex="-1" class="dropdown-toggle">Wind Turbine</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="https://www.dropbox.com/s/ofpgz7ncydrguqz/2013_REC_Pillar%20Mountain%20Phase%202%20Wind%20Turbines%20and%20Battery%20System_Darron%20Scott.pdf?dl=0" target="_blank" title="WTbattery">WT Battery System</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown-submenu">
+                        <a href="#" tabindex="-1" class="dropdown-toggle">Positive Effects of the WT</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="https://www.dropbox.com/s/9hvetutsifsw0wm/KEA%20AAMag2015.pdf?dl=0" target="_blank" title="PosEffWT">2015</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown-submenu">
+                        <a href="#" tabindex="-1" class="dropdown-toggle">Renewable Energy Vision</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="https://www.dropbox.com/s/g2q3zxky3pyd7rx/KEA%20Renewable%20Energy%20Vision.ppt-.ppt?dl=0" target="_blank" title="EnergyVision">Self Sustainability</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown-submenu">
+                        <a href="#" tabindex="-1" class="dropdown-toggle">Presentations to Greenland Power Leaders</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="https://www.dropbox.com/s/mqwd7mm371962xe/2016%20Development%20and%20Operation%2C%20Wind.pptx?dl=0" target="_blank" title="DevANDop">Development & Operation</a></li>
+                            <li><a href="https://www.dropbox.com/s/ujw0005fdk2ypbe/10.2016%20Role%20of%20Storage%20Transition%20to%20100%20%28002%29.pptx?dl=0" target="_blank" title="RoleOfStorage">Role of Storage Transition to 100</a></li>
+                            <li><a href="https://www.dropbox.com/s/3895fs5vrzng2fp/2016%20Energy%20Cooperative%27s%20Perspective%20%28003%29.pptx?dl=0" target="_blank" title="ECperspective">Energy Cooperative's Perspective</a></li>
+                            <li><a href="https://www.dropbox.com/s/o6358yz7xkh4679/2016%20Early%20Stage%20Planning.pptx?dl=0" target="_blank" title="ESplanning">Early Stage Planning</a></li>
+
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="dropdown"><a href="#" title="TechInfo" class="dropdown-toggle disabled" data-toggle="dropdown">Technical Info<span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li class="dropdown-submenu">
+                        <a href="#" tabindex="-1" class="dropdown-toggle">WT Generator Systems</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="https://www.dropbox.com/s/df2r7h9opv677se/GE_Wind%20Turbine_Technical_Description.pdf?dl=0" target="_blank" title="WT_PDF">PDF</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown-submenu">
+                        <a href="#" tabindex="-1" class="dropdown-toggle">Industrial WT</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="https://www.dropbox.com/s/ucc9w5opc2iu8kz/Size%20specifications%20industrial%20wind%20turbines%C2%A0.docx?dl=0" target="_blank" title="IndustrialWT">Document</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown-submenu">
+                        <a href="#" tabindex="-1" class="dropdown-toggle">Brochure of WT</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="https://www.dropbox.com/s/4tjd8rn85p2erax/9AKK100580A2551_Powerstore_Brochure_EN_HR_%28Dic2013%29.pdf?dl=0" target="_blank" title="BrochurePDF">PDF</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown-submenu">
+                        <a href="#" tabindex="-1" class="dropdown-toggle">Specifications of 1.5MW WT</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="https://www.dropbox.com/s/31iupydoyryambl/GEA14954C15-MW-Broch.pdf?dl=0" target="_blank" title="SpecPDF">PDF</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown-submenu">
+                        <a href="#" tabindex="-1" class="dropdown-toggle">Progress Report</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="https://www.dropbox.com/s/9adoo9qtw9okpm9/KEA_progress_report_4.pdf?dl=0" target="_blank" title="ProgressPDF">PDF</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="row">
+        <div class="box1 floating-Box" style="padding-top: 20px;">
+                <div>
+                    <h4><strong>Select Location:</strong></h4>
+                <h5 class="note"> NOTE: Default is set to ALL LAYERS. Select the continent, country, and state (or province)/city. </h5>
+                <!--<div>-->
+                    <!--<p>-->
+                        <!--<select id="myListContinent"  style="width:320px; height:50px; background:white; padding-left: 15px" onchange="ChangeSelectList(this.value)">-->
+                            <!--<option selected="selected" value="AL">All Layers</option>-->
+                        <!--</select>-->
+                    <!--</p>-->
+                <!--</div>-->
+                <div>
+                    <p>
+                        <select id="myListCountry"  style="width: 100%; height:50px; background:white; padding-left: 15px" onchange="ChangeCountryList(this.value)">
+                            <option selected="selected" value="AL">-Select A Country List-</option>
+                            <!--<option>-Select a State-</option>-->
+                        </select>
+                    </p>
+                </div>
+                <div>
+                    <p>
+                        <select id="myListState"  style="width:100%; height:50px; background:lightgray; padding-left: 15px" onchange="ChangeStateList(this.value)" disabled>
+                            <option selected="selected" value="AL">-Select A State/Province List-</option>
+                        </select>
+                    </p>
+                </div>
+                    <div>
+                        <p>
+                            <select id="myListCity"  style="width:100%; height:50px; background:lightgray; padding-left: 15px" onchange="ChangeCityList(this.value)" disabled>
+                                <option selected="selected" value="AL">-Select A City List-</option>
+                            </select>
+                        </p>
+                    </div>
+                </div>
+            <br>
+            <div>
+                <h4><strong>Layer Menu:</strong></h4>
+                <!--<h5 class="note">*TBD stands for "To Be Developed"</h5>-->
+                <!--<h5 class="note" style="width:320px;"> NOTE: Some layers may take a while to load, please be patient. Selecting a layer will direct the globe to its location.</h5>-->
+
+                <input id="inpLock" type="checkbox"/>
+                <label class="btn-lock" for="inpLock" style="margin-left: 20px">
+                    <svg width="20" height="25" viewBox="0 0 36 40">
+                        <path class="lockb" d="M27 27C27 34.1797 21.1797 40 14 40C6.8203 40 1 34.1797 1 27C1 19.8203 6.8203 14 14 14C21.1797 14 27 19.8203 27 27ZM15.6298 26.5191C16.4544 25.9845 17 25.056 17 24C17 22.3431 15.6569 21 14 21C12.3431 21 11 22.3431 11 24C11 25.056 11.5456 25.9845 12.3702 26.5191L11 32H17L15.6298 26.5191Z"></path>
+                        <path class="lock" d="M6 21V10C6 5.58172 9.58172 2 14 2V2C18.4183 2 22 5.58172 22 10V21"></path>
+                        <path class="bling" d="M29 20L31 22"></path>
+                        <path class="bling" d="M31.5 15H34.5"></path>
+                        <path class="bling" d="M29 10L31 8"></path>
+                    </svg>
+                </label>
+
+                    <div id="text" style="margin-left: 55px; margin-bottom: 25px; margin-top: 25px; color:#0077b3;">
+                        <strong>Click to activate the single layer selection</strong>
+                    </div>
+
+
+                <div style="margin-bottom:10px;">
+                    <button id="globeOrigin"><i class="fa fa-globe"></i></button>
+                    <h5 style="display:inline-block;color:#0077b3;"> &#8668; Click me to back to start position!</h5>
+                </div>
+
+                <div style="width: 100%; height: 15px; background: linear-gradient(to right, rgba(0, 0, 255, 0.75), rgba(0, 255, 0, 0.75), rgba(255, 255, 0, 0.75), rgba(255, 127.5, 0, 0.75), rgba(255, 0, 0, 0.75));"></div>
+
+                <div style="width: 100%; height: 30px; ">
+                    <p id="leftScale" style="float: left; font-size:13px;">&lt;1MW</p>
+                    <p id="rightScale" style="float: right; font-size:13px;">&gt;3 MW</p>
+                </div>
+                <div style="margin-bottom:10px;">
+                    <button class="previous arrow" id="previousL">&#8249;</button>
+                    <input id = "currentSelectedLayer" type="button">
+                    <button class="next arrow" id ="nextL">&#8250;</button>
+                </div>
+                <!--<div id="layers-toggle">-->
+                    <!--<input type="checkbox" id="layers-switch">-->
+                <!--</div>-->
+
+                <div class="panel-group" id="accordion" style="width: 100%; height: 350px; overflow: scroll"></div>
+            </div><!-- /.panel-group -->
+        </div>
+
+        <div class="col-sm-9" id="globe" style="margin-left:420px;">
+            <canvas id="canvasOne" width="1000" height="1000" style="width:100%; height:auto">
+                Your browser does not support HTML5 Canvas.
+            </canvas>
+
+        </div>
+    </div>
+</div>
+<div class="col-sm-9" id="globe">
+    <canvas id="canvasOne" width="1000" height="1000" style="width: 100%; height: auto;">
+        Your browser does not support HTML5 Canvas.
+    </canvas>
+    <div class="popup-group" id="popupBox">
+        <div class="popupBoxWrapper">
+            <div class="popupBoxContent">
+                <!-- Popup Box Header-->
+                <div class="popup-Header">
+                    <span class="close" id="closeIt">&times;</span>
+                </div>
+                <!-- Popup Box Body-->
+                <div class="popup-Body" id="popupBody">
+                </div>
+                <!--Popup Box Footer-->
+                <div class="popup-Footer">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="popover" style="border-style: solid; opacity: 0;" hidden></div>
+<script type='text/javascript'>
+    let username = "<%= user.username %>";
+    console.log(username);
+    let scoutingRowSelected, DropMenu, transactionpicturename;
+    let UserRole = "<%= user.userrole %>";
+    console.log(UserRole);
+    let scoutingTransactionID = [];
+    let trapTransactionID = [];
+    let LayerNameStr = [];
+
+
+    function dropDown() {
+        console.log(UserRole);
+        if (UserRole === "Admin") {
+            document.getElementById("userMenuAdmin").classList.toggle("show");
+        } else if (UserRole === "Regular") {
+            document.getElementById("userMenuRegular").classList.toggle("show");
+        }
+    }
+    window.onclick = function(event) {
+        if (!event.target.matches('.dropbutton')) {
+            let dropdowns = document.getElementsByClassName("dropdown-content");
+            for (let i = 0; i < dropdowns.length; i++) {
+                let openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+            }
+        }
+    }
+
+    function onFunction() {
+        alert ("You are now online.");
+    }
+
+    function offFunction() {
+        alert ("Your are offline. Some functionality may be unavailable.");
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,518 @@
+<!-- views/recovery.ejs -->
+<!doctype html>
+<html>
+<head>
+    <title>CitySmart - Recovery Page</title>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/buttons/1.4.2/css/buttons.dataTables.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <!--<link rel="stylesheet" href="//unpkg.com/flatpickr/dist/flatpickr.min.css">-->
+    <script src="../3rdPartyLibs/jquery-3.3.1.min.js"></script>
+    <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="//cdn.datatables.net/buttons/1.4.2/js/dataTables.buttons.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/flatpickr"></script>
+    <!--<script src="//unpkg.com/flatpickr"></script>-->
+
+    <style>
+        body 		{ padding-bottom:80px; word-wrap:break-word; }
+        .center {
+            margin:auto;
+        }
+
+        .floating-Box{
+            display: inline-block;
+        }
+        table {
+            overflow-x: auto;
+            width: 100%;
+            display: block;
+            margin-bottom: 20px;
+            border-collapse: collapse;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #cdcdcd;
+            text-align: center;
+        }
+
+        table th,
+        table td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        table::-webkit-scrollbar-thumb {
+            border-radius: 2px;
+            background-color: rgba(0, 0, 0, .5);
+            -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
+        }
+
+        table::-webkit-scrollbar {
+            -webkit-appearance: none;
+            height: 7px;
+        }
+        .navul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            /*overflow: hidden;*/
+        }
+        .navbutton1 {
+            width: 110px;
+            font-size: 16px;
+            height: 80px;
+            margin: 0;
+            border-radius: 0px 0 0;
+            background-color: #000000;
+            border: 0 solid;
+            color: #ffffff;
+            -webkit-transition-duration: 0.4s;
+            transition-duration: 0.4s;
+        }
+
+        .navbutton1:hover {
+            background-color: #333;
+            color: white;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .button1 {
+            width: 150px;
+            height: 50px;
+            float: right;
+            border-radius: 15px;
+            -webkit-transition-duration: 0.4s;
+            transition-duration: 0.4s;
+            cursor: pointer;
+            background-color: white;
+            color: #f0ad4e;
+            border: 1px solid #f0ad4e;
+        }
+
+        .button1:hover {
+            background-color: #f0ad4e;
+            color: white;
+        }
+
+        .dropbutton {
+            float: right;
+            width: 150px;
+            height: 80px;
+            padding: 16px;
+            color: white;
+            background-color: #337ab7;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            -webkit-transition-duration: 0.4s;
+            transition-duration: 0.4s;
+        }
+        .dropbutton:hover, .dropbutton:focus {
+            background-color: #2b6699;
+        }
+        .dropdown-content {
+            display: none;
+            background-color: #f1f1f1;
+            min-width: 160px;
+            overflow: auto;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            right: 0;
+            z-index: 1;
+        }
+        .dropdown-content a {
+            color: black;
+            padding: 20px;
+            text-decoration: none;
+            display: block;
+        }
+        .dropdown a:hover {
+            background-color: #ddd;
+        }
+        .show {
+            display: block;
+        }
+
+    </style>
+</head>
+<div class="navul" style="height:80px;background:#000000;">
+    <a class="navul" style="background:#000000;" href="http://aworldbridge.com">
+        <img class="banner" src="/images/NewWBBanner.jpg" style="width:510px;height:76px;"/>
+    </a>
+    <a href="/homepageLI" style="width:110px;">
+        <button class="navbutton1"> Homepage </button>
+    </a>
+    <a href="/userHome" id ="Restore" style="width:50px;">
+        <button class="navbutton1"> User Home </button>
+    </a>
+    <a href="/newRequest" id= "Request" style="width:110px;">
+        <button class="navbutton1" style="width: 140px"> New Request </button>
+    </a>
+
+    <a href="/dataHistory" style="width:110px;">
+        <button class="navbutton1" style="width: 160px"> Approved Requests </button>
+    </a>
+    <a href="/rejected" style="width:110px;">
+        <button class="navbutton1" style="width: 160px"> Rejected Requests </button>
+    </a>
+    <div class="dropdown" style="height: 80px; width: 200px; float: right; margin: 0;">
+        <button onclick="dropDown()" class="dropbutton" id="Username">
+            <%= firstName%>
+            <span class="caret"></span>
+        </button>
+        <div id="userMenuAdmin" class="dropdown-content">
+            <a href="/userProfile"> User Profile </a>
+            <a href="/userManagement"> User Management </a>
+            <a href="/signout"> Sign Out </a>
+        </div>
+        <div id="userMenuRegular" class="dropdown-content">
+            <a href="/userProfile"> User Profile </a>
+            <a href="/signout"> Sign Out </a>
+        </div>
+    </div>
+</div>
+<body ononline="onFunction()" onoffline="offFunction()">
+<div class="container center">
+    <div id="pageHeader" class="page-header text-center">
+        <h1><span class="fa fa-trash-o"></span><strong> CitySmart Data Visualization - Restore </strong></h1><h4><span class="fa fa-user"></span>&nbsp;<strong>Account Name</strong>: <%= user.username %></h4><br>
+    </div>
+</div>
+<div class="container" style="width: 850px;
+    padding: 0px;">
+    <h4 id="subtitles" style="margin-top: 0px;
+    width: 300px;"><strong>Currently Deleted Rows: </strong></h4>
+    <button id="recoverButton" type="submit" class="button1 floating-Box"> Recover </button>
+    <h5 id="note" class="floating-Box"> Please select the rows you would like to recover.</h5>        <div id="dvData">
+        <h4 style="color: #7d7d7d"><strong>Scouting:</strong></h4>
+        <table id="dataDisplay" style="width:100%;">
+            <thead>
+            <tr>
+                <th>UID</th>
+                <th>RID</th>
+                <th>Layer Type</th>
+                <th>Layer State</th>
+                <th>Layer Country</th>
+                <th>Layer City</th>
+                <th>Main Category</th>
+                <th>Sub Category</th>
+                <th>Layer Name</th>
+                <th>Layer Description</th>
+                <th>Layer Uploader</th>
+                <th>Layer Uploader Name</th>
+                <th>Status</th>
+                <th>Prior_Status</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+            <tfoot>
+            <tr>
+                <th>UID</th>
+                <th>RID</th>
+                <th>Layer Type</th>
+                <th>Layer State</th>
+                <th>Layer Country</th>
+                <th>Layer City</th>
+                <th>Main Category</th>
+                <th>Sub Category</th>
+                <th>Layer Name</th>
+                <th>Layer Description</th>
+                <th>Layer Uploader</th>
+                <th>Layer Uploader Name</th>
+                <th>Status</th>
+                <th>Prior_Status</th>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+</div>
+
+<script type='text/javascript'>
+    let dtstring = "";
+    let rowSelected = [];
+    let table = $("#dataDisplay").DataTable();
+    let trapTable = $("#trapDisplay").DataTable();
+    let UserRole = "<%= user.userrole %>";
+    let DropMenu;
+    let d;
+    let transactionID = [];
+    let picturename = []
+    let priorStatus = []
+    let layerName = [];
+    let username = "<%= user.username %>";
+
+
+    $(document).ready(function(){
+
+        $(function () {
+            flatpickr(".date", {
+                dateFormat: "Y-m-d",
+                time_24hr: true
+            });
+
+            if (UserRole === "Admin") {
+                DropMenu = "<li><a href=\"/userprofile\">Profile</a></li>\n" +
+                    "\t\t\t<li><a href=\"/userManagement\">User Management</a></li>\n" +
+                    "\t\t\t<li><a href=\"/signout\">Sign Out</a></li>";
+                $("#userMenu").empty();
+                $("#userMenu").append(DropMenu)
+            } else if (UserRole === "Regular") {
+                DropMenu = "<li><a href=\"/userprofile\">Profile</a></li>\n" +
+                    "\t\t\t<li><a href=\"/signout\">Sign Out</a></li>";
+                $("#userMenu").empty();
+                $("#userMenu").append(DropMenu)
+            }
+
+            table.clear();
+            table.draw();
+
+            // if (UserRole === "Regular") {
+            //     // document.getElementById('searchname').style.display = "none"; //disables username search for regular members
+            //     queryStr = "Current_Status=Pending&UID=" + username;
+            // } else {
+            //     queryStr = "Current_Status=Pending";//this line is for the admin, who does not need to only see a specific UID, but all records
+            // }
+            // console.log(queryStr);
+            // queryAndDisplay(queryStr);
+            trapTable.clear();
+            trapTable.draw();
+            <!--queryAndDisplay("statusDel=" + "Deleted" + "&firstName=" + "<%= firstName %>" + "&lastName=" + "<%= lastName %>");-->
+
+            queryAndDisplay();//this is client
+            //got rid of the string b/c AddData will not process any query string b/c will return all records and will be filtered by clientside downstairs
+            console.log()
+
+        });
+
+        $('#dataDisplay tbody').on('click', 'tr', function () {
+
+            if ($(this).hasClass('selected')) { //if the row is selected already
+
+                $(this).removeClass('selected');//unselect it
+
+                d = table.row(this).data();
+                let index = transactionID.indexOf(d[0]); //delete the last transactionID in the array when deselected
+                console.log(index)
+                transactionID.splice(index, 1);
+                priorStatus.splice(index,1)
+                layerName.splice(index,1)
+                picturename.splice(index,1)
+                console.log(priorStatus);
+                console.log(transactionID)
+                console.log(layerName)
+                console.log(picturename)
+            } else {
+                $(this).addClass('selected'); // change the class to selected, so that there is changing of background color
+
+                d = table.row(this).data(); // all the data of the row that was selected
+                d.counter++;
+                table.row(this).data(d).draw();
+                // console.log(d)
+
+                priorStatus.push(d[13])
+                layerName.push(d[8]);
+                transactionID.push(d[1]);
+                picturename.push(d[11]);
+                console.log(transactionID);
+                console.log(priorStatus)
+                console.log(picturename)
+                // let pictureStr = "pictureStr=" + picturename.toString();
+                // console.log(pictureStr);
+
+                let thArray = [];
+
+                $('#dataDisplay > thead > tr > th').each(function () {
+                    thArray.push($(this).text())
+                })
+                // console.log(thArray);
+
+                for (let i = 0; i < thArray.length; i++) {
+                    rowSelected[i] = {};
+                    rowSelected[i].Name = thArray[i];
+                    rowSelected[i].Value = d[i];
+                }
+            }
+
+            // if ($(this).hasClass('selected')) { //if the row is selected already
+            //     $(this).removeClass('selected');//unselect it
+            //     d = table.row(this).data();
+            //     let index = transactionID.indexOf(d[0]); //delete the transactionID in the array
+            //     transactionID.splice(index, 1);
+            // } else {
+            //     $(this).addClass('selected');
+            //
+            //     d = table.row(this).data();
+            //     d.counter++;
+            //     table.row(this).data(d).draw();
+            //     console.log(d[1])
+            //
+            //     console.log(d);
+            //     priorStatus.push(d[13])
+            //     transactionID.push(d[1]);
+            //     picturename.push(d[11]);
+            //
+            //     let thArray = [];
+            //
+            //     $('#dataDisplay > thead > tr > th').each(function () {
+            //         thArray.push($(this).text())
+            //     })
+            //     console.log(thArray);
+            //
+            //     for (let i = 0; i < thArray.length; i++) {
+            //         rowSelected[i] = {};
+            //         rowSelected[i].Name = thArray[i];
+            //         rowSelected[i].Value = d[i];
+            //     }
+            // }
+        });
+
+        $("#recoverButton").on("click", function () {
+            //determine if the prior_status is pending or approved
+            //copy the data in requestForm to layer menu
+            //update pic path with most current
+            //move file from trash to approved file (if file is still pending?)
+
+
+            if (confirm("Are you sure you would like to recover this row(s)?") === true) {
+                console.log(priorStatus)
+
+
+                let transactionIDStr = "transactionIDStr=";
+                let transactionPrStatusStr = "transactionStatusStr="
+                let layerNameStr = "layerName="
+                for (let i = 0; i < transactionID.length; i++) {
+                    //update the status to pending
+                    //move file from trash folder to upload files.
+                    transactionIDStr += transactionID[i] + ",";
+                    transactionPrStatusStr += priorStatus[i] + ",";
+                    layerNameStr += layerName[i]+ ",";
+
+                    if (i === transactionID.length - 1) { //delete the , at the end of the string
+                        transactionIDStr = transactionIDStr.substring(0, transactionIDStr.length - 1);
+                        transactionPrStatusStr = transactionPrStatusStr.substring(0, transactionPrStatusStr.length - 1);
+                        layerNameStr = layerNameStr.substring(0,layerNameStr.length - 1);
+                        update();
+                    }
+                }
+                function update() {
+                    let pictureStr = "pictureStr=" + picturename.toString();
+                    console.log(pictureStr);
+                    $.ajax({
+                        url: '/recoverRow',
+                        type: 'GET',
+                        dataType: 'json',
+                        async: false,
+                        data: transactionIDStr + '&' + pictureStr+ '&' + transactionPrStatusStr + '&' + layerNameStr,
+                        success: function (result) {
+                            console.log(result.message);
+                            console.log(result.error);
+
+                            if(result.error === true){
+                                alert(result.message)
+                            }else{
+                                alert(result.message)
+                            }
+
+                            window.location.replace('/userHome')
+                        }
+                    })
+                }
+            } else {
+                return false;
+            }
+        });
+    });
+    function dropDown() {
+        console.log(UserRole);
+        if (UserRole === "Admin") {
+            document.getElementById("userMenuAdmin").classList.toggle("show");
+        } else if (UserRole === "Regular") {
+            document.getElementById("userMenuRegular").classList.toggle("show");
+        }
+    }
+    window.onclick = function(event) {
+        if (!event.target.matches('.dropbutton')) {
+            let dropdowns = document.getElementsByClassName("dropdown-content");
+            for (let i = 0; i < dropdowns.length; i++) {
+                let openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+            }
+        }
+    }
+
+    let queryAndDisplay = function (querystr) {
+        console.log(querystr);
+        $.ajax({
+            url: 'AddData',
+            dataType: 'json',
+            data: querystr,
+            success: function (results) {
+                console.log(results);
+                for (let i = 0; i < results.length; i++) {
+                    if (results[i].Current_Status === "Deleted") {
+                        if (UserRole === "Regular") {
+                            if (results[i].UID === username) {
+                                table.row.add([
+                                    results[i].UID,
+                                    results[i].RID,
+                                    results[i].LayerCategory,
+                                    results[i].StateName,
+                                    results[i].CountryName,
+                                    results[i].CityName,
+                                    results[i].FirstLayer,
+                                    results[i].SecondLayer,
+                                    results[i].ThirdLayer,
+                                    results[i].Layer_Description,
+                                    results[i].Layer_Uploader,
+                                    results[i].Layer_Uploader_name,
+                                    results[i].Current_Status,
+                                    results[i].Prior_Status
+                                ]).draw(false);
+                            }
+                        } else {
+                            table.row.add([
+                                results[i].UID,
+                                results[i].RID,
+                                results[i].LayerCategory,
+                                results[i].StateName,
+                                results[i].CountryName,
+                                results[i].CityName,
+                                results[i].FirstLayer,
+                                results[i].SecondLayer,
+                                results[i].ThirdLayer,
+                                results[i].Layer_Description,
+                                results[i].Layer_Uploader,
+                                results[i].Layer_Uploader_name,
+                                results[i].Current_Status,
+                                results[i].Prior_Status
+                            ]).draw(false);
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    function onFunction() {
+        alert ("You are now online.");
+    }
+
+    function offFunction() {
+        alert ("Your are offline. Some functionality may be unavailable.");
+    }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!-- views/2step.ejs -->
+<!doctype html>
+<html>
+<head>
+    <title>CitySmart - User Management - Two Step Verification</title>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="icon" href="/images/download%20(2).jpeg">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <!-- load fontawesome -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <!--<link rel="stylesheet" href="//unpkg.com/flatpickr/dist/flatpickr.min.css">-->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://www.google.com/recaptcha/api.js?render=6Ld7fq8UAAAAAOv8ZEiVj6P972pR_Vf3ko5R0JB_"></script>
+    <?php include 'reCaptcha.php';?>
+    <!--<script src="//unpkg.com/flatpickr"></script>-->
+    <style>
+        .banner {
+            position: relative;
+            width: 100%;
+        }
+        .button {
+            padding: 14px 40px;
+            width: 100%;
+            text-align: center;
+            border-radius: 3px;
+            background-color: #008CBA;
+            color: white;
+            border: 2px solid #008CBA;
+            overflow: auto;
+        }
+        .button:hover {
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+            background-color: rgba(0, 140, 186, 0.56);
+            color: black;
+            border: 2px none rgba(0, 140, 186, 0.61);
+            overflow: auto;
+        }
+        .form-group {
+            margin: auto;
+            width: 50%;
+            padding: 10px;
+        }
+        #falldown {
+            text-align: center;
+        }
+    </style>
+</head>
+<div class="navul" style="height: 80px;
+    background: #000000;">
+    <a class="navul" href="//aworldbridge.com" style="background: #000000;
+    width: 500px;
+    height: 80px;">
+        <img class="banner" src="../images/NewWBBanner.jpg" style="width: 550px;
+    height: 80px;
+    margin: auto; display: block;" />
+    </a>
+</div>
+<body ononline="onFunction()" onoffline="offFunction()">
+<div class="container" style="width: 500px; padding: 0px;">
+    <h1 style="margin-top: 20px; text-align: center;"><strong>Two Step Verification</strong> </h1>
+    <!-- show any messages that come back with authentication -->
+    <!-- ADD USER FORM -->
+    <p id="falldown">All users are required to go through a two-step sign in process. To proceed, please choose one of the following three ways to sign in.</p>
+    <form onsubmit="return checkForm()" action="/kauth" method="post" id="Kauth">
+        <div class="form-group">
+            <button type="submit" class="button" id="kBA">Knowledge-Based Authentication</button>
+        </div>
+        <input type="hidden" id="token">
+    </form>
+    <form onsubmit="return checkForm()" action="/pauth" method="post" id="Pauth">
+        <div class="form-group">
+            <button type="submit" class="button" id="pA">Phone Authentication</button>
+        </div>
+        <input type="hidden" id="token">
+    </form>
+    <form onsubmit="return checkForm()" action="/eauth" method="post" id="Eauth">
+        <div class="form-group">
+            <button type="submit" class="button" id="eA">Email Authentication</button>
+        </div>
+        <input type="hidden" id="token">
+    </form>
+    <hr style="margin-bottom: 10px;">
+    <p style="text-align: center;"> <a href="/">Cancel Login</a></p>
+</div>
+<br>
+<script>
+    let username = document.getElementById("username");
+    let firstname = document.getElementById("firstname");
+    let lastname = document.getElementById("lastname");
+
+    $(document).ready(function() {
+        let today = new Date();
+        let date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+        let time2 = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        let dateTime = date + ' ' + time2;
+        // document.getElementById("DATE").value = dateTime;
+
+        function timedRefresh() {
+            setTimeout(function(){ window.location.replace("/"); }, 180000);
+        }
+        timedRefresh();
+
+        // window.onload = function() {
+        //     if(!window.location.hash) {
+        //         window.location = window.location + '#loaded';
+        //         window.location.reload();
+        //     }
+        // }
+
+    });
+
+    grecaptcha.ready(function() {
+        grecaptcha.execute('6Ld7fq8UAAAAAOv8ZEiVj6P972pR_Vf3ko5R0JB_', {action: '/kauth'}).then(function (token) {
+            console.log(token);
+            document.getElementById("token").value = token;
+        });
+    });
+
+    grecaptcha.ready(function() {
+        grecaptcha.execute('6Ld7fq8UAAAAAOv8ZEiVj6P972pR_Vf3ko5R0JB_', {action: '/pauth'}).then(function (token) {
+            console.log(token);
+            document.getElementById("token").value = token;
+        });
+    });
+
+    grecaptcha.ready(function() {
+        grecaptcha.execute('6Ld7fq8UAAAAAOv8ZEiVj6P972pR_Vf3ko5R0JB_', {action: '/eauth'}).then(function (token) {
+            console.log(token);
+            document.getElementById("token").value = token;
+        });
+    });
+
+    function onFunction() {
+        alert("You are now online.");
+    }
+
+    function offFunction() {
+        alert("Your are offline. Some functionality may be unavailable.");
+    }
+
+</script>
+</body>
+</html>
