@@ -22,7 +22,7 @@ let serverConfig = {
     Login_table: 'UserLogin',
     Upload_db: 'timelog',
 
-    Server_Port: 9086,
+    Server_Port: 9094,
 
     // local_URL : "",
     // local_URL : "http://viewer.usgs.aworldbridgelabs.com",
