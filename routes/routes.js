@@ -3,21 +3,21 @@ const mysql = require('mysql');
 const bodyParser = require('body-parser');
 const serverConfig = require('../config/serverConfig');
 // const fs = require("fs");
-// const fsextra = require('fs-extra');
-const request = require("request");
+const fsextra = require('fs-extra');
 const bcrypt = require('bcrypt-nodejs');
 const nodemailer = require('nodemailer');
 const cors = require('cors');
-const async = require('async');
-const crypto = require('crypto');
-const rimraf = require("rimraf");
-const mkdirp = require("mkdirp");
-const multiparty = require('multiparty');
+// const async = require('async');
+// const request = require("request");
+// const crypto = require('crypto');
+// const rimraf = require("rimraf");
+// const mkdirp = require("mkdirp");
+// const multiparty = require('multiparty');
 const path    = require('path');
 // const ExpressBrute = require('express-brute');
 const rateLimit = require("express-rate-limit");
-const text = require('textbelt');
-const generator = require('generate-password');
+// const text = require('textbelt');
+// const generator = require('generate-password');
 
 // const store = new ExpressBrute.MemoryStore(); // stores state locally, don't use this in production
 // const bruteforce = new ExpressBrute(store);
@@ -27,7 +27,7 @@ const Download_From = serverConfig.Download_From;
 
 const copySource = path.resolve(__dirname, serverConfig.Download_To); //the path of the source file
 const copyDestDir = path.resolve(__dirname, serverConfig.Backup_Dir);
-const num_backups = serverConfig.num_backups;
+//const num_backups = serverConfig.num_backups;
 const download_interval = serverConfig.download_interval;
 
 //const Approve_Dir = path.resolve(__dirname, "../" + serverConfig.Approve_Dir);
@@ -837,15 +837,15 @@ module.exports = function (app, passport) {
     });
 
     //AddData to table
-    app.get('/AddData', function (req, res) {
-        res.setHeader("Access-Control-Allow-Origin", "*");
-        con_CS.query('SELECT * FROM Request_Form', function (err, results) {
-            if (err) throw err;
-            res.json(results);
-            //there are no filters here so the whole table shows up in client side
-            //this means in server side we should filter
-        })
-    });
+    // app.get('/AddData', function (req, res) {
+    //     res.setHeader("Access-Control-Allow-Origin", "*");
+    //     con_CS.query('SELECT * FROM Request_Form', function (err, results) {
+    //         if (err) throw err;
+    //         res.json(results);
+    //         //there are no filters here so the whole table shows up in client side
+    //         //this means in server side we should filter
+    //     })
+    // });
     // Filter by search criteria
     app.get('/filterUser', isLoggedIn, function (req, res) {
         // res.setHeader("Access-Control-Allow-Origin", "*"); // Allow cross domain header
