@@ -17,10 +17,10 @@ let serverConfig = {
         'port'    :  3306
     },
 
-    Session_db: 'CitySmart2',
-    Login_db: 'CitySmart2',
+    Session_db: 'timelog',
+    Login_db: 'timelog',
     Login_table: 'UserLogin',
-    Upload_db: 'CitySmart2',
+    Upload_db: 'timelog',
 
     Server_Port: 9086,
 
