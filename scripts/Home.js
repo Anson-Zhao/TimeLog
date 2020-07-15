@@ -375,7 +375,7 @@ requirejs(['./newGlobe',
 
         let popupBodyName = $('<p class="site-name"><h4>' + PM.userProperties.layerName + '</h4></p>');
         let popupBodyDesc = $('<p class="site-description">' + PM.userProperties.siteDesc + '</p><br>');
-        let fillerImages = $('<img style="width:100%; height:110%;" src="../images/Pics/' + PM.userProperties.picLocation + '"/>');
+        let fillerImages = $('<img style="width:100%; height:110%;" src=' + PM.userProperties.picLocation + '"../BackUps/Pics/"/>');
         let imageLinks = $('<p class="site-link" <h6>Site Link: </h6></p><a href="' + PM.userProperties.url + '">Click here to navigate to the site&#8217;s website </a>');
         let copyrightStatus = $('<p  class="copyright" <h6>Copyright Status: </h6>' + PM.userProperties.copyright + '</p><br>');
         let coordinates = $('<p class="coordinate" <h6>Latitude and Longitude: </h6>' + PM.position.latitude + PM.position.longitude + '</p><br>');
