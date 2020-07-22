@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="7bade453-abcd-420f-b889-c82626398126" name="timelog.aworldbridgelabs.com" url="http://timelog.aworldbridgelabs.com">
+        <fileTransfer rootFolder="/var/www/timelog" accessType="SFTP" host="aworldbridgelabs.com" port="5532" sshConfigId="bb76746c-97a5-4b8c-a97f-7fd04b343a57" sshConfig="ansonz@aworldbridgelabs.com:5532 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

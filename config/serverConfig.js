@@ -28,7 +28,7 @@ let serverConfig = {
     // local_URL : "http://viewer.usgs.aworldbridgelabs.com",
 
     //upload path to geoserver when approved
-    geoServer : 'http://cs.aworldbridgelabs.com:8080/geoserver/',
+    // geoServer : 'http://cs.aworldbridgelabs.com:8080/geoserver/',
     // geoServer : 'http://10.11.90.16:8080/geoserver/',
 
     //sysnchronization between approvedfolder and data folder under geoserver when approved
@@ -36,22 +36,22 @@ let serverConfig = {
     // Sync_Dir : 'syncfolder',
 
     //download/backup wmsCapabilities file (xml)
-    Download_From : 'https://cors.aworldbridgelabs.com:9084/http://cs.aworldbridgelabs.com:8080/geoserver/ows?service=wms&version=1.3.0&request=GetCapabilities',
-    Download_To:'../config/ows.xml',
-    Backup_Dir:'../config/geoCapacity',
+    // Download_From : 'https://cors.aworldbridgelabs.com:9084/http://cs.aworldbridgelabs.com:8080/geoserver/ows?service=wms&version=1.3.0&request=GetCapabilities',
+    // Download_To:'../config/ows.xml',
+    // Backup_Dir:'../config/geoCapacity',
 
     //upload file--pending
-    Pending_Dir: 'uploadfolder',
-    Reject_Dir: 'rejectfolder',
+    // Pending_Dir: 'uploadfolder',
+    // Reject_Dir: 'rejectfolder',
 
     //approve file--active
-    Approve_Dir: 'approvedfolder',
+    // Approve_Dir: 'approvedfolder',
 
     //trashfolder file--trashfolder
-    Delete_Dir: 'trashfolder',
+    // Delete_Dir: 'trashfolder',
 
-    num_backups: 24,
-    download_interval: 3600000,
+    // num_backups: 24,
+    // download_interval: 3600000,
 
 };
 
