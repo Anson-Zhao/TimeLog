@@ -11,6 +11,11 @@ const bodyParser = require('body-parser');
 
 const passport = require('passport');
 const flash    = require('connect-flash');
+const cors = require('cors');
+app.use(cors({
+    origin: '*',
+    credentials: true
+}));
 
 // const CORS_host = process.env.HOST || config.CORS_host;
 // const CORS_port = process.env.PORT || config.CORS_port;

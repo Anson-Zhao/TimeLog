@@ -322,451 +322,127 @@
     </style>
 
 </head>
-<div class="navul" style="height: 80px;
-    background: #000000;">
-    <a class="navul" href="//aworldbridge.com" style="background: #000000;
-    width: 500px;
-    height: 80px;">
-        <img class="banner" src="../images/NewWBBanner.jpg" style="width: 550px;
-    height: 80px;
-    margin: auto; display: block;" />
-    </a>
-</div>
+
 <body ononline="onFunction()" onoffline="offFunction()">
-
-<div class="container">
-<br>
-<!--    <p id="browserWarning"> Our application works best on the most recent version of <strong>Chrome</strong>.</p>-->
-    <div class="text-center header">
-        <h1><span class="fa fa-globe"></span><strong> City Smart V2 </strong></h1>
-        <div class="log-form">
-            <% if (message.length > 0) { %>
-                <div class="alert alert-danger"><%= message %></div>
-            <% } %>
-                <p id="capsWarning" hidden><strong>WARNING: Caps lock is enabled.</strong></p>
-                <br>
-                <form action="/login" method="post">
-                <input type="text" autofocus class="highlight" id = "username" name="username" title="Username" autocomplete="off" minlength="2" maxlength="99" placeholder="Username" />
-                <input type="password" class="highlight" id = "password" name="password" title="Password" autocomplete="off" minlength="2" maxlength="99" placeholder="Password" />
-                <span toggle="#password" class="fa fa-fw fa-eye-slash field-icon toggle-password"></span>
-                <button type="submit" class="button1" onsubmit="loginAttempts()">Login</button>  <!--Temporary link to login page, supposed to work automatically-->
-                <button type="button" class="button1" onclick="window.location='/signup'" >Signup</button>
-                <input type="hidden" id="token">
-            </form>
-        </div>
+    <div class="navul" style="height: 80px;
+    background: #000000;">
+        <a class="navul" href="//aworldbridge.com" style="background: #000000;
+        width: 500px;
+        height: 80px;">
+            <img class="banner" src="../images/NewWBBanner.jpg" style="width: 550px;
+        height: 80px;
+        margin: auto; display: block;" />
+        </a>
     </div>
-    <br>
-    <hr style="margin-bottom: 10px;">
-    <br>
-    <div>
-        <!-- Menu -->
-<!--        <ul class="nav navbar-nav">-->
-<!--            <li class="dropdown"><a href="#" title="Energy Production" class="dropdown-toggle disabled" data-toggle="dropdown">Energy Production<span class="caret"></span></a>-->
-<!--                <ul class="dropdown-menu" role="menu">-->
-<!--                    <li class="dropdown-submenu">-->
-<!--                        <a href="#" tabindex="-1" class="dropdown-toggle" data-toggle="dropdown">2012</a>-->
-<!--                        <ul class="dropdown-menu">-->
-<!--                            <li><a href="https://www.dropbox.com/s/3pf2nmte3ddqfjb/summary%202012.xls?dl=0" target="_blank" title="SFile2012">Summary File</a></li>-->
-<!--                            <li><a href="https://www.dropbox.com/s/2pan6s2urnn8ej0/2012.png?dl=0" target="_blank" title="Chart2012">Chart</a></li>-->
-<!--                        </ul>-->
-<!--                    </li>-->
-<!--                    <li class="dropdown-submenu">-->
-<!--                        <a href="#" tabindex="-1" class="dropdown-toggle">2013</a>-->
-<!--                        <ul class="dropdown-menu">-->
-<!--                            <li><a href="https://www.dropbox.com/s/8d20wicmlh8ra6q/summary%202013.xls?dl=0" target="_blank" title="SFile2013">Summary File</a></li>-->
-<!--                            <li><a href="https://www.dropbox.com/s/ahl8nz2xngifwv5/2013.png?dl=0" target="_blank" title="Chart2013">Chart</a></li>-->
-<!--                        </ul>-->
-<!--                    </li>-->
-<!--                    <li class="dropdown-submenu">-->
-<!--                        <a href="#" tabindex="-1" class="dropdown-toggle">2014</a>-->
-<!--                        <ul class="dropdown-menu">-->
-<!--                            <li><a href="https://www.dropbox.com/s/62skykaejow2oix/Summary%202014.xls?dl=0" target="_blank" title="SFile2014">Summary File</a></li>-->
-<!--                            <li><a href="https://www.dropbox.com/s/qdws7kbjxzod13w/2014.png?dl=0" target="_blank" title="Chart2014">Chart</a></li>-->
-<!--                        </ul>-->
-<!--                    </li>-->
-<!--                    <li class="dropdown-submenu">-->
-<!--                        <a href="#" tabindex="-1" class="dropdown-toggle">2015</a>-->
-<!--                        <ul class="dropdown-menu">-->
-<!--                            <li><a href="https://www.dropbox.com/s/60s91y69aft4qvb/Summary%202015.xls?dl=0" target="_blank" title="SFile2015">Summary File</a></li>-->
-<!--                            <li><a href="https://www.dropbox.com/s/7pvrtga0b9h4r16/2015.png?dl=0" target="_blank" title="Chart2015">Chart</a></li>-->
-<!--                        </ul>-->
-<!--                    </li>-->
-<!--                    <li class="dropdown-submenu">-->
-<!--                        <a href="#" tabindex="-1" class="dropdown-toggle">2016</a>-->
-<!--                        <ul class="dropdown-menu">-->
-<!--                            <li><a href="https://www.dropbox.com/s/byudycgf2rbdubj/Summary%202016.xls?dl=0" target="_blank" title="SFile2016">Summary File</a></li>-->
-<!--                            <li><a href="https://www.dropbox.com/s/lmmrl01qpakqlrw/2016.png?dl=0" target="_blank" title="Chart2016">Chart</a></li>-->
-<!--                        </ul>-->
-<!--                    </li>-->
-<!--                    <li class="dropdown-submenu">-->
-<!--                        <a href="#" tabindex="-1" class="dropdown-toggle">2017</a>-->
-<!--                        <ul class="dropdown-menu">-->
-<!--                            <li><a href="https://www.dropbox.com/s/5x578y6aibm1aku/Summary-%20January%2C%202017.pdf?dl=0" target="_blank" title="SFile2017">Summary File</a></li>-->
-<!--                        </ul>-->
-<!--                    </li>-->
-<!--                </ul>-->
-<!--            </li>-->
-<!--            <li class="dropdown"><a href="#" title="Energy Production" class="dropdown-toggle disabled" data-toggle="dropdown">Economics<span class="caret"></span></a>-->
-<!--                <ul class="dropdown-menu" role="menu">-->
-<!--                    <li class="dropdown-submenu">-->
-<!--                        <a href="#" tabindex="-1" class="dropdown-toggle"><strong>Grant Application</strong></a>-->
-<!--                        <ul class="dropdown-menu">-->
-<!--                            <li><a href="https://www.dropbox.com/s/ktkgty5bqtqvgau/KEA%20Renewable%20Energy%20Fund%20Grant%20Application.pdf?dl=0" target="_blank" title="SFile2016">PDF File</a></li>-->
-<!--                        </ul>-->
-<!--                    </li>-->
-<!--                    <li class="dropdown-submenu">-->
-<!--                        <a href="#" tabindex="-1" class="dropdown-toggle">Balance Sheet</a>-->
-<!--                        <ul class="dropdown-menu">-->
-<!--                            <li><a href="https://www.dropbox.com/s/d0nr0vhxnhgkd8x/KEA%20Balance%20Sheet.xlsx?dl=0" target="_blank" title="SFile2016">Excel File</a></li>-->
-<!--                        </ul>-->
-<!--                    </li>-->
-<!--                    <li class="dropdown-submenu">-->
-<!--                        <a href="#" tabindex="-1" class="dropdown-toggle">Sales Data</a>-->
-<!--                        <ul class="dropdown-menu">-->
-<!--                            <li><a href="https://www.dropbox.com/s/wewyxdhrkxdjwrh/KEA%20Historical%20Sales%20Data%202012-2016.xlsx?dl=0" target="_blank" title="2012-16">2012-2016</a></li>-->
-<!--                        </ul>-->
-<!--                    </li>-->
-<!--                    <li class="dropdown-submenu">-->
-<!--                        <a href="#" tabindex="-1" class="dropdown-toggle">Revenue Trends Data</a>-->
-<!--                        <ul class="dropdown-menu">-->
-<!--                            <li><a href="https://www.dropbox.com/s/mhr4mn2dbkgj0e4/KEA%205-Year%20Revenue%20Trend%20Charts.xlsx?dl=0" target="_blank" title="2012-2016">2012-2016</a></li>-->
-<!--                        </ul>-->
-<!--                    </li>-->
-<!--                </ul>-->
-<!--            <li class="dropdown"><a href="#" title="Financials" class="dropdown-toggle disabled" data-toggle="dropdown">Financials<span class="caret"></span></a>-->
-<!--                <ul class="dropdown-menu" role="menu">-->
-<!--                    <li class="dropdown-submenu">-->
-<!--                        <a href="#" tabindex="-1" class="dropdown-toggle">2012</a>-->
-<!--                        <ul class="dropdown-menu">-->
-<!--                            <li><a href="https://www.dropbox.com/s/fww6uoabf6r9xtv/KEA%20residential%20consumption%20data%202012%20%28ed1%29.xlsx?dl=0" target="_blank" title="RC2012">Residential Consumption Data</a></li>-->
-<!--                            <li><a href="https://www.dropbox.com/s/4uictwnsxkcpee4/KEA%20commercial%20consumption%20data%202012%20%28ed1%29.xlsx?dl=0" target="_blank" title="CC2012">Commercial Consumption Data</a></li>-->
-<!--                            <li><a href="https://www.dropbox.com/s/0h5z6gonaj7ye4m/KEA%20industrial%20consumption%20data%202012%20%28ed1%29.xlsx?dl=0" target="_blank" title="IC2012">Industrial Consumption Data</a></li>-->
-<!--                        </ul>-->
-<!--                    </li>-->
-<!--                    <li class="dropdown-submenu">-->
-<!--                        <a href="#" tabindex="-1" class="dropdown-toggle">2013</a>-->
-<!--                        <ul class="dropdown-menu">-->
-<!--                            <li><a href="https://www.dropbox.com/s/544qekzdg4fznky/KEA%20residential%20consumption%20data%202013%20%28ed1%29.xlsx?dl=0" target="_blank" title="RC2013">Residential Consumption Data</a></li>-->
-<!--                            <li><a href="https://www.dropbox.com/s/nly46h6pk97cs6w/KEA%20commercial%20consumption%20data%202013%20%28ed1%29.xlsx?dl=0" target="_blank" title="CC2013">Commercial Consumption Data</a></li>-->
-<!--                            <li><a href="https://www.dropbox.com/s/5df33491k24qj4k/KEA%20industrial%20consumption%20data%202013%20%28ed1%29.xlsx?dl=0" target="_blank" title="IC2013">Industrial Consumption Data</a></li>-->
-<!--                        </ul>-->
-<!--                    </li>-->
-<!--                    <li class="dropdown-submenu">-->
-<!--                        <a href="#" tabindex="-1" class="dropdown-toggle">2016</a>-->
-<!--                        <ul class="dropdown-menu">-->
-<!--                            <li><a href="https://www.dropbox.com/s/zumahy8t4e7f9sb/KEA%20residential%20consumption%20data%202016%20%28ed1%29.xlsx?dl=0" target="_blank" title="RC2016">Residential Consumption Data</a></li>-->
-<!--                            <li><a href="https://www.dropbox.com/s/iwr5llvqinv1xsm/KEA%20commercial%20consumption%20data%202016%20%28ed1%29.xlsx?dl=0" target="_blank" title="CC2016">Commercial Consumption Data</a></li>-->
-<!--                        </ul>-->
-<!--                    </li>-->
-<!--                    <li class="dropdown-submenu">-->
-<!--                        <a href="#" tabindex="-1" class="dropdown-toggle">2017</a>-->
-<!--                        <ul class="dropdown-menu">-->
-<!--                            <li><a href="https://www.dropbox.com/s/l7oqh124o048cdz/January%202017%20Sales%20Revenues.xlsx?dl=0" target="_blank" title="CombinedJan">Combined, January</a></li>-->
-<!--                        </ul>-->
-<!--                    </li>-->
-<!--                    <li class="dropdown-submenu">-->
-<!--                        <a href="#" tabindex="-1" class="dropdown-toggle">Prediction Chart</a>-->
-<!--                        <ul class="dropdown-menu">-->
-<!--                            <li><a href="https://www.dropbox.com/s/d7ml3tnonhkhxah/Financials1.jpg?dl=0" target="_blank" title="predictionChart">Chart</a></li>-->
-<!--                        </ul>-->
-<!--                    </li>-->
-<!--                    <li class="dropdown-submenu">-->
-<!--                        <a href="#" tabindex="-1" class="dropdown-toggle">Savings Using Renewable Energy</a>-->
-<!--                        <ul class="dropdown-menu">-->
-<!--                            <li><a href="https://www.dropbox.com/s/ye2hkars63u2oce/Financials2.jpg?dl=0" target="_blank" title="SUREchart">Chart</a></li>-->
-<!--                            <li><a href="https://www.dropbox.com/s/reg9oljpcm00h75/Payback.jpg?dl=0" target="_blank" title="SUREsimple">Simpler Chart</a></li>-->
-<!--                        </ul>-->
-<!--                    </li>-->
-<!--                    <li class="dropdown-submenu">-->
-<!--                        <a href="#" tabindex="-1" class="dropdown-toggle">Balance Sheet</a>-->
-<!--                        <ul class="dropdown-menu">-->
-<!--                            <li><a href="https://www.dropbox.com/s/41xpo5loeon8vri/KEABalanceSheet.jpg?dl=0" target="_blank" title="balanceChart">Chart</a></li>-->
-<!--                        </ul>-->
-<!--                    </li>-->
-<!--                </ul>-->
-<!--            </li>-->
-<!--            <li class="dropdown"><a href="#" title="Presentations" class="dropdown-toggle disabled" data-toggle="dropdown">Presentations<span class="caret"></span></a>-->
-<!--                <ul class="dropdown-menu" role="menu">-->
-<!--                    <li class="dropdown-submenu">-->
-<!--                        <a href="#" tabindex="-1" class="dropdown-toggle">Annual Report</a>-->
-<!--                        <ul class="dropdown-menu">-->
-<!--                            <li><a href="https://www.dropbox.com/s/5o1u34nvvagl7xo/KEA%202015%20Annual%20Report.pdf?dl=0" target="_blank" title="AR2015">Residential Consumption Data</a></li>-->
-<!--                        </ul>-->
-<!--                    </li>-->
-<!--                    <li class="dropdown-submenu">-->
-<!--                        <a href="#" tabindex="-1" class="dropdown-toggle">Student Project</a>-->
-<!--                        <ul class="dropdown-menu">-->
-<!--                            <li><a href="https://www.dropbox.com/s/544qekzdg4fznky/KEA%20residential%20consumption%20data%202013%20%28ed1%29.xlsx?dl=0" target="_blank" title="TandPofWT">Tech & Progression of WT</a></li>-->
-<!--                        </ul>-->
-<!--                    </li>-->
-<!--                    <li class="dropdown-submenu">-->
-<!--                        <a href="#" tabindex="-1" class="dropdown-toggle">KEA Background</a>-->
-<!--                        <ul class="dropdown-menu">-->
-<!--                            <li><a href="https://www.dropbox.com/s/6gc69d04hhxbck4/Kodiak%20Electric%20Association%20Background.docx?dl=0" target="_blank" title="KEAback">WT Construction</a></li>-->
-<!--                        </ul>-->
-<!--                    </li>-->
-<!--                    <li class="dropdown-submenu">-->
-<!--                        <a href="#" tabindex="-1" class="dropdown-toggle">Wind Turbine</a>-->
-<!--                        <ul class="dropdown-menu">-->
-<!--                            <li><a href="https://www.dropbox.com/s/ofpgz7ncydrguqz/2013_REC_Pillar%20Mountain%20Phase%202%20Wind%20Turbines%20and%20Battery%20System_Darron%20Scott.pdf?dl=0" target="_blank" title="WTbattery">WT Battery System</a></li>-->
-<!--                        </ul>-->
-<!--                    </li>-->
-<!--                    <li class="dropdown-submenu">-->
-<!--                        <a href="#" tabindex="-1" class="dropdown-toggle">Positive Effects of the WT</a>-->
-<!--                        <ul class="dropdown-menu">-->
-<!--                            <li><a href="https://www.dropbox.com/s/9hvetutsifsw0wm/KEA%20AAMag2015.pdf?dl=0" target="_blank" title="PosEffWT">2015</a></li>-->
-<!--                        </ul>-->
-<!--                    </li>-->
-<!--                    <li class="dropdown-submenu">-->
-<!--                        <a href="#" tabindex="-1" class="dropdown-toggle">Renewable Energy Vision</a>-->
-<!--                        <ul class="dropdown-menu">-->
-<!--                            <li><a href="https://www.dropbox.com/s/g2q3zxky3pyd7rx/KEA%20Renewable%20Energy%20Vision.ppt-.ppt?dl=0" target="_blank" title="EnergyVision">Self Sustainability</a></li>-->
-<!--                        </ul>-->
-<!--                    </li>-->
-<!--                    <li class="dropdown-submenu">-->
-<!--                        <a href="#" tabindex="-1" class="dropdown-toggle">Presentations to Greenland Power Leaders</a>-->
-<!--                        <ul class="dropdown-menu">-->
-<!--                            <li><a href="https://www.dropbox.com/s/mqwd7mm371962xe/2016%20Development%20and%20Operation%2C%20Wind.pptx?dl=0" target="_blank" title="DevANDop">Development & Operation</a></li>-->
-<!--                            <li><a href="https://www.dropbox.com/s/ujw0005fdk2ypbe/10.2016%20Role%20of%20Storage%20Transition%20to%20100%20%28002%29.pptx?dl=0" target="_blank" title="RoleOfStorage">Role of Storage Transition to 100</a></li>-->
-<!--                            <li><a href="https://www.dropbox.com/s/3895fs5vrzng2fp/2016%20Energy%20Cooperative%27s%20Perspective%20%28003%29.pptx?dl=0" target="_blank" title="ECperspective">Energy Cooperative's Perspective</a></li>-->
-<!--                            <li><a href="https://www.dropbox.com/s/o6358yz7xkh4679/2016%20Early%20Stage%20Planning.pptx?dl=0" target="_blank" title="ESplanning">Early Stage Planning</a></li>-->
-
-<!--                        </ul>-->
-<!--                    </li>-->
-<!--                </ul>-->
-<!--            </li>-->
-<!--            <li class="dropdown"><a href="#" title="TechInfo" class="dropdown-toggle disabled" data-toggle="dropdown">Technical Info<span class="caret"></span></a>-->
-<!--                <ul class="dropdown-menu" role="menu">-->
-<!--                    <li class="dropdown-submenu">-->
-<!--                        <a href="#" tabindex="-1" class="dropdown-toggle">WT Generator Systems</a>-->
-<!--                        <ul class="dropdown-menu">-->
-<!--                            <li><a href="https://www.dropbox.com/s/df2r7h9opv677se/GE_Wind%20Turbine_Technical_Description.pdf?dl=0" target="_blank" title="WT_PDF">PDF</a></li>-->
-<!--                        </ul>-->
-<!--                    </li>-->
-<!--                    <li class="dropdown-submenu">-->
-<!--                        <a href="#" tabindex="-1" class="dropdown-toggle">Industrial WT</a>-->
-<!--                        <ul class="dropdown-menu">-->
-<!--                            <li><a href="https://www.dropbox.com/s/ucc9w5opc2iu8kz/Size%20specifications%20industrial%20wind%20turbines%C2%A0.docx?dl=0" target="_blank" title="IndustrialWT">Document</a></li>-->
-<!--                        </ul>-->
-<!--                    </li>-->
-<!--                    <li class="dropdown-submenu">-->
-<!--                        <a href="#" tabindex="-1" class="dropdown-toggle">Brochure of WT</a>-->
-<!--                        <ul class="dropdown-menu">-->
-<!--                            <li><a href="https://www.dropbox.com/s/4tjd8rn85p2erax/9AKK100580A2551_Powerstore_Brochure_EN_HR_%28Dic2013%29.pdf?dl=0" target="_blank" title="BrochurePDF">PDF</a></li>-->
-<!--                        </ul>-->
-<!--                    </li>-->
-<!--                    <li class="dropdown-submenu">-->
-<!--                        <a href="#" tabindex="-1" class="dropdown-toggle">Specifications of 1.5MW WT</a>-->
-<!--                        <ul class="dropdown-menu">-->
-<!--                            <li><a href="https://www.dropbox.com/s/31iupydoyryambl/GEA14954C15-MW-Broch.pdf?dl=0" target="_blank" title="SpecPDF">PDF</a></li>-->
-<!--                        </ul>-->
-<!--                    </li>-->
-<!--                    <li class="dropdown-submenu">-->
-<!--                        <a href="#" tabindex="-1" class="dropdown-toggle">Progress Report</a>-->
-<!--                        <ul class="dropdown-menu">-->
-<!--                            <li><a href="https://www.dropbox.com/s/9adoo9qtw9okpm9/KEA_progress_report_4.pdf?dl=0" target="_blank" title="ProgressPDF">PDF</a></li>-->
-<!--                        </ul>-->
-<!--                    </li>-->
-<!--                </ul>-->
-<!--            </li>-->
-<!--        </ul>-->
-<!--    </div>-->
-
-<!--    <div class="row">-->
-<!--        <div class="box1 floating-Box" style="padding-top: 20px;">-->
-<!--                <div>-->
-<!--                    <h4><strong>Select Location:</strong></h4>-->
-<!--                <h5 class="note"> NOTE: Default is set to ALL LAYERS. Select the continent, country, and state (or province)/city. </h5>-->
-<!--                &lt;!&ndash;<div>&ndash;&gt;-->
-<!--                    &lt;!&ndash;<p>&ndash;&gt;-->
-<!--                        &lt;!&ndash;<select id="myListContinent"  style="width:320px; height:50px; background:white; padding-left: 15px" onchange="ChangeSelectList(this.value)">&ndash;&gt;-->
-<!--                            &lt;!&ndash;<option selected="selected" value="AL">All Layers</option>&ndash;&gt;-->
-<!--                        &lt;!&ndash;</select>&ndash;&gt;-->
-<!--                    &lt;!&ndash;</p>&ndash;&gt;-->
-<!--                &lt;!&ndash;</div>&ndash;&gt;-->
-<!--                <div>-->
-<!--                    <p>-->
-<!--                        <select id="myListCountry"  style="width: 100%; height:50px; background:white; padding-left: 15px" onchange="ChangeCountryList(this.value)">-->
-<!--                            <option selected="selected" value="AL">-Select A Country List-</option>-->
-<!--                            &lt;!&ndash;<option>-Select a State-</option>&ndash;&gt;-->
-<!--                        </select>-->
-<!--                    </p>-->
-<!--                </div>-->
-<!--                <div>-->
-<!--                    <p>-->
-<!--                        <select id="myListState"  style="width:100%; height:50px; background:lightgray; padding-left: 15px" onchange="ChangeStateList(this.value)" disabled>-->
-<!--                            <option selected="selected" value="AL">-Select A State/Province List-</option>-->
-<!--                        </select>-->
-<!--                    </p>-->
-<!--                </div>-->
-<!--                    <div>-->
-<!--                        <p>-->
-<!--                            <select id="myListCity"  style="width:100%; height:50px; background:lightgray; padding-left: 15px" onchange="ChangeCityList(this.value)" disabled>-->
-<!--                                <option selected="selected" value="AL">-Select A City List-</option>-->
-<!--                            </select>-->
-<!--                        </p>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            <br>-->
-<!--            <div>-->
-<!--                <h4><strong>Layer Menu:</strong></h4>-->
-<!--                &lt;!&ndash;<h5 class="note">*TBD stands for "To Be Developed"</h5>&ndash;&gt;-->
-<!--                &lt;!&ndash;<h5 class="note" style="width:320px;"> NOTE: Some layers may take a while to load, please be patient. Selecting a layer will direct the globe to its location.</h5>&ndash;&gt;-->
-
-<!--                <input id="inpLock" type="checkbox"/>-->
-<!--                <label class="btn-lock" for="inpLock" style="margin-left: 20px">-->
-<!--                    <svg width="20" height="25" viewBox="0 0 36 40">-->
-<!--                        <path class="lockb" d="M27 27C27 34.1797 21.1797 40 14 40C6.8203 40 1 34.1797 1 27C1 19.8203 6.8203 14 14 14C21.1797 14 27 19.8203 27 27ZM15.6298 26.5191C16.4544 25.9845 17 25.056 17 24C17 22.3431 15.6569 21 14 21C12.3431 21 11 22.3431 11 24C11 25.056 11.5456 25.9845 12.3702 26.5191L11 32H17L15.6298 26.5191Z"></path>-->
-<!--                        <path class="lock" d="M6 21V10C6 5.58172 9.58172 2 14 2V2C18.4183 2 22 5.58172 22 10V21"></path>-->
-<!--                        <path class="bling" d="M29 20L31 22"></path>-->
-<!--                        <path class="bling" d="M31.5 15H34.5"></path>-->
-<!--                        <path class="bling" d="M29 10L31 8"></path>-->
-<!--                    </svg>-->
-<!--                </label>-->
-
-<!--                    <div id="text" style="margin-left: 55px; margin-bottom: 25px; margin-top: 25px; color:#0077b3;">-->
-<!--                        <strong>Click to activate the single layer selection</strong>-->
-<!--                    </div>-->
+    <div class="container">
+        <br>
+<!--    <p id="browserWarning"> Our application works best on the most recent version of <strong>Chrome</strong>.</p>-->
+        <div class="text-center header">
+            <h1><span class="fa fa-globe"></span><strong> City Smart V2 </strong></h1>
+            <div class="log-form">
+                <% if (message.length > 0) { %>
+                    <div class="alert alert-danger"><%= message %></div>
+                <% } %>
+                    <p id="capsWarning" hidden><strong>WARNING: Caps lock is enabled.</strong></p>
+                    <br>
+                    <form action="/login" method="post">
+                    <input type="text" autofocus class="highlight" id = "username" name="username" title="Username" autocomplete="off" minlength="2" maxlength="99" placeholder="Username" />
+                    <input type="password" class="highlight" id = "password" name="password" title="Password" autocomplete="off" minlength="2" maxlength="99" placeholder="Password" />
+                    <span toggle="#password" class="fa fa-fw fa-eye-slash field-icon toggle-password"></span>
+                    <button type="submit" class="button1" onsubmit="loginAttempts()">Login</button>  <!--Temporary link to login page, supposed to work automatically-->
+                    <button type="button" class="button1" onclick="window.location='/signup'" >Signup</button>
+                    <input type="hidden" id="token">
+                </form>
+            </div>
+        </div>
+        <br>
+        <hr style="margin-bottom: 10px;">
+        <br>
+    </div>
+    <script>
+        let username = document.getElementById("username");
+        let password = document.getElementById("password");
+        let capsWarning = document.getElementById("capsWarning");
+        let numClicks = 0;
 
 
-<!--                <div style="margin-bottom:10px;">-->
-<!--                    <button id="globeOrigin"><i class="fa fa-globe"></i></button>-->
-<!--                    <h5 style="display:inline-block;color:#0077b3;"> &#8668; Click me to back to start position!</h5>-->
-<!--                </div>-->
+        $(document).ready(function() {
+            username.addEventListener("keydown", function(e) {
 
-<!--                <div style="width: 100%; height: 15px; background: linear-gradient(to right, rgba(0, 0, 255, 0.75), rgba(0, 255, 0, 0.75), rgba(255, 255, 0, 0.75), rgba(255, 127.5, 0, 0.75), rgba(255, 0, 0, 0.75));"></div>-->
+                if (e.getModifierState("CapsLock")) {
+                    capsWarning.style.display = "block";
+                    capsWarning.hidden = false;
+                } else {}
+            });
 
-<!--                <div style="width: 100%; height: 30px; ">-->
-<!--                    <p id="leftScale" style="float: left; font-size:13px;">&lt;1MW</p>-->
-<!--                    <p id="rightScale" style="float: right; font-size:13px;">&gt;3 MW</p>-->
-<!--                </div>-->
-<!--                <div style="margin-bottom:10px;">-->
-<!--                    <button class="previous arrow" id="previousL">&#8249;</button>-->
-<!--                    <input id = "currentSelectedLayer" type="button">-->
-<!--                    <button class="next arrow" id ="nextL">&#8250;</button>-->
-<!--                </div>-->
-<!--                &lt;!&ndash;<div id="layers-toggle">&ndash;&gt;-->
-<!--                    &lt;!&ndash;<input type="checkbox" id="layers-switch">&ndash;&gt;-->
-<!--                &lt;!&ndash;</div>&ndash;&gt;-->
+            username.addEventListener("keyup", function(e) {
 
-<!--                <div class="panel-group" id="accordion" style="width: 100%; height: 350px; overflow: scroll"></div>-->
-<!--            </div>&lt;!&ndash; /.panel-group &ndash;&gt;-->
-<!--        </div>-->
+                if (e.getModifierState("CapsLock")) {}
+                else {
+                    capsWarning.style.display = "none";
+                    capsWarning.hidden = true;
+                }
+            });
 
-<!--        <div class="col-sm-9" id="globe" style="margin-left:420px;">-->
-<!--            <canvas id="canvasOne" width="1000" height="1000" style="width:100%; height:auto">-->
-<!--                Your browser does not support HTML5 Canvas.-->
-<!--            </canvas>-->
+            password.addEventListener("keydown", function(e) {
 
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-<!--<div class="col-sm-9" id="globe">-->
-<!--    <canvas id="canvasOne" width="1000" height="1000" style="width: 100%; height: auto;">-->
-<!--        Your browser does not support HTML5 Canvas.-->
-<!--    </canvas>-->
-<!--    <div class="popup-group" id="popupBox">-->
-<!--        <div class="popupBoxWrapper">-->
-<!--            <div class="popupBoxContent">-->
-<!--                &lt;!&ndash; Popup Box Header&ndash;&gt;-->
-<!--                <div class="popup-Header">-->
-<!--                    <span class="close" id="closeIt">&times;</span>-->
-<!--                </div>-->
-<!--                &lt;!&ndash; Popup Box Body&ndash;&gt;-->
-<!--                <div class="popup-Body" id="popupBody">-->
-<!--                </div>-->
-<!--                &lt;!&ndash;Popup Box Footer&ndash;&gt;-->
-<!--                <div class="popup-Footer">-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-<!--<div id="popover" style="border-style: solid; opacity: 0;" hidden></div>-->
-<script>
-    let username = document.getElementById("username");
-    let password = document.getElementById("password");
-    let capsWarning = document.getElementById("capsWarning");
-    let numClicks = 0;
+                if (e.getModifierState("CapsLock")) {
+                    capsWarning.style.display = "block";
+                    capsWarning.hidden = false;
+                } else {}
+            });
 
+            password.addEventListener("keyup", function(e) {
 
-    $(document).ready(function() {
-        alert('Welcome to CitySmart V2! Our application works best on the most recent version of Chrome. If you are experiencing any problems, try switching a browser.');
-        alert('Please wait for our application to finish loading before attempting to login.');
-    });
+                if (e.getModifierState("CapsLock")) {}
+                else {
+                    capsWarning.style.display = "none";
+                    capsWarning.hidden = true;
+                }
+            });
 
-    username.addEventListener("keydown", function(e) {
+            $(".toggle-password").click(function() {
+                $(this).toggleClass("fa-eye-slash fa-eye");
+                let input = $($(this).attr("toggle"));
+                if (input.attr("type") === "password") {
+                    input.attr("type", "text");
+                } else {
+                    input.attr("type", "password");
+                }
+            });
 
-        if (e.getModifierState("CapsLock")) {
-            capsWarning.style.display = "block";
-            capsWarning.hidden = false;
-        } else {}
-    });
-    username.addEventListener("keyup", function(e) {
-
-        if (e.getModifierState("CapsLock")) {}
-        else {
-            capsWarning.style.display = "none";
-            capsWarning.hidden = true;
-        }
-    });
-    password.addEventListener("keydown", function(e) {
-
-        if (e.getModifierState("CapsLock")) {
-            capsWarning.style.display = "block";
-            capsWarning.hidden = false;
-        } else {}
-    });
-    password.addEventListener("keyup", function(e) {
-
-        if (e.getModifierState("CapsLock")) {}
-        else {
-            capsWarning.style.display = "none";
-            capsWarning.hidden = true;
-        }
-    });
-
-    $(".toggle-password").click(function() {
-        $(this).toggleClass("fa-eye-slash fa-eye");
-        let input = $($(this).attr("toggle"));
-        if (input.attr("type") === "password") {
-            input.attr("type", "text");
-        } else {
-            input.attr("type", "password");
-        }
-    });
-
-
-    function loginAttempts() {
-        numClicks++;
-
-        if(numClicks > 3) {
-            window.location.replace("/");
-            alert("Too many requests to the server can cause the server to slow down or not function properly.");
-        } else {}
-    }
-
-    grecaptcha.ready(function() {
-        grecaptcha.execute('6Ld7fq8UAAAAAOv8ZEiVj6P972pR_Vf3ko5R0JB_', {action: '/'}).then(function (token) {
-            console.log(token);
-            document.getElementById("token").value = token;
         });
-    });
 
-    grecaptcha.ready(function() {
-        grecaptcha.execute('6Ld7fq8UAAAAAOv8ZEiVj6P972pR_Vf3ko5R0JB_', {action: '/login'}).then(function (token) {
-            console.log(token);
-            document.getElementById("token").value = token;
+        function loginAttempts() {
+            numClicks++;
+
+            if(numClicks > 3) {
+                window.location.replace("/");
+                alert("Too many requests to the server can cause the server to slow down or not function properly.");
+            } else {}
+        }
+
+        grecaptcha.ready(function() {
+            grecaptcha.execute('6Ld7fq8UAAAAAOv8ZEiVj6P972pR_Vf3ko5R0JB_', {action: '/'}).then(function (token) {
+                console.log(token);
+                document.getElementById("token").value = token;
+            });
         });
-    });
 
-    function onFunction() {
-        alert ("You are now online.");
-    }
+        grecaptcha.ready(function() {
+            grecaptcha.execute('6Ld7fq8UAAAAAOv8ZEiVj6P972pR_Vf3ko5R0JB_', {action: '/login'}).then(function (token) {
+                console.log(token);
+                document.getElementById("token").value = token;
+            });
+        });
 
-    function offFunction() {
-        alert ("Your are offline. Some functionality may be unavailable.");
-    }
-</script>
+        function onFunction() {
+            alert ("You are now online.");
+        }
+
+        function offFunction() {
+            alert ("Your are offline. Some functionality may be unavailable.");
+        }
+    </script>
 </body>
 </html>

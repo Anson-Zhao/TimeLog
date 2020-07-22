@@ -1,43 +1,12 @@
 // routes/routes.js
 const mysql = require('mysql');
-const bodyParser = require('body-parser');
+// const bodyParser = require('body-parser');
 const serverConfig = require('../config/serverConfig');
-// const fs = require("fs");
-const fsextra = require('fs-extra');
 const bcrypt = require('bcrypt-nodejs');
 const nodemailer = require('nodemailer');
-const cors = require('cors');
-// const async = require('async');
-// const request = require("request");
-// const crypto = require('crypto');
-// const rimraf = require("rimraf");
-// const mkdirp = require("mkdirp");
-// const multiparty = require('multiparty');
-const path    = require('path');
-// const ExpressBrute = require('express-brute');
-const rateLimit = require("express-rate-limit");
-// const text = require('textbelt');
-// const generator = require('generate-password');
-
-// const store = new ExpressBrute.MemoryStore(); // stores state locally, don't use this in production
-// const bruteforce = new ExpressBrute(store);
-
-//const geoServer = serverConfig.geoServer;
-const Download_From = serverConfig.Download_From;
-
-const copySource = path.resolve(__dirname, serverConfig.Download_To); //the path of the source file
-const copyDestDir = path.resolve(__dirname, serverConfig.Backup_Dir);
-//const num_backups = serverConfig.num_backups;
-const download_interval = serverConfig.download_interval;
-
-//const Approve_Dir = path.resolve(__dirname, "../" + serverConfig.Approve_Dir);
-const Pending_Dir = path.resolve(__dirname, "../" + serverConfig.Pending_Dir);
-//const Reject_Dir = path.resolve(__dirname, "../" + serverConfig.Reject_Dir);
-const Delete_Dir = path.resolve(__dirname, "../" + serverConfig.Delete_Dir);
-
-const fileInputName = process.env.FILE_INPUT_NAME || "qqfile";
-const maxFileSize = process.env.MAX_FILE_SIZE || 0; // in bytes, 0 for unlimited
-
+// const cors = require('cors');
+const async = require('async');
+const crypto = require('crypto');
 const con_CS = mysql.createConnection(serverConfig.commondb_connection);
 const smtpTrans = nodemailer.createTransport({
     service: 'Gmail',
@@ -47,32 +16,19 @@ const smtpTrans = nodemailer.createTransport({
     }
 });
 
-const Limiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 100,
-});
-
-//let exec = require('child_process').exec;
-let transactionID, myStat, myVal, myErrMsg, token, errStatus, mylogin;
-let today, date2, date3, time2, time3, dateTime, tokenExpire, child;
-let downloadFalse = null ;
+let myStat, myVal, myErrMsg, token, errStatus, mylogin;
+let today, date2, date3, time2, time3, dateTime, tokenExpire;
 
 con_CS.query('USE ' + serverConfig.Login_db); // Locate Login DB
 
 module.exports = function (app, passport) {
 
-    //removeFile();
-    //removeFile();
-    setInterval(copyXML, download_interval); // run the function one time a (day
-
-    app.use(bodyParser.urlencoded({extended: true}));
-    app.use(bodyParser.json());
-    app.use(cors({
-        origin: '*',
-        credentials: true
-    }));
-
-    app.use(Limiter);
+    // app.use(bodyParser.urlencoded({extended: true}));
+    // app.use(bodyParser.json());
+    // app.use(cors({
+    //     origin: '*',
+    //     credentials: true
+    // }));
 
     // =====================================
     // CS APP Home Section =================
@@ -129,7 +85,7 @@ module.exports = function (app, passport) {
     app.get('/loginUpdate', isLoggedIn, function (req, res) {
         dateNtime();
 
-        myStat = "UPDATE UserLogin SET status = 'Active', lastLoginTime = ? WHERE username = ?";
+        myStat = "UPDATE userlogin SET status = 'Active', lastLoginTime = ? WHERE username = ?";
         myVal = [dateTime, req.user.username];
         myErrMsg = "Please try to login again";
         updateDBNredir(myStat, myVal, myErrMsg, "login.ejs", "/userhome", res);
@@ -142,7 +98,7 @@ module.exports = function (app, passport) {
 
     app.post('/email', function (req, res) {
         res.setHeader("Access-Control-Allow-Origin", "*"); // Allow cross domain header
-        let statement = "SELECT * FROM UserLogin WHERE username = '" + req.body.username + "';";
+        let statement = "SELECT * FROM userlogin WHERE username = '" + req.body.username + "';";
 
         con_CS.query(statement, function (err, results, fields) {
             if (err) {
@@ -162,7 +118,7 @@ module.exports = function (app, passport) {
 
     app.post('/eauth', function (req, res) {
         res.setHeader("Access-Control-Allow-Origin", "*"); // Allow cross domain header
-        let statement = "SELECT * FROM UserLogin WHERE username = '" + req.user.username + "';";
+        let statement = "SELECT * FROM userlogin WHERE username = '" + req.user.username + "';";
 
         let password = generator.generateMultiple(1, {
             length: 8,
@@ -198,7 +154,7 @@ module.exports = function (app, passport) {
     app.post('/kauth', function (req, res) {
         res.setHeader("Access-Control-Allow-Origin", "*"); // Allow cross domain header
 
-        myStat = "SELECT question1, question2, answer1, answer2 FROM UserLogin WHERE username = '" + req.user.username + "'";
+        myStat = "SELECT question1, question2, answer1, answer2 FROM userlogin WHERE username = '" + req.user.username + "'";
 
         con_CS.query(myStat, function (err, result) {
             console.log("Here is the result:");
@@ -225,7 +181,7 @@ module.exports = function (app, passport) {
         let phoneNumber;
         res.setHeader("Access-Control-Allow-Origin", "*");
 
-        myStat = "SELECT Phone_Number FROM UserProfile WHERE username = '" + req.user.username + "'";
+        myStat = "SELECT Phone_Number FROM userprofile WHERE username = '" + req.user.username + "'";
 
         con_CS.query(myStat, function (err, result) {
             console.log("Here is the result:");
@@ -291,7 +247,7 @@ module.exports = function (app, passport) {
     app.get('/reset/:token', function (req, res) {
         res.setHeader("Access-Control-Allow-Origin", "*"); // Allow cross domain header
 
-        myStat = "SELECT * FROM UserLogin WHERE resetPasswordToken = '" + req.params.token + "'";
+        myStat = "SELECT * FROM userlogin WHERE resetPasswordToken = '" + req.params.token + "'";
 
         con_CS.query(myStat, function (err, user) {
             dateNtime();
@@ -312,7 +268,7 @@ module.exports = function (app, passport) {
         async.waterfall([
             function (done) {
 
-                myStat = "SELECT * FROM UserLogin WHERE resetPasswordToken = '" + req.params.token + "'";
+                myStat = "SELECT * FROM userlogin WHERE resetPasswordToken = '" + req.params.token + "'";
 
                 con_CS.query(myStat, function (err, user) {
                     let userInfo = JSON.stringify(user, null, "\t");
@@ -325,7 +281,7 @@ module.exports = function (app, passport) {
                             confirmPassword: bcrypt.hashSync(req.body.Confirmpassword, null, null)
                         };
 
-                        let passReset = "UPDATE UserLogin SET password = '" + newPass.Newpassword + "' WHERE resetPasswordToken = '" + req.params.token + "'";
+                        let passReset = "UPDATE userlogin SET password = '" + newPass.Newpassword + "' WHERE resetPasswordToken = '" + req.params.token + "'";
                         con_CS.query(passReset, function (err, rows) {
                             if (err) {
                                 console.log(err);
@@ -375,8 +331,8 @@ module.exports = function (app, passport) {
     // =====================================
 
     app.get('/userhome', isLoggedIn, function (req, res) {
-        let myStat = "SELECT userrole FROM UserLogin WHERE username = '" + req.user.username + "';";
-        let state2 = "SELECT firstName, lastName FROM UserProfile WHERE username = '" + req.user.username + "';"; //define last name
+        let myStat = "SELECT userrole FROM userlogin WHERE username = '" + req.user.username + "';";
+        let state2 = "SELECT firstName, lastName FROM userprofile WHERE username = '" + req.user.username + "';"; //define last name
 
         con_CS.query(myStat + state2, function (err, results) {
             // console.log("Users: ");
@@ -408,7 +364,7 @@ module.exports = function (app, passport) {
     // show the data history ejs
     app.get('/dataHistory', isLoggedIn, function (req, res) {
 
-        let state2 = "SELECT firstName FROM UserProfile WHERE username = '" + req.user.username + "';";
+        let state2 = "SELECT firstName FROM userprofile WHERE username = '" + req.user.username + "';";
 
         con_CS.query(state2, function (err, results, fields) {
             // console.log(results);
@@ -463,7 +419,7 @@ module.exports = function (app, passport) {
     app.get('/profile', function (req, res) {
         res.setHeader("Access-Control-Allow-Origin", "*");
         let userN = req.query.userN;
-        con_CS.query("SELECT * FROM UserProfile WHERE username = '" + userN + "'; SELECT question1, answer1, question2, answer2 FROM UserLogin WHERE username = '" + userN + "';", function (err, results) {
+        con_CS.query("SELECT * FROM userprofile WHERE username = '" + userN + "'; SELECT question1, answer1, question2, answer2 FROM userlogin WHERE username = '" + userN + "';", function (err, results) {
             if (err) throw err;
             res.json(results);
         })
@@ -472,7 +428,7 @@ module.exports = function (app, passport) {
     app.post('/checkpassword',function (req,res) {
         res.setHeader("Access-Control-Allow-Origin", "*"); // Allow cross domain header
         let password = req.body.pass;
-        let statement = "SELECT password FROM UserLogin WHERE username = '" + req.body.username + "';";
+        let statement = "SELECT password FROM userlogin WHERE username = '" + req.body.username + "';";
         // console.log(password);
         // console.log(statement);
         // console.log(req.body.username);
@@ -502,7 +458,7 @@ module.exports = function (app, passport) {
         let passComp = bcrypt.compareSync(newPass.currentpassword, user.password);
 
         if (!!req.body.NewPassword && passComp) {
-            let passReset = "UPDATE UserLogin SET password = '" + newPass.Newpassword + "' WHERE username = '" + user.username + "'";
+            let passReset = "UPDATE userlogin SET password = '" + newPass.Newpassword + "' WHERE username = '" + user.username + "'";
 
             con_CS.query(passReset, function (err, rows) {
                 if (err) {
@@ -523,10 +479,10 @@ module.exports = function (app, passport) {
                 return [String(key), req.body[key]];
             });
 
-            let update1 = "UPDATE UserProfile SET ";
+            let update1 = "UPDATE userprofile SET ";
             let update2 = "";
             let update3 = " WHERE username = '" + req.user.username + "';";
-            let update4 = "UPDATE UserLogin SET ";
+            let update4 = "UPDATE userlogin SET ";
             let update5 = "";
             let update6 = " WHERE username = '" + req.user.username + "';";
             for (let i = 1; i < result.length - 7; i++) {
@@ -555,7 +511,7 @@ module.exports = function (app, passport) {
                     let newname = req.body.username;
 
                     if (newname !== oldname) {
-                        let statement = "UPDATE UserLogin SET PendingUsername = '"+ newname + "' WHERE username = '" + oldname + "';";
+                        let statement = "UPDATE userlogin SET PendingUsername = '"+ newname + "' WHERE username = '" + oldname + "';";
                         con_CS.query(statement, function (err,result) {
                             if (err) {
                                 console.log(err);
@@ -593,7 +549,7 @@ module.exports = function (app, passport) {
         let passComp = bcrypt.compareSync(newPass.currentpassword, user.password);
 
         if (!!req.body.NewPassword && passComp) {
-            let passReset = "UPDATE UserLogin SET password = '" + newPass.Newpassword + "' WHERE username = '" + user.username + "'";
+            let passReset = "UPDATE userlogin SET password = '" + newPass.Newpassword + "' WHERE username = '" + user.username + "'";
 
             con_CS.query(passReset, function (err, rows) {
                 if (err) {
@@ -617,8 +573,8 @@ module.exports = function (app, passport) {
     app.get('/userManagement', isLoggedIn, function (req, res) {
         res.setHeader("Access-Control-Allow-Origin", "*");
 
-        myStat = "SELECT userrole FROM UserLogin WHERE username = '" + req.user.username + "';";
-        let state2 = "SELECT firstName FROM UserProfile WHERE username = '" + req.user.username + "';";
+        myStat = "SELECT userrole FROM userlogin WHERE username = '" + req.user.username + "';";
+        let state2 = "SELECT firstName FROM userprofile WHERE username = '" + req.user.username + "';";
 
         con_CS.query(myStat + state2, function (err, results, fields) {
 
@@ -665,8 +621,8 @@ module.exports = function (app, passport) {
             status: req.body.status
         };
 
-        myStat = "INSERT INTO UserLogin ( username, password, userrole, question1, question2, answer1, answer2, dateCreated, dateModified, createdUser, status) VALUES ( '" + newUser.username + "','" + newUser.password+ "','" + newUser.userrole+ "','" + newUser.question1+ "','" + newUser.question2+ "','" + newUser.answer1+ "','" + newUser.answer2+ "','" + newUser.dateCreated+ "','" + newUser.dateModified+ "','" + newUser.createdUser + "','" + newUser.status + "');";
-        mylogin = "INSERT INTO UserProfile ( username, firstName, lastName, Phone_Number) VALUES ('"+ newUser.username + "','" + newUser.firstName+ "','" + newUser.lastName + "','" + newUser.phoneNumber + "');";
+        myStat = "INSERT INTO userlogin ( username, password, userrole, question1, question2, answer1, answer2, dateCreated, dateModified, createdUser, status) VALUES ( '" + newUser.username + "','" + newUser.password+ "','" + newUser.userrole+ "','" + newUser.question1+ "','" + newUser.question2+ "','" + newUser.answer1+ "','" + newUser.answer2+ "','" + newUser.dateCreated+ "','" + newUser.dateModified+ "','" + newUser.createdUser + "','" + newUser.status + "');";
+        mylogin = "INSERT INTO userprofile ( username, firstName, lastName, Phone_Number) VALUES ('"+ newUser.username + "','" + newUser.firstName+ "','" + newUser.lastName + "','" + newUser.phoneNumber + "');";
         console.log("mystat");
         console.log(myStat);
         console.log(mylogin);
@@ -716,8 +672,8 @@ module.exports = function (app, passport) {
             status: req.body.status
         };
 
-        myStat = "INSERT INTO UserLogin ( username, password, userrole, dateCreated, dateModified, createdUser, status) VALUES ( '" + newUser.username + "','" + newUser.password+ "','" + newUser.userrole+ "','" + newUser.dateCreated+ "','" + newUser.dateModified+ "','" + newUser.createdUser + "','" + newUser.status + "');";
-        mylogin = "INSERT INTO UserProfile ( username, firstName, lastName) VALUES ('"+ newUser.username + "','" + newUser.firstName+ "','" + newUser.lastName + "');";
+        myStat = "INSERT INTO userlogin ( username, password, userrole, dateCreated, dateModified, createdUser, status) VALUES ( '" + newUser.username + "','" + newUser.password+ "','" + newUser.userrole+ "','" + newUser.dateCreated+ "','" + newUser.dateModified+ "','" + newUser.createdUser + "','" + newUser.status + "');";
+        mylogin = "INSERT INTO userprofile ( username, firstName, lastName) VALUES ('"+ newUser.username + "','" + newUser.firstName+ "','" + newUser.lastName + "');";
         con_CS.query(myStat + mylogin, function (err, rows) {
             //newUser.id = rows.insertId;
             if (err) {
@@ -733,7 +689,7 @@ module.exports = function (app, passport) {
         res.setHeader("Access-Control-Allow-Origin", "*"); // Allow cross domain header
         async.waterfall([
             function(done) {
-                myStat = "SELECT * FROM UserLogin WHERE resetPasswordToken = '" + req.params.token + "'";
+                myStat = "SELECT * FROM userlogin WHERE resetPasswordToken = '" + req.params.token + "'";
                 con_CS.query(myStat, function(err, results) {
                     dateNtime();
 
@@ -744,7 +700,7 @@ module.exports = function (app, passport) {
                     }
                 });
             }, function(username, done) {
-                myStat = "UPDATE UserLogin SET status = 'Never Logged In' WHERE username = '" + username + "';";
+                myStat = "UPDATE userlogin SET status = 'Never Logged In' WHERE username = '" + username + "';";
 
                 con_CS.query(myStat, function(err, user) {
                     if (err) {
@@ -767,7 +723,7 @@ module.exports = function (app, passport) {
         res.setHeader("Access-Control-Allow-Origin", "*"); // Allow cross domain header
         async.waterfall([
             function(done) {
-                myStat = "SELECT * FROM UserLogin WHERE resetPasswordToken = '" + req.params.token + "'";
+                myStat = "SELECT * FROM userlogin WHERE resetPasswordToken = '" + req.params.token + "'";
                 con_CS.query(myStat, function(err, results) {
                     dateNtime();
                     if (results.length === 0 || dateTime > results[0].expires) {
@@ -777,9 +733,9 @@ module.exports = function (app, passport) {
                     }
                 });
             }, function(PendingUsername, done) {
-                myStat = "UPDATE UserLogin SET username = '"+ PendingUsername  + "', PendingUsername = '' WHERE PendingUsername = '"+ PendingUsername + "';";
-                // mylogin = "UPDATE UserLogin SET PendingUsername = '' WHERE PendingUsername = '" + PendingUsername + "';";
-                let myProfile = "UPDATE UserProfile SET username = '" + PendingUsername + "' WHERE username = '" + req.user.username + "';";
+                myStat = "UPDATE userlogin SET username = '"+ PendingUsername  + "', PendingUsername = '' WHERE PendingUsername = '"+ PendingUsername + "';";
+                // mylogin = "UPDATE userlogin SET PendingUsername = '' WHERE PendingUsername = '" + PendingUsername + "';";
+                let myProfile = "UPDATE userprofile SET username = '" + PendingUsername + "' WHERE username = '" + req.user.username + "';";
                 con_CS.query(myStat + myProfile, function(err, user) {
                     if (err) {
                         console.log(err);
@@ -800,7 +756,7 @@ module.exports = function (app, passport) {
     app.get('/filterUser', isLoggedIn, function (req, res) {
         // res.setHeader("Access-Control-Allow-Origin", "*"); // Allow cross domain header
 
-        myStat = "SELECT UserProfile.*, UserLogin.* FROM UserLogin INNER JOIN UserProfile ON UserLogin.username = UserProfile.username";
+        myStat = "SELECT userprofile.*, userlogin.* FROM userlogin INNER JOIN userprofile ON userlogin.username = userprofile.username";
 
         let myQuery = [
             {
@@ -897,7 +853,7 @@ module.exports = function (app, passport) {
         // let passComp = bcrypt.compareSync(newPass.currentpassword, user.password);
 
         if (!!req.body.NewPassword) {
-            let passReset = "UPDATE UserLogin SET password = '" + newPass.Newpassword + "' WHERE username = '" + user.username + "'";
+            let passReset = "UPDATE userlogin SET password = '" + newPass.Newpassword + "' WHERE username = '" + user.username + "'";
 
             con_CS.query(passReset, function (err, rows) {
                 if (err) {
@@ -925,7 +881,7 @@ module.exports = function (app, passport) {
 
         //
         //     // if (!!req.body.NewPassword) {
-        //         let passAdminReset = "UPDATE UserLogin SET password = '" + newEditPass.Newpassword + "' WHERE username = '" + user + "'";
+        //         let passAdminReset = "UPDATE userlogin SET password = '" + newEditPass.Newpassword + "' WHERE username = '" + user + "'";
         //
         //         con_CS.query(passAdminReset, function (err, rows) {
         //             if (err) {
@@ -947,7 +903,7 @@ module.exports = function (app, passport) {
 
 
         // if (!!req.body.NewPassword) {
-        //     let passReset = "UPDATE UserLogin SET password = '" + newPass.Newpassword + "' WHERE username = '" + user + "'";
+        //     let passReset = "UPDATE userlogin SET password = '" + newPass.Newpassword + "' WHERE username = '" + user + "'";
         //
         //     con_CS.query(passReset, function (err, rows) {
         //         if (err) {
@@ -971,8 +927,8 @@ module.exports = function (app, passport) {
             console.log(result);
 
             // let update3 = " WHERE username = '" + req.user.username + "'";
-            let statement1 = "UPDATE UserLogin SET userrole = '" + result[3][1] + "',   status = '" + result[4][1] + "', dateModified = '" + result[5][1] + "', modifiedUser = '" + result[6][1] + "'  WHERE username = '" + result[0][1]+ "';";
-            let statement2 = "UPDATE UserProfile SET firstName = '" + result[1][1] + "', lastName = '" + result[2][1] + "' WHERE username = '" + result[0][1] + "';";
+            let statement1 = "UPDATE userlogin SET userrole = '" + result[3][1] + "',   status = '" + result[4][1] + "', dateModified = '" + result[5][1] + "', modifiedUser = '" + result[6][1] + "'  WHERE username = '" + result[0][1]+ "';";
+            let statement2 = "UPDATE userprofile SET firstName = '" + result[1][1] + "', lastName = '" + result[2][1] + "' WHERE username = '" + result[0][1] + "';";
             con_CS.query(statement1 + statement2, function (err, result) {
                 if (err) throw err;
                 res.json(result);
@@ -1005,8 +961,8 @@ module.exports = function (app, passport) {
                 status: req.body.Status,
                 newPassword: bcrypt.hashSync(req.body.newPassword, null, null)
             };
-            mylogin = "UPDATE UserProfile SET firstName = ?, lastName = ?";
-            myStat = "UPDATE UserLogin SET password = ?, userrole = ?, status = ?, modifiedUser = '" + req.user.username + "', dateModified = '" + dateTime + "' WHERE username = ?";
+            mylogin = "UPDATE userprofile SET firstName = ?, lastName = ?";
+            myStat = "UPDATE userlogin SET password = ?, userrole = ?, status = ?, modifiedUser = '" + req.user.username + "', dateModified = '" + dateTime + "' WHERE username = ?";
 
             myVal = [updatedUserPass.firstName, updatedUserPass.lastName, updatedUserPass.newPassword, updatedUserPass.userrole, updatedUserPass.status, edit_User];
             updateDBNres(myStat + mylogin, myVal, "Update failed!", "/userManagement", res);
@@ -1017,8 +973,8 @@ module.exports = function (app, passport) {
                 userrole: req.body.User_Role,
                 status: req.body.Status
             };
-            mylogin = "UPDATE UserProfile SET firstName = ?, lastName = ?";
-            myStat = "UPDATE UserLogin SET userrole = ?, status = ?, modifiedUser = '" + req.user.username + "', dateModified = '" + dateTime + "'  WHERE username = ?";
+            mylogin = "UPDATE userprofile SET firstName = ?, lastName = ?";
+            myStat = "UPDATE userlogin SET userrole = ?, status = ?, modifiedUser = '" + req.user.username + "', dateModified = '" + dateTime + "'  WHERE username = ?";
 
             myVal = [updatedUser.firstName, updatedUser.lastName, updatedUser.userrole, updatedUser.status, edit_User];
             updateDBNres(myStat + mylogin, myVal, "Update failed!", "/userManagement", res);
@@ -1032,7 +988,7 @@ module.exports = function (app, passport) {
 
         let username = req.query.usernameStr.split(","); //they receive the username string from client side
 
-        myStat = "UPDATE UserLogin SET modifiedUser = '" + req.user.username + "', dateModified = '" + dateTime + "',  status = 'Suspended'";
+        myStat = "UPDATE userlogin SET modifiedUser = '" + req.user.username + "', dateModified = '" + dateTime + "',  status = 'Suspended'";
 
         for (let i = 0; i < username.length; i++) {
             if (i === 0) {
@@ -1050,7 +1006,7 @@ module.exports = function (app, passport) {
     });
 
     app.get('/recovery', isLoggedIn, function (req, res) {
-        let state2 = "SELECT firstName FROM UserProfile WHERE username = '" + req.user.username + "';";
+        let state2 = "SELECT firstName FROM userprofile WHERE username = '" + req.user.username + "';";
         con_CS.query(state2, function (err, results, fields) {
             if (!results[0].firstName) {
                 console.log("Error2");
@@ -1075,7 +1031,7 @@ module.exports = function (app, passport) {
     //     res.setHeader("Access-Control-Allow-Origin", "*");//
     //     let oldname = req.user.username;
     //     let newname = req.query.UNS;
-    //     let statement = "UPDATE UserLogin SET PendingUsername = '"+ newname + "' WHERE username = '" + oldname + "';";
+    //     let statement = "UPDATE userlogin SET PendingUsername = '"+ newname + "' WHERE username = '" + oldname + "';";
     //     con_CS.query(statement, function (err,result) {
     //         if (err) {
     //             console.log(err);
@@ -1326,7 +1282,7 @@ module.exports = function (app, passport) {
                 });
             },
             function (token, tokenExpire, done) {
-                myStat = "UPDATE UserLogin SET resetPasswordToken = ?, resetPasswordExpires = ? WHERE username = '" + username + "' ";
+                myStat = "UPDATE userlogin SET resetPasswordToken = ?, resetPasswordExpires = ? WHERE username = '" + username + "' ";
                 myVal = [token, tokenExpire];
                 con_CS.query(myStat, myVal, function (err, rows) {
 
@@ -1345,14 +1301,20 @@ module.exports = function (app, passport) {
                     to: username, // Comma separated list of recipients
                     subject: subject, // Subject of the message
 
-                    // plaintext body
-                    text: 'You are receiving this because you (or someone else) have requested ' + text + '\n\n' +
+                    // // plaintext body
+                    // text: 'You are receiving this because you (or someone else) have requested ' + text + '\n\n' +
+                    //     'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+                    //     url + token + '\n\n' +
+                    //     'If you did not request this, please ignore this email.\n'
+                    html: 'You are receiving this because you (or someone else) have requested ' + text + '\n\n' +
                         'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-                        url + token + '\n\n' +
+                        '<p><a href="' + url + token + '" >'+ url + token + '</a></p>' + '\n\n' +
                         'If you did not request this, please ignore this email.\n'
                 };
 
                 smtpTrans.sendMail(message, function(error){
+                    console.log("token: ");
+                    console.log(message)
                     if(error){
                         console.log(error.message);
                         res.json({"error": true, "message": "An unexpected error occurred !"});
@@ -1379,14 +1341,21 @@ module.exports = function (app, passport) {
                     to: username, // Comma separated list of recipients
                     subject: subject, // Subject of the message
 
-                    // plaintext body
-                    text: 'You are receiving this because you (or someone else) have requested ' + text + '\n\n' +
-                        'Please user the following code to complete the authentication:\n\n' +
-                        url +'\n\n' +
+                    // // plaintext body
+                    // text: 'You are receiving this because you (or someone else) have requested ' + text + '\n\n' +
+                    //     'Please user the following code to complete the authentication:\n\n' +
+                    //     url +'\n\n' +
+                    //     'If you did not request this, please ignore this email.\n'
+                    html: 'You are receiving this because you (or someone else) have requested ' + text + '\n\n' +
+                        'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+                        '<p><a href="' + url + token + '" >'+ url + token + '</a></p>' + '\n\n' +
                         'If you did not request this, please ignore this email.\n'
+
                 };
 
                 smtpTrans.sendMail(message, function(error){
+                    console.log("token3: ");
+                    console.log(message)
                     if(error){
                         console.log(error.message);
                         res.json({"error": true, "message": "An unexpected error occurred !"});
@@ -1413,7 +1382,7 @@ module.exports = function (app, passport) {
                 });
             },
             function (token, tokenExpire, done) {
-                myStat = "UPDATE UserLogin SET resetPasswordToken = ?, resetPasswordExpires = ? WHERE PendingUsername = '" + username + "' ";
+                myStat = "UPDATE userlogin SET resetPasswordToken = ?, resetPasswordExpires = ? WHERE PendingUsername = '" + username + "' ";
                 myVal = [token, tokenExpire];
                 con_CS.query(myStat, myVal, function (err, rows) {
 
@@ -1432,13 +1401,16 @@ module.exports = function (app, passport) {
                     to: username, // Comma separated list of recipients
                     subject: subject, // Subject of the message
                     // plaintext body
-                    text: 'You are receiving this because you (or someone else) have requested ' + text + '\n\n' +
+                    html: 'You are receiving this because you (or someone else) have requested ' + text + '\n\n' +
                         'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-                        url + token + '\n\n' +
+                        '<p><a href="' + url + token + '" >'+ url + token + '</a></p>' + '\n\n' +
                         'If you did not request this, please ignore this email.\n'
                 };
 
                 smtpTrans.sendMail(message, function(error){
+                    console.log("sendname: ");
+                    console.log(message)
+
                     if(error){
                         console.log(error.message);
                         res.json({"error": true, "message": "An unexpected error occurred !"});
