@@ -380,6 +380,15 @@ module.exports = function (app, passport) {
 
     });
 
+    //Don't delete this it is for the timelog tables
+    app.get('/stuff', function(req, res){
+        let sqlStat = "SELECT * FROM timelog WHERE username = '" + req.user.username + "';"
+        con_CS.query(sqlStat, function(err, result){
+            res.json(result);
+        })
+    })
+
+    //Don't delete this this is also for the timelog tables
     app.get('/dateStuff', function(req,res){
         let start = Number(req.query.startDate.slice(5, 7)) - 1;
 
@@ -603,6 +612,7 @@ module.exports = function (app, passport) {
     app.post('/signup', function (req, res) {
         res.setHeader("Access-Control-Allow-Origin", "*"); // Allow cross domain header
         // con_CS.query('USE ' + serverConfig.Login_db); // Locate Login DB
+        console.log(req.body);
 
         let newUser = {
             username: req.body.username,
@@ -621,30 +631,106 @@ module.exports = function (app, passport) {
             status: req.body.status
         };
 
+        let checkPass = "SELECT username FROM userlogin WHERE username = ?"
         myStat = "INSERT INTO userlogin ( username, password, userrole, question1, question2, answer1, answer2, dateCreated, dateModified, createdUser, status) VALUES ( '" + newUser.username + "','" + newUser.password+ "','" + newUser.userrole+ "','" + newUser.question1+ "','" + newUser.question2+ "','" + newUser.answer1+ "','" + newUser.answer2+ "','" + newUser.dateCreated+ "','" + newUser.dateModified+ "','" + newUser.createdUser + "','" + newUser.status + "');";
         mylogin = "INSERT INTO userprofile ( username, firstName, lastName, Phone_Number) VALUES ('"+ newUser.username + "','" + newUser.firstName+ "','" + newUser.lastName + "','" + newUser.phoneNumber + "');";
         console.log("mystat");
         console.log(myStat);
         console.log(mylogin);
-        con_CS.query(myStat + '' + mylogin, function (err, rows) {
-            // newUser.id = rows.insertId;
-            if (err) {
-                console.log(err);
-                res.json({"error": true, "message": "An unexpected error occurred!"});
+        con_CS.query(checkPass, newUser.username, function(err, result){
+            if(err){
+                throw err;
+            } else if(result.length == 0){
+                con_CS.query(myStat + '' + mylogin, function (err, rows) {
+                    // newUser.id = rows.insertId;
+                    if (err) {
+                        console.log(err);
+                        res.json({"error": true, "message": "An unexpected error occurred!"});
+                    } else {
+                        let username = req.body.username;
+                        let subject = "Sign Up";
+                        let text = 'to sign up an account with this email.';
+                        let url = "http://" + req.headers.host + "/verify/";
+                        sendToken(username, subject, text, url, res);
+                        res.redirect('/login');
+                        // res.render('login.ejs', {
+                        //     message: req.flash('loginMessage'),
+                        //     error: "Your username and password don't match."
+                        // });
+                    }
+                });
             } else {
-                let username = req.body.username;
-                let subject = "Sign Up";
-                let text = 'to sign up an account with this email.';
-                let url = "http://" + req.headers.host + "/verify/";
-                sendToken(username, subject, text, url, res);
-                res.redirect('/login');
-                // res.render('login.ejs', {
-                //     message: req.flash('loginMessage'),
-                //     error: "Your username and password don't match."
-                // });
+                console.log(result.length);
+                res.json('Error: the email you have entered is already associated with an account');
             }
-        });
+        })
+
     });
+
+    //Don't Delete this it is for the admin edit logs
+    app.post('/add', function(req, res) {
+        console.log(req.body);
+        let min = (Number(req.body.hours) * 60) + Number(req.body.minutes);
+        let diff = req.body.hours + ":" + req.body.minutes + ":00";
+        let initial = "SELECT * FROM timelog WHERE username = '" + req.body.user + "';"
+        let statement = "INSERT INTO timelog(username, logDate, inTime, outTime, timeLeft, timeDiff, method) VALUES ('" + req.body.user + "','" + req.body.day + "', '00:00:00', '00:00:00', ('" + req.user.minutesLeft + "' + ?), ?, 'added')"
+        let statement1 = "UPDATE timelog.userlogin SET minutesLeft = (minutesLeft + (?)) WHERE username = '" + req.body.user + "';"
+        con_CS.query(initial, function(err, result){
+            if(err){
+                console.log(err);
+            } else if(result.length < 1){
+                res.json('There were no logs with that username please make sure you have entered it correctly');
+            } else {
+                con_CS.query(statement, [min, diff], function(err, result){
+                    if(err){
+                        console.log(err);
+                    } else {
+                        console.log('cool');
+                        con_CS.query(statement1, min, function(err){
+                            if(err){
+                                console.log(err);
+                            } else {
+                                console.log('my guy');
+                                res.json("successfully added hours to user's log");
+                            }
+                        })
+                    }
+                })
+            }
+        })
+    })
+    //This is also for the admin edit logs
+    app.post('/remove', function(req, res){
+        console.log(req.body);
+        let min = (Number(req.body.hours) * 60) + Number(req.body.minutes);
+        let diff = req.body.hours + ":" + req.body.minutes + ":00";
+        let initial = "SELECT * FROM timelog WHERE username = '" + req.body.user + "';"
+        let statement = "INSERT INTO timelog(username, logDate, inTime, outTime, timeLeft, timeDiff, method) VALUES ('" + req.body.user + "','" + req.body.day + "', '00:00:00', '00:00:00', ('" + req.user.minutesLeft + "' - ?), ?, 'removed')"
+        let statement1 = "UPDATE timelog.userlogin SET minutesLeft = (minutesLeft - (?)) WHERE username = '" + req.body.user + "';"
+        con_CS.query(initial, function(err, result){
+            if(err){
+                console.log(err);
+            } else if(result.length < 1){
+                res.json('There were no logs with that username please make sure you have entered it correctly');
+            } else {
+                con_CS.query(statement, [min, diff], function(err, result){
+                    if(err){
+                        console.log(err);
+                    } else {
+                        console.log('cool');
+                        con_CS.query(statement1, min, function(err){
+                            if(err){
+                                console.log(err);
+                            } else {
+                                console.log('my guy');
+                                res.json("successfully removed hours from user's log");
+                            }
+                        })
+                    }
+                })
+            }
+        })
+    })
 
     // show the addUser form
     app.get('/addUser', isLoggedIn, function (req, res) {
