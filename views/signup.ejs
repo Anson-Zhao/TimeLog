@@ -335,10 +335,12 @@
 				let a2 = $('#answer2').val().replace("\'", "\\'");
 				let answer1 = "answer1=" + a1;
 				let answer2 = "answer2=" + a2;
+				console.log(answer1 + answer2);
+				let maybeResp = 'Error: the email you have entered is already associated with an account';
 				// console.log("here");
 
 				if (confirm("Are you sure you would like to proceed?")=== true) {
-					alert("We are sending you the email verification. Please check your email before logging in");
+					//alert("We are sending you the email verification. Please check your email before logging in");
 					$.ajax({
 						type: "post",
 						url: "/signup",
@@ -347,9 +349,14 @@
 						success: function (result) {
 							console.log(result);
 							if (!result.error) {
-								// alert(result.message);
-								alert("We are sending you the email verification. Please check your email before logging in");
-								console.log(("#signup").serialize);
+								if(result.localeCompare(maybeResp) == 0){
+									alert(result);
+								} else {
+									alert("We are sending you the email verification. Please check your email before logging in");
+									//console.log(("#signup").serialize);
+
+								}
+								//alert(result.message);
 							} else {
 								alert(result.message);
 							}
