@@ -6,7 +6,7 @@
  */
 // define([], function (WorldWind) {
 // define(['../src/WorldWind'], function (WorldWind) {
-define(['../3rdPartyLibs/build/WorldWind-built'], function (WorldWind) {
+define(['../build/WorldWind-built'], function (WorldWind) {
    "use strict";
 
    return WorldWind;

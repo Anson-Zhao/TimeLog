@@ -18,7 +18,8 @@ requirejs.config({
     waitSeconds: 0
 });
 
-requirejs(['./newGlobe',
+requirejs([
+    './newGlobe',
     './layerMenuAll',
     './CS_placemarkLayer',
     './CS_wmsLayer',
