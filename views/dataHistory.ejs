@@ -214,7 +214,7 @@
     <div class="container" style="width: 900px;">
         <div class="center floating-Box clearForm" style="width: 900px;">
             <h4 class="floating-Box" style="width: 520px;"><strong>Search Date Range:&nbsp</strong></h4>
-            <h4 class ="floating-Box" style="width: 350px;"><strong>Username Time Update: &nbsp</strong></h4>
+            <h4 class ="floating-Box" id = "admin-edit" style="width: 350px; display: none;"><strong>Username Time Update: &nbsp</strong></h4>
             <div style="width: 950px;">
                 <h5 class="floating-Box" style="width: 50px;">From:&nbsp;</h5>&nbsp;
                 <input class="date floating-Box" id="from" type="text" placeholder="Select Date" style="width: 280px;
@@ -223,26 +223,29 @@
     margin: 5px 5px 5px 0px;
     border-radius: 5px;
     border: 1px solid #c8c8c8;" onchange="showFilter()">
-                <h5 class = "floating-Box" style = "width: 100px; margin: 0px 0px 0px 100px">Username: &nbsp</h5>
+                <h5 class = "floating-Box" id = "admin-name-search" style = "width: 100px; display: none; margin: 0px 0px 0px 100px">Username: &nbsp</h5>
                 <input class="floating-Box" id = "usernameLog" type = "text" name = "usernameLogs" style="background: WhiteSmoke;
     width: 350px;
     height: 40px;
     padding-left: 10px;
-    margin: 5px 0px;
+    padding-right: 50px;
+    margin: 5px 10px;
+    display: none;
     border-radius: 5px;
     border: 1px solid #c8c8c8;" value="" onchange="showTime()">
-                <h5 class="floating-Box" style="width: 50px;">To:&nbsp;</h5>&nbsp;
+                <h5 class="floating-Box" style="width: 50px;">    To:&nbsp;</h5>&nbsp;
                 <input class="date floating-Box" id="to" type="text" placeholder="Select Date" style="width: 280px;
     height: 40px;
     padding-left: 10px;
     margin: 5px 5px 5px 0px;
     border-radius: 5px;
     border: 1px solid #c8c8c8;" onchange="showFilter()">
-                <h5 class = "floating_Box" style="width: 110px; margin: 5px 5px 5px 450px">Time to Change: &nbsp</h5>
+                <h5 class = "floating_Box" id="admin-time-change" style="width: 110px; display: none; margin: 5px 5px 5px 450px">Time to Change: &nbsp</h5>
                 <input class="floating-Box" id="hours" type="number" min='0' placeholder="Amount of Hours" style="width: 280px;
     height: 40px;
     padding-left: 10px;
     margin: 5px 5px 5px 550px;
+    display: none;
     border-radius: 5px;
     border: 1px solid #c8c8c8;" onchange="showTime()">
                 <input class="floating-Box" id="minutes" type="number" min='0' placeholder="Amount of Minutes" style="width: 280px;
@@ -250,6 +253,7 @@
     padding-left: 10px;
     margin: 5px 5px 5px 550px;
     border-radius: 5px;
+    display: none;
     border: 1px solid #c8c8c8;" onchange="showTime()">
             </div>
         </div>
@@ -468,12 +472,24 @@
 
             if (UserRole === "Regular") {
                 document.getElementById("deleteButton").style.display = "none";
+                document.getElementById("admin-edit").style.display = "none";
+                document.getElementById("admin-name-search").style.display = "none";
+                document.getElementById("usernameLog").style.display = "none";
+                document.getElementById("admin-time-change").style.display = "none";
+                document.getElementById("hours").style.display = "none";
+                document.getElementById("minutes").style.display = "none";
             }
 
             if (UserRole !== "Regular") {
                 //document.getElementById('searchname').style.display = "none"; //disables username search for regular members
                 //queryStr = "Current_Status=Pending&UID=" + username;
-                document.getElementById("adminSearch").style.display = 'block';
+                document.getElementById("adminSearch").style.display = 'initial';
+                document.getElementById("admin-edit").style.display = "initial";
+                document.getElementById("admin-name-search").style.display = "initial";
+                document.getElementById("usernameLog").style.display = "initial";
+                document.getElementById("admin-time-change").style.display = "block";
+                document.getElementById("hours").style.display = "block";
+                document.getElementById("minutes").style.display = "block";
             }
         });
 
