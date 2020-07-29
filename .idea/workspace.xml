@@ -1,53 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="90a3b8f6-6b98-4bc1-a7c5-b9d9a56f7166" name="Default Changelist" comment="V2.0">
+    <list default="true" id="90a3b8f6-6b98-4bc1-a7c5-b9d9a56f7166" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/TimeLog.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/TimeLog.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/3rdPartyLibs/build/WorldWind-built.js" beforeDir="false" afterPath="$PROJECT_DIR$/Archives/build/WorldWind-built.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/3rdPartyLibs/build/almond.js" beforeDir="false" afterPath="$PROJECT_DIR$/Archives/build/almond.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/3rdPartyLibs/build/build.js" beforeDir="false" afterPath="$PROJECT_DIR$/Archives/build/build.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/3rdPartyLibs/build/end.frag" beforeDir="false" afterPath="$PROJECT_DIR$/Archives/build/end.frag" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/3rdPartyLibs/build/r-2.3.6.js" beforeDir="false" afterPath="$PROJECT_DIR$/Archives/build/r-2.3.6.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/3rdPartyLibs/build/start.frag" beforeDir="false" afterPath="$PROJECT_DIR$/Archives/build/start.frag" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/AutoMenu.js" beforeDir="false" afterPath="$PROJECT_DIR$/Archives/scripts/AutoMenu.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/CS_InvisPK.js" beforeDir="false" afterPath="$PROJECT_DIR$/Archives/scripts/CS_InvisPK.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/CS_placemarkLayer.js" beforeDir="false" afterPath="$PROJECT_DIR$/Archives/scripts/CS_placemarkLayer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/CS_wmsLayer.js" beforeDir="false" afterPath="$PROJECT_DIR$/Archives/scripts/CS_wmsLayer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/Archives/scripts/Home.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/LayerNameSearch.js" beforeDir="false" afterPath="$PROJECT_DIR$/Archives/scripts/LayerNameSearch.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/OptionList.js" beforeDir="false" afterPath="$PROJECT_DIR$/Archives/scripts/OptionList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/USGS_MD.js" beforeDir="false" afterPath="$PROJECT_DIR$/Archives/scripts/USGS_MD.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/USGS_MD_heatmapLayer.js" beforeDir="false" afterPath="$PROJECT_DIR$/Archives/scripts/USGS_MD_heatmapLayer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/USGS_MR.js" beforeDir="false" afterPath="$PROJECT_DIR$/Archives/scripts/USGS_MR.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/USGS_WT.js" beforeDir="false" afterPath="$PROJECT_DIR$/Archives/scripts/USGS_WT.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/WorldWindShim.js" beforeDir="false" afterPath="$PROJECT_DIR$/Archives/scripts/WorldWindShim.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/customPK.js" beforeDir="false" afterPath="$PROJECT_DIR$/Archives/scripts/customPK.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/heat.js" beforeDir="false" afterPath="$PROJECT_DIR$/Archives/scripts/heat.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/layerMenuAll.js" beforeDir="false" afterPath="$PROJECT_DIR$/Archives/scripts/layerMenuAll.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/newGlobe.js" beforeDir="false" afterPath="$PROJECT_DIR$/Archives/scripts/newGlobe.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/transparentPK.js" beforeDir="false" afterPath="$PROJECT_DIR$/Archives/scripts/transparentPK.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/2step.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/2step.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/EmailAuth.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/EmailAuth.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/KnowledgeAuth.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/KnowledgeAuth.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/PhoneAuthP1.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/PhoneAuthP1.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/PhoneAuthP2.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/PhoneAuthP2.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/adduser.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/adduser.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/dataHistory.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/dataHistory.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/forgotPassword.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/forgotPassword.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/homepage.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/homepage.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/homepageUSER.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/homepageUSER.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/login.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/login.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/recovery.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/recovery.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/recovery_1.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/recovery_1.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/rejected.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/rejected.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/reset.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/reset.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/signup.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/signup.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/success.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/success.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/userEdit.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/userEdit.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/userHome.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/userHome.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/userHomeOG.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/userHomeOG.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/userManagement.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/userManagement.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/userProfile.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/userProfile.ejs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,6 +33,7 @@
     <other-services-enabled>true</other-services-enabled>
     <auto-save>true</auto-save>
   </component>
+  <component name="JupyterTrust" id="2779caab-75f5-4c67-87df-06d2cce1c1e9" />
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="1" />
   </component>
@@ -101,7 +58,8 @@
     <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="javascript.nodejs.core.library.configured.version" value="14.5.0" />
+    <property name="javascript.nodejs.core.library.configured.version" value="13.11.0" />
+    <property name="javascript.nodejs.core.library.typings.version" value="13.11.0" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/3rdPartyLibs" />
     <property name="nodejs_interpreter_path" value="node" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -109,7 +67,7 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.0" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -132,6 +90,7 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -167,6 +126,10 @@
       <workItem from="1595522746195" duration="4701000" />
       <workItem from="1595536839364" duration="8116000" />
       <workItem from="1595629171899" duration="1119000" />
+      <workItem from="1596046322567" duration="132000" />
+      <workItem from="1596046671016" duration="196000" />
+      <workItem from="1596046920848" duration="77000" />
+      <workItem from="1596047039958" duration="162000" />
     </task>
     <task id="LOCAL-00003" summary="Up to date timelog">
       <created>1594751548755</created>
@@ -203,11 +166,18 @@
       <option name="project" value="LOCAL" />
       <updated>1595644550570</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="V2.0">
+      <created>1595645813342</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1595645813342</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="2" />
+    <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
@@ -224,10 +194,10 @@
       <screen x="0" y="0" width="1676" height="902" />
     </state>
     <state x="309" y="9" key="#SSH_Configurations/0.0.1676.902@0.0.1676.902" timestamp="1595366856508" />
-    <state x="514" y="0" key="CommitChangelistDialog2" timestamp="1595644765468">
+    <state x="355" y="0" key="CommitChangelistDialog2" timestamp="1595645811299">
       <screen x="0" y="0" width="1676" height="902" />
     </state>
-    <state x="514" y="0" key="CommitChangelistDialog2/0.0.1676.902@0.0.1676.902" timestamp="1595644765468" />
+    <state x="355" y="0" key="CommitChangelistDialog2/0.0.1676.902@0.0.1676.902" timestamp="1595645811299" />
     <state x="589" y="79" key="CommitChangelistDialog2/0.0.1920.1080@0.0.1920.1080" timestamp="1595631821249" />
     <state x="92" y="92" width="1491" height="717" key="DirDiffDialog" timestamp="1595368198310">
       <screen x="0" y="0" width="1676" height="902" />
@@ -237,35 +207,35 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="800" y="251" key="FileChooserDialogImpl/0.0.1920.1080@0.0.1920.1080" timestamp="1594681515091" />
-    <state width="1620" height="189" key="GridCell.Tab.0.bottom" timestamp="1595645069456">
+    <state width="1620" height="189" key="GridCell.Tab.0.bottom" timestamp="1595742344484">
       <screen x="0" y="0" width="1676" height="902" />
     </state>
-    <state width="1620" height="189" key="GridCell.Tab.0.bottom/0.0.1676.902@0.0.1676.902" timestamp="1595645069456" />
+    <state width="1620" height="189" key="GridCell.Tab.0.bottom/0.0.1676.902@0.0.1676.902" timestamp="1595742344484" />
     <state width="1527" height="266" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1595545636564" />
-    <state width="1620" height="189" key="GridCell.Tab.0.center" timestamp="1595645069456">
+    <state width="1620" height="189" key="GridCell.Tab.0.center" timestamp="1595742344483">
       <screen x="0" y="0" width="1676" height="902" />
     </state>
-    <state width="1620" height="189" key="GridCell.Tab.0.center/0.0.1676.902@0.0.1676.902" timestamp="1595645069456" />
+    <state width="1620" height="189" key="GridCell.Tab.0.center/0.0.1676.902@0.0.1676.902" timestamp="1595742344483" />
     <state width="1527" height="266" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1595545636564" />
-    <state width="1620" height="189" key="GridCell.Tab.0.left" timestamp="1595645069456">
+    <state width="1620" height="189" key="GridCell.Tab.0.left" timestamp="1595742344483">
       <screen x="0" y="0" width="1676" height="902" />
     </state>
-    <state width="1620" height="189" key="GridCell.Tab.0.left/0.0.1676.902@0.0.1676.902" timestamp="1595645069456" />
+    <state width="1620" height="189" key="GridCell.Tab.0.left/0.0.1676.902@0.0.1676.902" timestamp="1595742344483" />
     <state width="1527" height="266" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1595545636564" />
-    <state width="1620" height="189" key="GridCell.Tab.0.right" timestamp="1595645069456">
+    <state width="1620" height="189" key="GridCell.Tab.0.right" timestamp="1595742344483">
       <screen x="0" y="0" width="1676" height="902" />
     </state>
-    <state width="1620" height="189" key="GridCell.Tab.0.right/0.0.1676.902@0.0.1676.902" timestamp="1595645069456" />
+    <state width="1620" height="189" key="GridCell.Tab.0.right/0.0.1676.902@0.0.1676.902" timestamp="1595742344483" />
     <state width="1527" height="266" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1595545636564" />
-    <state x="521" y="155" key="SettingsEditor" timestamp="1595550215270">
-      <screen x="0" y="0" width="1920" height="1080" />
-    </state>
-    <state x="455" y="19" key="SettingsEditor/0.0.1676.902@0.0.1676.902" timestamp="1595378504891" />
-    <state x="521" y="155" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1595550215270" />
-    <state x="488" y="203" key="Vcs.Push.Dialog.v2" timestamp="1595644558686">
+    <state x="455" y="19" key="SettingsEditor" timestamp="1596047205713">
       <screen x="0" y="0" width="1676" height="902" />
     </state>
-    <state x="488" y="203" key="Vcs.Push.Dialog.v2/0.0.1676.902@0.0.1676.902" timestamp="1595644558686" />
+    <state x="455" y="19" key="SettingsEditor/0.0.1676.902@0.0.1676.902" timestamp="1596047205713" />
+    <state x="521" y="155" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1595550215270" />
+    <state x="488" y="203" key="Vcs.Push.Dialog.v2" timestamp="1595645816444">
+      <screen x="0" y="0" width="1676" height="902" />
+    </state>
+    <state x="488" y="203" key="Vcs.Push.Dialog.v2/0.0.1676.902@0.0.1676.902" timestamp="1595645816444" />
     <state x="559" y="243" key="Vcs.Push.Dialog.v2/0.0.1920.1080@0.0.1920.1080" timestamp="1594751740120" />
     <state x="92" y="92" width="1491" height="717" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1595371587747">
       <screen x="0" y="0" width="1676" height="902" />
