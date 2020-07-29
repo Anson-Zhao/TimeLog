@@ -612,7 +612,7 @@ module.exports = function (app, passport) {
     app.post('/signup', function (req, res) {
         res.setHeader("Access-Control-Allow-Origin", "*"); // Allow cross domain header
         // con_CS.query('USE ' + serverConfig.Login_db); // Locate Login DB
-        console.log(req.body);
+        //console.log(req.body);
 
         let newUser = {
             username: req.body.username,
@@ -634,9 +634,9 @@ module.exports = function (app, passport) {
         let checkPass = "SELECT username FROM userlogin WHERE username = ?"
         myStat = "INSERT INTO userlogin ( username, password, userrole, question1, question2, answer1, answer2, dateCreated, dateModified, createdUser, status) VALUES ( '" + newUser.username + "','" + newUser.password+ "','" + newUser.userrole+ "','" + newUser.question1+ "','" + newUser.question2+ "','" + newUser.answer1+ "','" + newUser.answer2+ "','" + newUser.dateCreated+ "','" + newUser.dateModified+ "','" + newUser.createdUser + "','" + newUser.status + "');";
         mylogin = "INSERT INTO userprofile ( username, firstName, lastName, Phone_Number) VALUES ('"+ newUser.username + "','" + newUser.firstName+ "','" + newUser.lastName + "','" + newUser.phoneNumber + "');";
-        console.log("mystat");
-        console.log(myStat);
-        console.log(mylogin);
+        //console.log("mystat");
+        //console.log(myStat);
+        //console.log(mylogin);
         con_CS.query(checkPass, newUser.username, function(err, result){
             if(err){
                 throw err;
@@ -660,16 +660,85 @@ module.exports = function (app, passport) {
                     }
                 });
             } else {
-                console.log(result.length);
+                //(result.length);
                 res.json('Error: the email you have entered is already associated with an account');
             }
         })
 
     });
 
+    //Function to reset times by Admins
+    app.post('/changeTime', function(req, res){
+        console.log(req.body);
+        let name = req.body.name;
+        let hours = req.body.hours;
+        let minutes = req.body.minutes;
+        let totalTime = Number(hours)*60 + Number(minutes);
+
+        let check = "SELECT * FROM userprofile WHERE username = ?"
+        let statement = "UPDATE userprofile SET Time = ? WHERE username = ?"
+        let statement1 = "SELECT * FROM timelog WHERE username = ?"
+        let statement2 = " UPDATE userlogin SET minutesLeft = ? WHERE username = ?"
+        let update = "UPDATE userlogin SET minutesLeft = minutesLeft - ? WHERE username = ?"
+        let update1 = "UPDATE userlogin SET minutesLeft = minutesLeft + ? WHERE username = ?"
+        con_CS.query(check, name, function(err, resp){
+            if(err){
+                throw err;
+                res.json("ERROR MESSAGE")
+            } else if(resp.length == 1){
+                con_CS.query(statement, [totalTime, name], function(err){
+                    if(err){
+                        throw err;
+                        res.json("AN ERROR")
+                    } else {
+                        con_CS.query(statement2, [totalTime, name], function(err){
+                            if(err){
+                                throw err;
+                                res.json("SOmething happened")
+                            } else {
+                                con_CS.query(statement1, name, function(err, results){
+                                    if (err){
+                                        throw err;
+                                        res.json("ERROR")
+                                    } else{
+                                        console.log(results[1].method);
+                                        for(let i = 0; i < results.length; i++){
+                                            let minuteHours = Number(results[i].timeDiff.substring(0,2))*60
+                                            let minuteSeconds = Number(results[i].timeDiff.substring(6))/60;
+                                            let total = Number(results[i].timeDiff.substring(3, 5)) + minuteHours + minuteSeconds;
+                                            if(results[i].method.localeCompare("removed") == 0){
+                                                con_CS.query(update, [total, name], function(err){
+                                                    if (err){
+                                                        throw err;
+                                                        res.json("THERE WAS AN UNEXPECTED ERROR")
+                                                    }
+                                                })
+                                            } else {
+                                                con_CS.query(update1, [total, name], function(err){
+                                                    if (err){
+                                                        throw err;
+                                                        res.json("AN UNEXPECTED ERROR HAS OCCURRED")
+                                                    }
+                                                })
+                                            }
+                                        }
+                                        res.json("SUCCESS");
+                                    }
+                                })
+                            }
+                        })
+                    }
+                })
+            } else {
+                res.json("THERE IS NO USER BY THAT NAME")
+            }
+        })
+
+    })
+
     //Don't Delete this it is for the admin edit logs
     app.post('/add', function(req, res) {
-        console.log(req.body);
+        //console.log(req.body);
         let min = (Number(req.body.hours) * 60) + Number(req.body.minutes);
         let diff = req.body.hours + ":" + req.body.minutes + ":00";
         let initial = "SELECT * FROM timelog WHERE username = '" + req.body.user + "';"
@@ -685,12 +754,12 @@ module.exports = function (app, passport) {
                     if(err){
                         console.log(err);
                     } else {
-                        console.log('cool');
+                        //console.log('cool');
                         con_CS.query(statement1, min, function(err){
                             if(err){
                                 console.log(err);
                             } else {
-                                console.log('my guy');
+                                //console.log('my guy');
                                 res.json("successfully added hours to user's log");
                             }
                         })
@@ -701,7 +770,7 @@ module.exports = function (app, passport) {
     })
     //This is also for the admin edit logs
     app.post('/remove', function(req, res){
-        console.log(req.body);
+        //console.log(req.body);
         let min = (Number(req.body.hours) * 60) + Number(req.body.minutes);
         let diff = req.body.hours + ":" + req.body.minutes + ":00";
         let initial = "SELECT * FROM timelog WHERE username = '" + req.body.user + "';"
@@ -717,12 +786,12 @@ module.exports = function (app, passport) {
                     if(err){
                         console.log(err);
                     } else {
-                        console.log('cool');
+                        //console.log('cool');
                         con_CS.query(statement1, min, function(err){
                             if(err){
                                 console.log(err);
                             } else {
-                                console.log('my guy');
+                                //console.log('my guy');
                                 res.json("successfully removed hours from user's log");
                             }
                         })
@@ -805,6 +874,40 @@ module.exports = function (app, passport) {
         ]);
     });
 
+    // app.get('/verifyemail/:token', function(req, res) {
+    //     res.setHeader("Access-Control-Allow-Origin", "*"); // Allow cross domain header
+    //     async.waterfall([
+    //         function(done) {
+    //             myStat = "SELECT * FROM userlogin WHERE resetPasswordToken = '" + req.params.token + "'";
+    //             con_CS.query(myStat, function(err, results) {
+    //                 dateNtime();
+    //                 if (results.length === 0 || dateTime > results[0].expires) {
+    //                     res.send('Password reset token is invalid or has expired. Please contact Administrator.');
+    //                 } else {
+    //                     done(err, results[0].PendingUsername);
+    //                 }
+    //             });
+    //         }, function(PendingUsername, done) {
+    //             myStat = "UPDATE userlogin SET username = '"+ PendingUsername  + "', PendingUsername = '' WHERE PendingUsername = '"+ PendingUsername + "';";
+    //             // mylogin = "UPDATE userlogin SET PendingUsername = '' WHERE PendingUsername = '" + PendingUsername + "';";
+    //             let myProfile = "UPDATE userprofile SET username = '" + PendingUsername + "' WHERE username = '" + req.user.username + "';";
+    //             con_CS.query(myStat + myProfile, function(err, user) {
+    //                 if (err) {
+    //                     console.log(err);
+    //                     res.send("An unexpected error occurred !");
+    //                 } else {
+    //                     let subject = "Account Activated";
+    //                     let text = 'Hello,\n\n' + 'This is a confirmation for your account, ' + changeMail(PendingUsername) + ' has just been activated.\n';
+    //                     done(err, PendingUsername, subject, text);
+    //                 }
+    //
+    //             });
+    //         }, function(username, subject, text) {
+    //             successMail(username, subject, text, res);
+    //         }
+    //     ]);
+    // });
+
     app.get('/verifyemail/:token', function(req, res) {
         res.setHeader("Access-Control-Allow-Origin", "*"); // Allow cross domain header
         async.waterfall([
@@ -819,24 +922,56 @@ module.exports = function (app, passport) {
                     }
                 });
             }, function(PendingUsername, done) {
+                let logUpdate = "UPDATE timelog SET username = '" + PendingUsername + "'WHERE username = ?"
+                let check = "SELECT username FROM timelog.userlogin WHERE PendingUsername = '" + PendingUsername + "';"
                 myStat = "UPDATE userlogin SET username = '"+ PendingUsername  + "', PendingUsername = '' WHERE PendingUsername = '"+ PendingUsername + "';";
                 // mylogin = "UPDATE userlogin SET PendingUsername = '' WHERE PendingUsername = '" + PendingUsername + "';";
-                let myProfile = "UPDATE userprofile SET username = '" + PendingUsername + "' WHERE username = '" + req.user.username + "';";
-                con_CS.query(myStat + myProfile, function(err, user) {
-                    if (err) {
-                        console.log(err);
-                        res.send("An unexpected error occurred !");
-                    } else {
-                        let subject = "Account Activated";
-                        let text = 'Hello,\n\n' + 'This is a confirmation for your account, ' + changeMail(PendingUsername) + ' has just been activated.\n';
-                        done(err, PendingUsername, subject, text);
-                    }
+                let myProfile = "UPDATE userprofile SET username = '" + PendingUsername + "' WHERE username = (?)";
+                con_CS.query(check, function(err, result){
+                   if (err){
+                       console.log(err);
+                       res.send("An Unexpected error has occurred");
+                   } else{
+                       let sub = result[0].username;
+                       console.log(sub);
+                       con_CS.query(myProfile, sub, function(err){
+                           if(err){
+                               res.send("An Unexpected error ahs occurred");
+                               console.log(err);
+                           } else {
+                               con_CS.query(myStat, function(err){
+                                   if(err){
+                                       res.send("An Unexpected error has occurred");
+                                       console.log(err);
+                                   } else{
+                                       con_CS.query(logUpdate, sub, function(err){
+                                           if(err){
+                                               throw err;
+                                           } else {
+                                               let subject = "Account Activated";
+                                               let text = 'Hello,\n\n' + 'This is a confirmation for your account, ' + changeMail(PendingUsername) + ' has just been activated.\n';
+                                               done(err, PendingUsername, subject, text);
+                                           }
+                                       })
 
+                                   }
+                               })
+                           }
+                       })
+                   }
                 });
             }, function(username, subject, text) {
                 successMail(username, subject, text, res);
             }
         ]);
+    });
+
+    app.get('/SearchUsername', function (req, res) {
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        con_CS.query("SELECT username FROM timelog.userLogin", function (err, results) {
+            if (err) throw err;
+            res.json(results);
+        });
     });
 
     app.get('/filterUser', isLoggedIn, function (req, res) {
@@ -1136,10 +1271,10 @@ module.exports = function (app, passport) {
     // });
 
     app.post('/inTime', function(req, res) {
-        console.log(req.body);
+        //console.log(req.body);
         let bruh = req.body.send;
         let lmao = req.body.send1;
-        console.log(bruh + "  " + lmao);
+        //console.log(bruh + "  " + lmao);
         let statement = "INSERT INTO timelog.timelog(username, logDate, inTime, outTime, timeLeft) VALUES ('" + req.user.username + "', (?), (?), NULL,'" + req.user.minutesLeft + "' )"
         con_CS.query(statement, [bruh, lmao], function(err){
             if (err){
@@ -1172,10 +1307,10 @@ module.exports = function (app, passport) {
             } else if (result.length == 0) {
                 //res.json("error");
                 stat = "An error occurred there may not be an in time"
-                console.log("bruh");
+                //console.log("bruh");
                 res.json(stat);
             } else {
-                console.log(result.length);
+                //console.log(result.length);
                 let start = result[0].inTime;
                 con_CS.query(diff, [time, start, lol], function (err) {
                     if (err) {
