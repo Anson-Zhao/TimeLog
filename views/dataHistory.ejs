@@ -212,9 +212,10 @@
 </div>
 <br>
     <div class="container" style="width: 900px;">
-        <div class="center floating-Box clearForm" style="width: 490px;">
-            <h4 class="floating-Box" style="width: 220px;"><strong>Date Range:&nbsp;</strong></h4>
-            <div style="width: 350px;">
+        <div class="center floating-Box clearForm" style="width: 900px;">
+            <h4 class="floating-Box" style="width: 520px;"><strong>Search Date Range:&nbsp</strong></h4>
+            <h4 class ="floating-Box" style="width: 350px;"><strong>Username Time Update: &nbsp</strong></h4>
+            <div style="width: 950px;">
                 <h5 class="floating-Box" style="width: 50px;">From:&nbsp;</h5>&nbsp;
                 <input class="date floating-Box" id="from" type="text" placeholder="Select Date" style="width: 280px;
     height: 40px;
@@ -222,6 +223,14 @@
     margin: 5px 5px 5px 0px;
     border-radius: 5px;
     border: 1px solid #c8c8c8;" onchange="showFilter()">
+                <h5 class = "floating-Box" style = "width: 100px; margin: 0px 0px 0px 100px">Username: &nbsp</h5>
+                <input class="floating-Box" id = "usernameLog" type = "text" name = "usernameLogs" style="background: WhiteSmoke;
+    width: 350px;
+    height: 40px;
+    padding-left: 10px;
+    margin: 5px 0px;
+    border-radius: 5px;
+    border: 1px solid #c8c8c8;" value="" onchange="showTime()">
                 <h5 class="floating-Box" style="width: 50px;">To:&nbsp;</h5>&nbsp;
                 <input class="date floating-Box" id="to" type="text" placeholder="Select Date" style="width: 280px;
     height: 40px;
@@ -229,17 +238,30 @@
     margin: 5px 5px 5px 0px;
     border-radius: 5px;
     border: 1px solid #c8c8c8;" onchange="showFilter()">
+                <h5 class = "floating_Box" style="width: 110px; margin: 5px 5px 5px 450px">Time to Change: &nbsp</h5>
+                <input class="floating-Box" id="hours" type="number" min='0' placeholder="Amount of Hours" style="width: 280px;
+    height: 40px;
+    padding-left: 10px;
+    margin: 5px 5px 5px 550px;
+    border-radius: 5px;
+    border: 1px solid #c8c8c8;" onchange="showTime()">
+                <input class="floating-Box" id="minutes" type="number" min='0' placeholder="Amount of Minutes" style="width: 280px;
+    height: 40px;
+    padding-left: 10px;
+    margin: 5px 5px 5px 550px;
+    border-radius: 5px;
+    border: 1px solid #c8c8c8;" onchange="showTime()">
             </div>
         </div>
         <div class="floating-Box clearForm" id="adminSearch" style="width: 350px; display: none;">
-            <h4 class="floatingBox" style="width: 220px;"><strong>User Name:&nbsp;</strong></h4>
+            <h4 class="floatingBox" style="width: 220px;"><strong>Search User Name:&nbsp;</strong></h4>
             <div class="name" style="width: 375px;">
                 <h5 class="floating-Box">First Name:</h5>
                 <input class="floating-Box" id="firstName" type="text" name="username" style="background: WhiteSmoke;
     width: 275px;
     height: 40px;
     padding-left: 10px;
-    margin: 5px 0px;
+    margin: 4px 0px;
     border-radius: 5px;
     border: 1px solid #c8c8c8;" value="" onchange="showFilter()" >
 <!--                <h5 class="floating-Box">Last Name:</h5>-->
@@ -339,12 +361,12 @@
     padding: 0px;
     height: 40px;">
             <button id="submitButton" class="button1" type="button" onclick="query(), showAll()" hidden disabled>Filter</button>
-<!--            <button id="deleteButton" class="btn btn-primary btn-sm button" type="button" style="height: 40px;-->
-<!--    width: 110px; float: left; margin-right: 5px;">Disapprove</button>-->
             <button id="filterDate" class="btn btn-primary btn-sm button" type="button" onclick="queryDate()" style="height: 40px;
                 width: 110px; float: left; margin-right: 5px;">Filter By Date</button>
             <button id="showButton" class="btn btn-primary btn-sm button" type="button" onclick="showStuff()" style="height: 40px;
-    width: 110px; float: left">Show All</button>
+    width: 110px; float: left; margin-right: 400px;">Show All</button>
+            <button id="setTime" class="button1" type="button" style="height: 40px;
+    width: 110px; float: left; margin-right: 5px;" onclick="changeTime()" hidden disabled>Set Time</button>
         </div>
     <br>
     <div class="center">
@@ -551,6 +573,15 @@
             alert("please fill out the required fields")
         } else {
             queryAndDisplay(queryStr);
+        }
+    }
+
+    function showTime(){
+        if(document.getElementById("usernameLog").value === '' || document.getElementById("hours").value === '' || document.getElementById('minutes').value === '') {
+            donTShowTime();
+        } else {
+            document.getElementById("setTime").disabled = false;
+            document.getElementById("setTime").hidden = false;
         }
     }
 
@@ -770,6 +801,24 @@
 
     }
 
+    function changeTime(){
+        let name = document.getElementById("usernameLog").value;
+        let hours = document.getElementById("hours").value;
+        let minutes = document.getElementById("minutes").value;
+        console.log(name);
+
+        $.ajax({
+            url: '/changeTime',
+            type: 'POST',
+            dataType: 'json',
+            async: false,
+            data: {name, hours, minutes},
+            success: function(resp){
+                alert(resp);
+                console.log(resp);
+            }})
+    }
+
     function downloadCSV2(csv, filename) {
         let csvFile;
         let downloadLink;
@@ -808,6 +857,11 @@
     function donTShowFilter() {
         document.getElementById("submitButton").disabled = true;
         document.getElementById("submitButton").hidden = true;
+    }
+
+    function donTShowTime() {
+        document.getElementById("setTime").disabled = true;
+        document.getElementById("setTime").hidden = true;
     }
 
     function showAll() {

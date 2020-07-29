@@ -563,8 +563,10 @@
                     } else {
                         alert("Changes were saved!");
                         if(currentPassword !== ""){
+                            console.log(d);
                             window.location.replace('/login');
                         }else{
+                            console.log(d);
                             window.location.replace('/userHome');
                         }
                     }
