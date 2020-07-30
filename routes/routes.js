@@ -77,7 +77,7 @@ module.exports = function (app, passport) {
 
         res.render('2step.ejs',{
             user:req.user,
-            username: req.user.username
+            //username: req.user.username
         });
     });
 
