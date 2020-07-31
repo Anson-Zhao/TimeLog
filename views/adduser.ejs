@@ -97,6 +97,16 @@
             <span toggle="#password" class="fa fa-fw fa-eye-slash field-icon toggle-password" style="float: right"></span>
             <input type="password" class="form-control" id="password" name="password" style="height: 50px;" minlength="8" maxlength="99" required>
         </div>
+        <div class="form-group">
+            <label>Hours:</label>
+<!--            <span toggle="#password" class="fa fa-fw fa-eye-slash field-icon toggle-password" style="float: right"></span>-->
+            <input type="number" class="form-control" id="hours" name="hours" style="height: 50px;" min = "0" required>
+        </div>
+        <div class="form-group">
+            <label>Minutes:</label>
+<!--            <span toggle="#password" class="fa fa-fw fa-eye-slash field-icon toggle-password" style="float: right"></span>-->
+            <input type="number" class="form-control" id="minutes" name="minutes" style="height: 50px;" min = "0" required>
+        </div>
         <p id="capsWarning" hidden><strong>WARNING: Caps lock is enabled.</strong></p>
 <!--        <div class="form-group">-->
 <!--            <label>Confirm New Password: </label>-->
@@ -139,6 +149,16 @@
     let username = document.getElementById("username");
     let firstname = document.getElementById("firstname");
     let lastname = document.getElementById("lastname");
+    let hours = document.getElementById('hours');
+    let minutes = document.getElementById('minutes');
+    let totalTime = (hours * 60) + minutes;
+    let today = new Date();
+    let date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+    let time2 = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    let dateTime = date + ' ' + time2;
+    console.log(dateTime);
+    let answer1 = "dateTime=" + dateTime;
+    document.getElementById('DATE').value = dateTime;
 
     password.addEventListener("keydown", function(e) {
 
@@ -213,7 +233,10 @@
 
     $(document).ready(function() {
         $(function() {
+
+            document.getElementById("DATE").value = dateTime;
             $('#addUser').submit(function(e) {
+
                 e.preventDefault();
                 var fail = false;
                 var fail_log = '';
@@ -238,7 +261,7 @@
                         type: "post",
                         url: "/addUser",
                         dataType: 'json',
-                        data: $("#addUser").serialize(),
+                        data: $("#addUser").serialize() + "&" + answer1,
                         success: function (result) {
                             if (!result.error) {
                                 alert(result.message);
@@ -254,11 +277,7 @@
 
             });
         });
-        let today = new Date();
-        let date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-        let time2 = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-        let dateTime = date + ' ' + time2;
-        document.getElementById("DATE").value = dateTime;
+
     });
 
     grecaptcha.ready(function() {
