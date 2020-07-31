@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="90a3b8f6-6b98-4bc1-a7c5-b9d9a56f7166" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="90a3b8f6-6b98-4bc1-a7c5-b9d9a56f7166" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -132,6 +130,7 @@
       <workItem from="1595983743961" duration="2398000" />
       <workItem from="1596045124959" duration="10610000" />
       <workItem from="1596080131901" duration="639000" />
+      <workItem from="1596156179143" duration="679000" />
     </task>
     <task id="LOCAL-00003" summary="Up to date timelog">
       <created>1594751548755</created>
@@ -196,7 +195,14 @@
       <option name="project" value="LOCAL" />
       <updated>1596065755690</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="xml">
+      <created>1596156233727</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1596156233727</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -208,7 +214,8 @@
     <MESSAGE value="V2.0" />
     <MESSAGE value="V2.1 With the HTML update" />
     <MESSAGE value="V2.1.1 HTML update and fixed admin privileges" />
-    <option name="LAST_COMMIT_MESSAGE" value="V2.1.1 HTML update and fixed admin privileges" />
+    <MESSAGE value="xml" />
+    <option name="LAST_COMMIT_MESSAGE" value="xml" />
   </component>
   <component name="WindowStateProjectService">
     <state x="329" y="26" key="#Deployment" timestamp="1595366930162">
@@ -219,10 +226,10 @@
       <screen x="0" y="0" width="1676" height="902" />
     </state>
     <state x="309" y="9" key="#SSH_Configurations/0.0.1676.902@0.0.1676.902" timestamp="1595366856508" />
-    <state x="589" y="79" key="CommitChangelistDialog2" timestamp="1596065755056">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state x="514" y="0" key="CommitChangelistDialog2" timestamp="1596156231348">
+      <screen x="0" y="0" width="1676" height="902" />
     </state>
-    <state x="514" y="0" key="CommitChangelistDialog2/0.0.1676.902@0.0.1676.902" timestamp="1595644765468" />
+    <state x="514" y="0" key="CommitChangelistDialog2/0.0.1676.902@0.0.1676.902" timestamp="1596156231348" />
     <state x="589" y="79" key="CommitChangelistDialog2/0.0.1920.1080@0.0.1920.1080" timestamp="1596065755056" />
     <state x="92" y="92" width="1491" height="717" key="DiffContextDialog" timestamp="1596080044408">
       <screen x="0" y="0" width="1676" height="902" />
