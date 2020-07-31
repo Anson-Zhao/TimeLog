@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="90a3b8f6-6b98-4bc1-a7c5-b9d9a56f7166" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/routes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/adduser.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/adduser.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/userEdit.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/userEdit.ejs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,6 +32,7 @@
     <other-services-enabled>true</other-services-enabled>
     <auto-save>true</auto-save>
   </component>
+  <component name="JupyterTrust" id="2779caab-75f5-4c67-87df-06d2cce1c1e9" />
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="1" />
   </component>
@@ -240,25 +238,25 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="800" y="251" key="FileChooserDialogImpl/0.0.1920.1080@0.0.1920.1080" timestamp="1594681515091" />
-    <state width="1527" height="266" key="GridCell.Tab.0.bottom" timestamp="1596156023121">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state width="810" height="189" key="GridCell.Tab.0.bottom" timestamp="1596203026631">
+      <screen x="0" y="0" width="1676" height="902" />
     </state>
-    <state width="1620" height="189" key="GridCell.Tab.0.bottom/0.0.1676.902@0.0.1676.902" timestamp="1595645069456" />
+    <state width="810" height="189" key="GridCell.Tab.0.bottom/0.0.1676.902@0.0.1676.902" timestamp="1596203026631" />
     <state width="1527" height="266" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1596156023120" />
-    <state width="1527" height="266" key="GridCell.Tab.0.center" timestamp="1596156023120">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state width="810" height="189" key="GridCell.Tab.0.center" timestamp="1596203026631">
+      <screen x="0" y="0" width="1676" height="902" />
     </state>
-    <state width="1620" height="189" key="GridCell.Tab.0.center/0.0.1676.902@0.0.1676.902" timestamp="1595645069456" />
+    <state width="810" height="189" key="GridCell.Tab.0.center/0.0.1676.902@0.0.1676.902" timestamp="1596203026631" />
     <state width="1527" height="266" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1596156023120" />
-    <state width="1527" height="266" key="GridCell.Tab.0.left" timestamp="1596156023120">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state width="810" height="189" key="GridCell.Tab.0.left" timestamp="1596203026631">
+      <screen x="0" y="0" width="1676" height="902" />
     </state>
-    <state width="1620" height="189" key="GridCell.Tab.0.left/0.0.1676.902@0.0.1676.902" timestamp="1595645069456" />
+    <state width="810" height="189" key="GridCell.Tab.0.left/0.0.1676.902@0.0.1676.902" timestamp="1596203026631" />
     <state width="1527" height="266" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1596156023120" />
-    <state width="1527" height="266" key="GridCell.Tab.0.right" timestamp="1596156023120">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state width="810" height="189" key="GridCell.Tab.0.right" timestamp="1596203026631">
+      <screen x="0" y="0" width="1676" height="902" />
     </state>
-    <state width="1620" height="189" key="GridCell.Tab.0.right/0.0.1676.902@0.0.1676.902" timestamp="1595645069456" />
+    <state width="810" height="189" key="GridCell.Tab.0.right/0.0.1676.902@0.0.1676.902" timestamp="1596203026631" />
     <state width="1527" height="266" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1596156023120" />
     <state x="521" y="155" key="SettingsEditor" timestamp="1595550215270">
       <screen x="0" y="0" width="1920" height="1080" />
