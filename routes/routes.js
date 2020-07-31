@@ -801,7 +801,47 @@ module.exports = function (app, passport) {
         })
     })
 
-    // show the addUser form
+    // // show the addUser form
+    // app.get('/addUser', isLoggedIn, function (req, res) {
+    //     // render the page and pass in any flash data if it exists
+    //     res.render('adduser.ejs', {
+    //         user: req.user,
+    //         message: req.flash('addUserMessage')
+    //     });
+    // });
+    //
+    // app.post('/addUser', isLoggedIn, function (req, res) {
+    //
+    //     res.setHeader("Access-Control-Allow-Origin", "*"); // Allow cross domain header
+    //     // connection.query('USE ' + serverConfig.Login_db); // Locate Login DB
+    //
+    //     console.log(req.body)
+    //     let newUser = {
+    //         username: req.body.username,
+    //         firstName: req.body.firstName,
+    //         lastName: req.body.lastName,
+    //         password: bcrypt.hashSync(req.body.password, null, null),  // use the generateHash function
+    //         userrole: req.body.userrole,
+    //         dateCreated: req.body.dateCreated,
+    //         createdUser: req.body.createdUser,
+    //         dateModified: req.body.dateCreated,
+    //         status: req.body.status
+    //     };
+    //
+    //
+    //     myStat = "INSERT INTO userlogin ( username, password, userrole, dateCreated, dateModified, createdUser, status) VALUES ( '" + newUser.username + "','" + newUser.password+ "','" + newUser.userrole+ "','" + newUser.dateCreated+ "','" + newUser.dateModified+ "','" + newUser.createdUser + "','" + newUser.status + "');";
+    //     mylogin = "INSERT INTO userprofile ( username, firstName, lastName) VALUES ('"+ newUser.username + "','" + newUser.firstName+ "','" + newUser.lastName + "');";
+    //     con_CS.query(myStat + mylogin, function (err, rows) {
+    //         //newUser.id = rows.insertId;
+    //         if (err) {
+    //             console.log(err);
+    //             res.json({"error": true, "message": "An unexpected error occurred !"});
+    //         } else {
+    //             res.json({"error": false, "message": "Success"});
+    //         }
+    //     });
+    // });
+
     app.get('/addUser', isLoggedIn, function (req, res) {
         // render the page and pass in any flash data if it exists
         res.render('adduser.ejs', {
@@ -815,6 +855,7 @@ module.exports = function (app, passport) {
         res.setHeader("Access-Control-Allow-Origin", "*"); // Allow cross domain header
         // connection.query('USE ' + serverConfig.Login_db); // Locate Login DB
 
+        //console.log(req.body);
         let newUser = {
             username: req.body.username,
             firstName: req.body.firstName,
@@ -826,10 +867,11 @@ module.exports = function (app, passport) {
             dateModified: req.body.dateCreated,
             status: req.body.status
         };
+        let time = Number(req.body.hours) * 60 + Number(req.body.minutes);
 
-        myStat = "INSERT INTO userlogin ( username, password, userrole, dateCreated, dateModified, createdUser, status) VALUES ( '" + newUser.username + "','" + newUser.password+ "','" + newUser.userrole+ "','" + newUser.dateCreated+ "','" + newUser.dateModified+ "','" + newUser.createdUser + "','" + newUser.status + "');";
-        mylogin = "INSERT INTO userprofile ( username, firstName, lastName) VALUES ('"+ newUser.username + "','" + newUser.firstName+ "','" + newUser.lastName + "');";
-        con_CS.query(myStat + mylogin, function (err, rows) {
+        myStat = "INSERT INTO userlogin ( username, password, userrole, dateCreated, dateModified, createdUser, status, minutesLeft) VALUES ( '" + newUser.username + "','" + newUser.password+ "','" + newUser.userrole+ "','" + newUser.dateCreated+ "','" + newUser.dateModified+ "','" + newUser.createdUser + "','" + newUser.status + "', ?);";
+        mylogin = "INSERT INTO userprofile ( username, firstName, lastName, Time) VALUES ('"+ newUser.username + "','" + newUser.firstName+ "','" + newUser.lastName + "', ?);";
+        con_CS.query(myStat + mylogin, [time, time], function (err, rows) {
             //newUser.id = rows.insertId;
             if (err) {
                 console.log(err);
@@ -1146,13 +1188,67 @@ module.exports = function (app, passport) {
                 return [String(key), req.body[key]];
             });
             console.log(result);
-
+            console.log(req.body.hours);
+            let timeUp = Number(req.body.hours)*60 + Number(req.body.minutes);
+            console.log(timeUp);
             // let update3 = " WHERE username = '" + req.user.username + "'";
-            let statement1 = "UPDATE userlogin SET userrole = '" + result[3][1] + "',   status = '" + result[4][1] + "', dateModified = '" + result[5][1] + "', modifiedUser = '" + result[6][1] + "'  WHERE username = '" + result[0][1]+ "';";
+            let statement1 = "UPDATE userlogin SET userrole = '" + result[3][1] + "',   status = '" + result[4][1] + "', dateModified = '" + req.body.dateModified + "', modifiedUser = '" + result[8][1] + "'  WHERE username = '" + result[0][1]+ "';";
+            //let statement1 = "UPDATE userlogin SET userrole = '" + result[3][1] + "',   status = '" + result[4][1] + "', dateModified = '" + result[5][1] + "', modifiedUser = '" + result[6][1] + "'  WHERE username = '" + result[0][1]+ "';";
             let statement2 = "UPDATE userprofile SET firstName = '" + result[1][1] + "', lastName = '" + result[2][1] + "' WHERE username = '" + result[0][1] + "';";
+            let timeUpdate = "UPDATE userprofile SET Time = ? WHERE username = '" + req.body.username + "';";
+            let statementUp = "SELECT * FROM timelog WHERE username = '" + req.body.username + "';"
+            let statementDown = " UPDATE userlogin SET minutesLeft = ? WHERE username = '" + req.body.username + "';"
+            let update = "UPDATE userlogin SET minutesLeft = minutesLeft - ? WHERE username = '" + req.body.username + "';"
+            let update1 = "UPDATE userlogin SET minutesLeft = minutesLeft + ? WHERE username = '" + req.body.username + "';"
             con_CS.query(statement1 + statement2, function (err, result) {
-                if (err) throw err;
-                res.json(result);
+                if (err){
+                    throw err;
+                    res.json("ERROR");
+                } else {
+                    con_CS.query(timeUpdate, timeUp, function(err){
+                        if(err){
+                            throw err;
+                            res.json("error")
+                        } else {
+                            con_CS.query(statementDown, [timeUp], function(err){
+                                if(err){
+                                    throw err;
+                                    res.json("SOmething happened")
+                                } else {
+                                    con_CS.query(statementUp, function(err, results){
+                                        if (err){
+                                            throw err;
+                                            res.json("ERROR")
+                                        } else{
+                                            //console.log(results[1].method);
+                                            for(let i = 0; i < results.length; i++){
+                                                let minuteHours = Number(results[i].timeDiff.substring(0,2))*60
+                                                let minuteSeconds = Number(results[i].timeDiff.substring(6))/60;
+                                                let total = Number(results[i].timeDiff.substring(3, 5)) + minuteHours + minuteSeconds;
+                                                if(results[i].method.localeCompare("removed") == 0){
+                                                    con_CS.query(update, [total], function(err){
+                                                        if (err){
+                                                            throw err;
+                                                            res.json("THERE WAS AN UNEXPECTED ERROR")
+                                                        }
+                                                    })
+                                                } else {
+                                                    con_CS.query(update1, [total], function(err){
+                                                        if (err){
+                                                            throw err;
+                                                            res.json("AN UNEXPECTED ERROR HAS OCCURRED")
+                                                        }
+                                                    })
+                                                }
+                                            }
+                                            res.json("SUCCESS");
+                                        }
+                                    })
+                                }
+                            })
+                        }
+                    })
+                }
             });
         }
     });
@@ -1353,6 +1449,17 @@ module.exports = function (app, passport) {
                 console.log (err);
             } else {
                 res.json(results[0].minutesLeft);
+            }
+        })
+    })
+
+    app.get('/display1', function(req, res){
+        let statement = "SELECT Time FROM timelog.userprofile WHERE username = '" + req.user.username + "';"
+        con_CS.query(statement, function(err, results){
+            if(err){
+                console.log (err);
+            } else {
+                res.json(results[0].Time);
             }
         })
     })

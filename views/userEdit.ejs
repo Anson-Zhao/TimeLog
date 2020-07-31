@@ -164,6 +164,22 @@
                         </div>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Hours:</label>
+                    <div class="col-md-8 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span><input id="hours" name="hours" class="form-control"  value="" type="number" min = '0' required>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Minutes:</label>
+                    <div class="col-md-8 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span><input id="minutes" name="minutes" class="form-control"  value="" type="number" min="0" required>
+                        </div>
+                    </div>
+                </div>
                 <div class="form-group" hidden>
                     <label>Date Modified:</label>
                     <input type="text" id="date" class="form-control" name="dateModified" readonly>
@@ -286,7 +302,8 @@
 
     $(function () {
         flatpickr(".date", {
-            dateFormat: "Y-m-d",
+            enableTime: true,
+            dateFormat: "Y-m-d H:i:S",
             time_24hr: true
         });
     });
@@ -294,9 +311,24 @@
     let date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
     let time2 = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
     let dateTime = date + ' ' + time2;
+    // document.getElementById("date").value = dateTime;
     document.getElementById("date").value = dateTime;
 
+    $.ajax({
+        url: 'display1',
+        method: 'get',
+        dataType: "json",
+        success: function (results) {
+            displayHour = Math.trunc(results/60);
+            displayMinute = Math.trunc(results - (displayHour*60));
+            displaySecond = Math.trunc((results - ((displayHour * 60) + displayMinute)) * 60);
+            document.getElementById('hours').value = displayHour;
+            document.getElementById('minutes').value = displayMinute;
+        }
+    })
+
     let getvalue = JSON.parse(localStorage.getItem("getvalue"));
+    console.log(getvalue);
     document.getElementById('username').value = getvalue[0];
     document.getElementById('firstName').value = getvalue[1];
     document.getElementById('lastName').value = getvalue[2];
