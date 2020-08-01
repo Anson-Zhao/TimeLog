@@ -192,6 +192,7 @@
         <h1><span class="fa fa-home"></span><strong> Time Log - User Home </strong></h1><h4><span class="fa fa-user"></span>
             <strong>Account Name</strong>: <%= user.username %></h4>
                 <strong id = 'Left'>Minutes Still Needed</strong><br>
+                <strong id = 'total'>Total Time Left</strong>
 
     </div>
 </div>
@@ -400,6 +401,18 @@
                 displaySecond = Math.trunc((results - ((displayHour * 60) + displayMinute)) * 60);
                 let display = "Time Still Needed: " + displayHour + ":" + displayMinute + ":" + displaySecond;
                 document.getElementById('Left').innerHTML = display;
+            }})
+
+        $.ajax({
+            url: 'displayTotal',
+            method: 'get',
+            dataType: "json",
+            success: function (results) {
+                displayHour = Math.trunc(results/60);
+                displayMinute = Math.trunc(results - (displayHour*60));
+                displaySecond = Math.trunc((results - ((displayHour * 60) + displayMinute)) * 60);
+                let display = " Total Time Required: " + displayHour + ":" + displayMinute + ":" + displaySecond;
+                document.getElementById('total').innerHTML = display;
             }})
 
         $('#dataDisplay tbody').on('click', 'tr', function () {

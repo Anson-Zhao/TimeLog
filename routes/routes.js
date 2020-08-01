@@ -1453,8 +1453,20 @@ module.exports = function (app, passport) {
         })
     })
 
-    app.get('/display1', function(req, res){
-        let statement = "SELECT Time FROM timelog.userprofile WHERE username = '" + req.user.username + "';"
+    app.get('/displayTotal', function(req, res){
+        let statement = "SELECT Time FROM userprofile WHERE username = '" + req.user.username + "';"
+        con_CS.query(statement, function(err, results){
+            if(err){
+                throw err;
+            } else{
+                res.json(results[0].Time);
+            }
+        })
+    })
+
+    app.post('/display1', function(req, res){
+        //console.log(req.body);
+        let statement = "SELECT Time FROM timelog.userprofile WHERE username = '" + req.body.editUser + "';"
         con_CS.query(statement, function(err, results){
             if(err){
                 console.log (err);
