@@ -19,7 +19,7 @@ let serverConfig = {
 
     Session_db: 'timelog',
     Login_db: 'timelog',
-    Login_table: 'UserLogin',
+    Login_table: 'userlogin',
     Upload_db: 'timelog',
 
     Server_Port: 9094,
