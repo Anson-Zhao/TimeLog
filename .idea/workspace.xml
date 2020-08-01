@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="90a3b8f6-6b98-4bc1-a7c5-b9d9a56f7166" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="90a3b8f6-6b98-4bc1-a7c5-b9d9a56f7166" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -57,7 +55,8 @@
     <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="javascript.nodejs.core.library.configured.version" value="14.5.0" />
+    <property name="javascript.nodejs.core.library.configured.version" value="13.11.0" />
+    <property name="javascript.nodejs.core.library.typings.version" value="13.11.0" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/3rdPartyLibs" />
     <property name="nodejs_interpreter_path" value="node" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -88,6 +87,7 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -131,6 +131,7 @@
       <workItem from="1596045124959" duration="12202000" />
       <workItem from="1596134139630" duration="6418000" />
       <workItem from="1596153703509" duration="1514000" />
+      <workItem from="1596227846256" duration="863000" />
     </task>
     <task id="LOCAL-00003" summary="Up to date timelog">
       <created>1594751548755</created>
@@ -202,11 +203,18 @@
       <option name="project" value="LOCAL" />
       <updated>1596078283399</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="xml">
+      <created>1596227865371</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1596227865371</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="2" />
+    <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
@@ -214,7 +222,8 @@
     <MESSAGE value="V2.0" />
     <MESSAGE value="V2.1 With the HTML update" />
     <MESSAGE value="V2.1.1 HTML update and fixed admin privileges" />
-    <option name="LAST_COMMIT_MESSAGE" value="V2.1.1 HTML update and fixed admin privileges" />
+    <MESSAGE value="xml" />
+    <option name="LAST_COMMIT_MESSAGE" value="xml" />
   </component>
   <component name="WindowStateProjectService">
     <state x="329" y="26" key="#Deployment" timestamp="1595366930162">
@@ -225,10 +234,10 @@
       <screen x="0" y="0" width="1676" height="902" />
     </state>
     <state x="309" y="9" key="#SSH_Configurations/0.0.1676.902@0.0.1676.902" timestamp="1595366856508" />
-    <state x="589" y="79" key="CommitChangelistDialog2" timestamp="1596078282753">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state x="514" y="0" key="CommitChangelistDialog2" timestamp="1596227863263">
+      <screen x="0" y="0" width="1676" height="902" />
     </state>
-    <state x="514" y="0" key="CommitChangelistDialog2/0.0.1676.902@0.0.1676.902" timestamp="1595644765468" />
+    <state x="514" y="0" key="CommitChangelistDialog2/0.0.1676.902@0.0.1676.902" timestamp="1596227863263" />
     <state x="589" y="79" key="CommitChangelistDialog2/0.0.1920.1080@0.0.1920.1080" timestamp="1596078282753" />
     <state x="92" y="92" width="1491" height="717" key="DirDiffDialog" timestamp="1595368198310">
       <screen x="0" y="0" width="1676" height="902" />
