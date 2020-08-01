@@ -12,7 +12,7 @@
     <!--<link rel="stylesheet" href="//unpkg.com/flatpickr/dist/flatpickr.min.css">-->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script src="https://www.google.com/recaptcha/api.js?render=6Ld7fq8UAAAAAOv8ZEiVj6P972pR_Vf3ko5R0JB_"></script>
+    <script src="https://www.google.com/recaptcha/api.js?render=6LcI7LgZAAAAAIl8kDHY2BDminATB5SWG86wzPx9"></script>
     <?php include 'reCaptcha.php';?>
     <!--<script src="//unpkg.com/flatpickr"></script>-->
     <style>
@@ -112,21 +112,21 @@
     });
 
     grecaptcha.ready(function() {
-        grecaptcha.execute('6Ld7fq8UAAAAAOv8ZEiVj6P972pR_Vf3ko5R0JB_', {action: '/kauth'}).then(function (token) {
+        grecaptcha.execute('6LcI7LgZAAAAAIl8kDHY2BDminATB5SWG86wzPx9', {action: '/kauth'}).then(function (token) {
             console.log(token);
             document.getElementById("token").value = token;
         });
     });
 
     grecaptcha.ready(function() {
-        grecaptcha.execute('6Ld7fq8UAAAAAOv8ZEiVj6P972pR_Vf3ko5R0JB_', {action: '/pauth'}).then(function (token) {
+        grecaptcha.execute('6LcI7LgZAAAAAIl8kDHY2BDminATB5SWG86wzPx9', {action: '/pauth'}).then(function (token) {
             console.log(token);
             document.getElementById("token").value = token;
         });
     });
 
     grecaptcha.ready(function() {
-        grecaptcha.execute('6Ld7fq8UAAAAAOv8ZEiVj6P972pR_Vf3ko5R0JB_', {action: '/eauth'}).then(function (token) {
+        grecaptcha.execute('6LcI7LgZAAAAAIl8kDHY2BDminATB5SWG86wzPx9', {action: '/eauth'}).then(function (token) {
             console.log(token);
             document.getElementById("token").value = token;
         });

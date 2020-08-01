@@ -17,7 +17,7 @@
     <!--<script src="//unpkg.com/flatpickr"></script>-->
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script src="https://www.google.com/recaptcha/api.js?render=6Ld7fq8UAAAAAOv8ZEiVj6P972pR_Vf3ko5R0JB_"></script>
+    <script src="https://www.google.com/recaptcha/api.js?render=6LcI7LgZAAAAAIl8kDHY2BDminATB5SWG86wzPx9"></script>
     <?php include 'reCaptcha.php';?>
     <style>body {
             padding-bottom: 80px;
@@ -122,7 +122,7 @@
     });
 
     grecaptcha.ready(function() {
-        grecaptcha.execute('6Ld7fq8UAAAAAOv8ZEiVj6P972pR_Vf3ko5R0JB_', {action: '/reset/:token'}).then(function (token) {
+        grecaptcha.execute('6LcI7LgZAAAAAIl8kDHY2BDminATB5SWG86wzPx9', {action: '/reset/:token'}).then(function (token) {
             console.log(token);
             document.getElementById("token").value = token;
         });
