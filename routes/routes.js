@@ -1368,24 +1368,26 @@ module.exports = function (app, passport) {
 
     app.post('/inTime', function(req, res) {
         //console.log(req.body);
-        let bruh = req.body.send;
-        let lmao = req.body.send1;
+        let bruh = req.body.date;
+        let lmao = req.body.time2;
         //console.log(bruh + "  " + lmao);
         let statement = "INSERT INTO timelog.timelog(username, logDate, inTime, outTime, timeLeft) VALUES ('" + req.user.username + "', (?), (?), NULL,'" + req.user.minutesLeft + "' )"
         con_CS.query(statement, [bruh, lmao], function(err){
             if (err){
                 console.log(err);
+                res.json("error")
             } else {
-                console.log("Cool");
+                //console.log("Cool");
+                res.json("success")
             }
         })
-        res.json("lol");
+        //res.json("lol");
     })
 
     app.post('/time', async function(req, res){
         //console.log(req.body.cool);
-        let lol = req.body.cool;
-        let time = req.body.lmao;
+        let lol = req.body.date;
+        let time = req.body.time2;
         let theDiff;
         let stat = 'You have logged an out time please refresh the page and if the \'hours needed\' does not change even though you think it should have please contact an admin'
         //let start = '00:00:00'

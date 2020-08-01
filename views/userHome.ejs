@@ -693,20 +693,33 @@
     })
 
     logInButton.addEventListener("click", function () {
-        logInTime = new Date();
-        let send = logInTime.getFullYear() + "-" + logInTime.getMonth() + "-" + logInTime.getDate();
-        let send1 = logInTime.getHours() + ":" + logInTime.getMinutes() + ":" + logInTime.getSeconds();
-        console.log(logInTime.getUTCMonth());
+        $(function () {
+            flatpickr(".date", {
+                enableTime: true,
+                dateFormat: "Y-m-d",
+                timeFormat: "H:i:S",
+                time_24hr: true
+            });
+        });
+        let today = new Date();
+        let date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+        let time2 = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        //let dateTime = date + ' ' + time2;
+        //logInTime = new Date();
+        //let send = logInTime.getFullYear() + "-" + logInTime.getMonth() + "-" + logInTime.getDate();
+        //let send1 = logInTime.getHours() + ":" + logInTime.getMinutes() + ":" + logInTime.getSeconds();
+        //console.log(logInTime.getUTCMonth());
         //console.log(send1);
         //buttonOut.disabled = false;
         //buttonIn.disabled = true;
         $.ajax({
             url: 'inTime',
-            data: {send, send1},
+            data: {date, time2},
             method: 'post',
             dataType: 'json',
             success: function(results){
-                console.log("boi WHY ARE YOU LOOKING AT THE CONSOLE for what reason are you here like u aren't editing this so why are u here?");
+                //console.log(results);
+                //console.log("boi WHY ARE YOU LOOKING AT THE CONSOLE for what reason are you here like u aren't editing this so why are u here?");
                 alert("You have successfully clocked in!")
             }
         })
@@ -714,7 +727,19 @@
     })
 
     logOutButton.addEventListener("click", function () {
-        logOutTime = new Date();
+        $(function () {
+            flatpickr(".date", {
+                enableTime: true,
+                dateFormat: "Y-m-d",
+                timeFormat: "H:i:S",
+                time_24hr: true
+            });
+        });
+        let today = new Date();
+        let date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+        let time2 = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        //let dateTime = date + ' ' + time2;
+        //logOutTime = new Date();
         // logInLength = logOutTime.getTime() - logInTime.getTime();
         // console.log(logInLength);
         // seconds = logInLength / 1000;
@@ -723,17 +748,17 @@
         // hours = minutes / 60;
         // console.log(hours);
         // hours = hours.toString();
-        let cool = logOutTime.getFullYear() + "-" + logOutTime.getMonth() + "-" + logOutTime.getDate();
-        let lmao = logOutTime.getHours() + ":" + logOutTime.getMinutes() + ":" + logOutTime.getSeconds();
+        //let cool = logOutTime.getFullYear() + "-" + logOutTime.getMonth() + "-" + logOutTime.getDate();
+        //let lmao = logOutTime.getHours() + ":" + logOutTime.getMinutes() + ":" + logOutTime.getSeconds();
         let ret;
         $.ajax({
             url: 'time',
-            data: {cool, lmao},
+            data: {date, time2},
             method: 'post',
             dataType: "json",
             success: function (results) {
                 ret = results;
-                console.log(ret);
+                //console.log(ret);
                 alert(ret);
             }})
         //buttonOut.disabled = true;
