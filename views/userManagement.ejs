@@ -390,7 +390,7 @@
 
                     let getvalue = table.rows('.selected').data();
                     localStorage.setItem("getvalue", JSON.stringify(getvalue[0]));
-                    console.log(getvalue);
+                    //console.log(getvalue);
 
                     window.location.replace('/editUser');
 
@@ -414,7 +414,7 @@
 
                     let getvalue = table.rows('.selected').data();
                     localStorage.setItem("getvalue", JSON.stringify(getvalue[0]));
-                    console.log(getvalue);
+                    //console.log(getvalue);
 
                     window.location.replace('/timeAdd');
 
@@ -425,7 +425,7 @@
                 if (confirm("Are you sure you would like to suspend the user(s)?")) {
 
                     let usernameStr = "usernameStr=" + rowUserName.toString();
-                    console.log("usernameStr: " + usernameStr);
+                    //console.log("usernameStr: " + usernameStr);
 
                     $.ajax({
                         url: '/suspendUser', //this inside routes
@@ -434,7 +434,7 @@
                         async: false,
                         data: usernameStr,
                         success: function (result) {
-                            console.log(result);
+                            //console.log(result);
                             if (!result.error) {
                                 window.location.reload()
                             } else {
@@ -456,7 +456,7 @@
         });
 
         function dropDown() {
-            console.log(UserRole);
+            //console.log(UserRole);
             if (UserRole === "Admin") {
                 document.getElementById("userMenuAdmin").classList.toggle("show");
             } else if (UserRole === "Regular") {
@@ -517,7 +517,7 @@
                 async: false,
                 data: querystr,
                 success: function (resp) {
-                    console.log(resp)
+                    //console.log(resp)
                     for (let i = 0; i < resp.length; i++) {
                         table.row.add( [
                             resp[i].username,

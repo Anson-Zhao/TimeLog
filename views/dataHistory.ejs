@@ -488,7 +488,7 @@
                 transactionID.push(rowSelected[i][2]);
                 transactionpicturename.push(rowSelected[i][15]);
                 LayerNameStr.push(rowSelected[i][12]);
-                console.log(transactionpicturename)
+                //console.log(transactionpicturename)
             }
         });
 
@@ -499,7 +499,7 @@
                 let pictureStr = "pictureStr=" + transactionpicturename.toString();
                 let LayerName = "LayerName=" + LayerNameStr.toString();
 
-                console.log(pictureStr);
+                //console.log(pictureStr);
                 $.ajax({
                     url: '/disapprove',
                     type: 'GET',
@@ -616,7 +616,7 @@
             data: querystr,
             success: function (resp) {
                 if (!resp[0].errMsg) {
-                    console.log(resp);
+                    //console.log(resp);
                     for (let i = 0; i < resp.length; i++) {
                         //if (resp[i].username === req.user.username) {
                             // if (resp[i].ContinentName = 'SA') {
@@ -694,8 +694,8 @@
             async: false,
             data: querystr1,
             success: function (resp) {
-                if (!resp[0].errMsg) {
-                    console.log(resp);
+                if (resp.length > 0) {
+                    //console.log(resp);
                     for (let i = 0; i < resp.length; i++) {
                         //if (resp[i].username === req.user.username) {
                         // if (resp[i].ContinentName = 'SA') {
@@ -758,7 +758,7 @@
                         //}
                     }
                 } else {
-                    alert(resp[0].errMsg);
+                    alert("There are no logs for this time period");
                 }
             }
         });
@@ -773,7 +773,7 @@
             data: querystr,
             success: function (resp) {
                 if (!resp[0].errMsg) {
-                    console.log(resp);
+                    //console.log(resp);
                     for (let i = 0; i < resp.length; i++) {
                         //if (resp[i].username === req.user.username) {
                         // if (resp[i].ContinentName = 'SA') {
@@ -891,7 +891,7 @@
         let name = document.getElementById("usernameLog").value;
         let hours = document.getElementById("hours").value;
         let minutes = document.getElementById("minutes").value;
-        console.log(name);
+        //console.log(name);
 
         $.ajax({
             url: '/changeTime',
@@ -901,7 +901,7 @@
             data: {name, hours, minutes},
             success: function(resp){
                 alert(resp);
-                console.log(resp);
+                //console.log(resp);
             }})
     }
 
@@ -977,8 +977,8 @@
             dataType: 'json',
             async: false,
             success: function (resp) {
-                if (!resp[0].errMsg) {
-                    console.log(resp);
+                if (resp.length > 0) {
+                    //console.log(resp);
                     for (let i = 0; i < resp.length; i++) {
                         //if (resp[i].username === req.user.username) {
                         // if (resp[i].ContinentName = 'SA') {
@@ -1041,51 +1041,11 @@
                         //}
                     }
                 } else {
-                    alert(resp[0].errMsg);
+                    alert("There are no logs to be shown");
                 }
             }
         });
     }
-
-//     function exportTableToCSV2(filename) {
-//         let csv = [];
-// //        let table = document.querySelector('#trapDisplay');
-//         let rows = document.querySelector("#trapDisplay").querySelectorAll(".selected, thead");
-//
-//         for (let i = 0; i < rows.length; i++) {
-//             let row = [], cols = rows[i].querySelectorAll("td, th");
-//
-//             for (let j = 0; j < cols.length; j++)
-//                 row.push(cols[j].innerText);
-//
-//             csv.push(row.join(","));
-//         }
-//
-//         // Download CSV file
-//         downloadCSV2(csv.join("\n"), filename);
-//
-//     }
-
-    // function changeColor() {
-    //     let row = document.getElementsByClassName("change")[0].innerHTML.trim().split("</td>");
-    //
-    //     let latiLong = row[3].substring(4, row[3].length) + "; " + row[4].substring(4, row[4].length);
-    //
-    //     for (let i = 0; i < markers.length; i++) {
-    //         if (markers[i].DMS === latiLong) {
-    //             if (document.getElementsByClassName("change")[0].classList.contains("selected") && document.getElementsByClassName("change")[0].classList.contains("change")) {
-    //                 document.getElementsByClassName("change")[0].classList.remove("change");
-    //                 markers[i].setMap(map);
-    //             } else if (document.getElementsByClassName("change")[0].classList.contains("change")) {
-    //                 document.getElementsByClassName("change")[0].classList.remove("change");
-    //                 markers[i].setMap(null);
-    //             }
-    //             break
-    //         }
-    //     }
-    //     //alert(markers.length)
-    // }
-
 </script>
 </body>
 </html>

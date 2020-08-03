@@ -3,8 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="90a3b8f6-6b98-4bc1-a7c5-b9d9a56f7166" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/routes.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/dataHistory.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/dataHistory.ejs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/userEdit.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/userEdit.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/userHome.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/userHome.ejs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/userManagement.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/userManagement.ejs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -142,6 +144,7 @@
       <workItem from="1596219318174" duration="5919000" />
       <workItem from="1596311812285" duration="2761000" />
       <workItem from="1596408528427" duration="9143000" />
+      <workItem from="1596426606396" duration="1173000" />
     </task>
     <task id="LOCAL-00003" summary="Up to date timelog">
       <created>1594751548755</created>
@@ -293,26 +296,26 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="800" y="251" key="FileChooserDialogImpl/0.0.1920.1080@0.0.1920.1080" timestamp="1594681515091" />
-    <state width="1527" height="266" key="GridCell.Tab.0.bottom" timestamp="1596421280457">
+    <state width="1527" height="266" key="GridCell.Tab.0.bottom" timestamp="1596427778032">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1620" height="189" key="GridCell.Tab.0.bottom/0.0.1676.902@0.0.1676.902" timestamp="1595645069456" />
-    <state width="1527" height="266" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1596421280457" />
-    <state width="1527" height="266" key="GridCell.Tab.0.center" timestamp="1596421280457">
+    <state width="1527" height="266" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1596427778032" />
+    <state width="1527" height="266" key="GridCell.Tab.0.center" timestamp="1596427778032">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1620" height="189" key="GridCell.Tab.0.center/0.0.1676.902@0.0.1676.902" timestamp="1595645069456" />
-    <state width="1527" height="266" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1596421280457" />
-    <state width="1527" height="266" key="GridCell.Tab.0.left" timestamp="1596421280457">
+    <state width="1527" height="266" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1596427778032" />
+    <state width="1527" height="266" key="GridCell.Tab.0.left" timestamp="1596427778032">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1620" height="189" key="GridCell.Tab.0.left/0.0.1676.902@0.0.1676.902" timestamp="1595645069456" />
-    <state width="1527" height="266" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1596421280457" />
-    <state width="1527" height="266" key="GridCell.Tab.0.right" timestamp="1596421280457">
+    <state width="1527" height="266" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1596427778032" />
+    <state width="1527" height="266" key="GridCell.Tab.0.right" timestamp="1596427778032">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1620" height="189" key="GridCell.Tab.0.right/0.0.1676.902@0.0.1676.902" timestamp="1595645069456" />
-    <state width="1527" height="266" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1596421280457" />
+    <state width="1527" height="266" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1596427778032" />
     <state x="543" y="303" key="MultipleFileMergeDialog" timestamp="1596314056613">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
