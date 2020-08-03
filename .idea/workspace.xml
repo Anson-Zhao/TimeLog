@@ -3,12 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="90a3b8f6-6b98-4bc1-a7c5-b9d9a56f7166" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/passportBU.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/routes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/dataHistory.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/dataHistory.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/homepage.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/homepage.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/timeAdd.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/timeAdd.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/userManagement.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/userManagement.ejs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,6 +37,7 @@
     <other-services-enabled>true</other-services-enabled>
     <auto-save>true</auto-save>
   </component>
+  <component name="JupyterTrust" id="2779caab-75f5-4c67-87df-06d2cce1c1e9" />
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="1" />
   </component>
