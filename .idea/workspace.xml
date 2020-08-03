@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="90a3b8f6-6b98-4bc1-a7c5-b9d9a56f7166" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/dataHistory.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/dataHistory.ejs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,6 +37,7 @@
     <other-services-enabled>true</other-services-enabled>
     <auto-save>true</auto-save>
   </component>
+  <component name="JupyterTrust" id="2779caab-75f5-4c67-87df-06d2cce1c1e9" />
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="1" />
   </component>
@@ -85,6 +85,17 @@
     </key>
   </component>
   <component name="RunManager">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="TimeLog_Svr.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/TimeLog_Svr.js" working-dir="$PROJECT_DIR$">
       <method v="2" />
     </configuration>
@@ -296,7 +307,8 @@
     <MESSAGE value="V2.1.1 HTML update and fixed admin privileges" />
     <MESSAGE value="V2.1.2 Added functionality on the userManagement" />
     <MESSAGE value="V2.2" />
-    <option name="LAST_COMMIT_MESSAGE" value="V2.2" />
+    <MESSAGE value="xml" />
+    <option name="LAST_COMMIT_MESSAGE" value="xml" />
   </component>
   <component name="WindowStateProjectService">
     <state x="329" y="26" key="#Deployment" timestamp="1595366930162">
@@ -312,33 +324,33 @@
     </state>
     <state x="514" y="0" key="CommitChangelistDialog2/0.0.1676.902@0.0.1676.902" timestamp="1595644765468" />
     <state x="589" y="79" key="CommitChangelistDialog2/0.0.1920.1080@0.0.1920.1080" timestamp="1596428655047" />
-    <state x="92" y="92" width="1491" height="717" key="DirDiffDialog" timestamp="1595368198310">
+    <state x="92" y="92" width="1491" height="717" key="DirDiffDialog" timestamp="1596429786687">
       <screen x="0" y="0" width="1676" height="902" />
     </state>
-    <state x="92" y="92" width="1491" height="717" key="DirDiffDialog/0.0.1676.902@0.0.1676.902" timestamp="1595368198310" />
+    <state x="92" y="92" width="1491" height="717" key="DirDiffDialog/0.0.1676.902@0.0.1676.902" timestamp="1596429786687" />
     <state x="800" y="251" key="FileChooserDialogImpl" timestamp="1594681515091">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="800" y="251" key="FileChooserDialogImpl/0.0.1920.1080@0.0.1920.1080" timestamp="1594681515091" />
-    <state width="1527" height="266" key="GridCell.Tab.0.bottom" timestamp="1596428101390">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state width="810" height="189" key="GridCell.Tab.0.bottom" timestamp="1596429456390">
+      <screen x="0" y="0" width="1676" height="902" />
     </state>
-    <state width="1620" height="189" key="GridCell.Tab.0.bottom/0.0.1676.902@0.0.1676.902" timestamp="1595645069456" />
+    <state width="810" height="189" key="GridCell.Tab.0.bottom/0.0.1676.902@0.0.1676.902" timestamp="1596429456390" />
     <state width="1527" height="266" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1596428101390" />
-    <state width="1527" height="266" key="GridCell.Tab.0.center" timestamp="1596428101390">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state width="810" height="189" key="GridCell.Tab.0.center" timestamp="1596429456390">
+      <screen x="0" y="0" width="1676" height="902" />
     </state>
-    <state width="1620" height="189" key="GridCell.Tab.0.center/0.0.1676.902@0.0.1676.902" timestamp="1595645069456" />
+    <state width="810" height="189" key="GridCell.Tab.0.center/0.0.1676.902@0.0.1676.902" timestamp="1596429456390" />
     <state width="1527" height="266" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1596428101390" />
-    <state width="1527" height="266" key="GridCell.Tab.0.left" timestamp="1596428101390">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state width="810" height="189" key="GridCell.Tab.0.left" timestamp="1596429456390">
+      <screen x="0" y="0" width="1676" height="902" />
     </state>
-    <state width="1620" height="189" key="GridCell.Tab.0.left/0.0.1676.902@0.0.1676.902" timestamp="1595645069456" />
+    <state width="810" height="189" key="GridCell.Tab.0.left/0.0.1676.902@0.0.1676.902" timestamp="1596429456390" />
     <state width="1527" height="266" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1596428101390" />
-    <state width="1527" height="266" key="GridCell.Tab.0.right" timestamp="1596428101390">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state width="810" height="189" key="GridCell.Tab.0.right" timestamp="1596429456390">
+      <screen x="0" y="0" width="1676" height="902" />
     </state>
-    <state width="1620" height="189" key="GridCell.Tab.0.right/0.0.1676.902@0.0.1676.902" timestamp="1595645069456" />
+    <state width="810" height="189" key="GridCell.Tab.0.right/0.0.1676.902@0.0.1676.902" timestamp="1596429456390" />
     <state width="1527" height="266" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1596428101390" />
     <state x="543" y="303" key="MultipleFileMergeDialog" timestamp="1596314056613">
       <screen x="0" y="0" width="1920" height="1080" />
