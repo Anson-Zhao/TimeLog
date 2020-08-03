@@ -388,6 +388,13 @@ module.exports = function (app, passport) {
         })
     })
 
+    app.get('/filterAllQuery', function(req, res){
+        let sqlStat = "SELECT * FROM timelog"
+        con_CS.query(sqlStat, function(err, result){
+            res.json(result);
+        })
+    })
+
     //Don't delete this this is also for the timelog tables
     app.get('/dateStuff', function(req,res){
         let start = Number(req.query.startDate.slice(5, 7)) - 1;
@@ -1267,6 +1274,20 @@ module.exports = function (app, passport) {
         });
     });
 
+
+    app.get('/timeAdd', isLoggedIn, function (req, res) {
+
+        res.render('timeAdd.ejs', {
+            user: req.user, // get the user out of session and pass to template
+            username: req.body.username,
+            // firstName: edit_firstName,
+            // lastName: edit_lastName,
+            // userrole: edit_userrole,
+            // status: edit_status,
+            message: req.flash('Data Entry Message')
+        });
+    });
+
     app.post('/editUser', isLoggedIn, function (req, res) {
         res.setHeader("Access-Control-Allow-Origin", "*"); // Allow cross domain header
 
@@ -1396,6 +1417,7 @@ module.exports = function (app, passport) {
         let statement = "UPDATE timelog.timelog SET outTime = (?) WHERE outTime IS NULL AND logDate = (?) AND username = '" + req.user.username + "';"
         let statement1 = "SELECT inTime FROM timelog.timelog WHERE outTime IS NULL AND logDate = (?) AND username = '" + req.user.username + "';"
         let update = "UPDATE timelog.userlogin SET minutesLeft = (minutesLeft - (?)) WHERE username = '" + req.user.username + "';"
+        let update1 = "UPDATE timelog SET timeLeft = (timeLeft - (?)) WHERE outTime IS NULL AND username = '" + req.user.username + "';"
         let diff = "UPDATE timelog.timelog SET timeDiff = timediff((?), (?)) WHERE outTime IS NULL AND logDate = (?) AND username = '" + req.user.username + "';"
         let diffSelect = "SELECT timeDiff FROM timelog.timelog WHERE outTime IS NULL AND logDate = (?) AND username = '" + req.user.username + "';"
 
@@ -1404,7 +1426,7 @@ module.exports = function (app, passport) {
                 console.log(err);
             } else if (result.length == 0) {
                 //res.json("error");
-                stat = "An error occurred there may not be an in time"
+                stat = "Please log a start time before you log an end time"
                 //console.log("bruh");
                 res.json(stat);
             } else {
@@ -1427,11 +1449,17 @@ module.exports = function (app, passport) {
                                     if (err) {
                                         console.log(err);
                                     } else {
-                                        con_CS.query(statement, [time, lol], function (err) {
-                                            if (err) {
-                                                console.log(err);
+                                        con_CS.query(update1, total, function(err, result){
+                                            if(err){
+                                                console.log(err)
                                             } else {
-                                                res.json(stat);
+                                                con_CS.query(statement, [time, lol], function (err) {
+                                                    if (err) {
+                                                        console.log(err);
+                                                    } else {
+                                                        res.json(stat);
+                                                    }
+                                                })
                                             }
                                         })
                                     }
