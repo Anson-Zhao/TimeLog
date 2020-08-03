@@ -4,6 +4,7 @@
     <list default="true" id="90a3b8f6-6b98-4bc1-a7c5-b9d9a56f7166" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/views/userHome.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/userHome.ejs" afterDir="false" />
     </list>
+    <list default="true" id="90a3b8f6-6b98-4bc1-a7c5-b9d9a56f7166" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -37,7 +38,6 @@
     <other-services-enabled>true</other-services-enabled>
     <auto-save>true</auto-save>
   </component>
-  <component name="JupyterTrust" id="2779caab-75f5-4c67-87df-06d2cce1c1e9" />
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="1" />
   </component>
@@ -151,7 +151,7 @@
       <workItem from="1596219318174" duration="5919000" />
       <workItem from="1596311812285" duration="2761000" />
       <workItem from="1596408528427" duration="9143000" />
-      <workItem from="1596426606396" duration="2670000" />
+      <workItem from="1596426606396" duration="3452000" />
     </task>
     <task id="LOCAL-00003" summary="Up to date timelog">
       <created>1594751548755</created>
@@ -301,6 +301,14 @@
       <updated>1596429915103</updated>
     </task>
     <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00023" summary="V2.2">
+      <created>1596429375347</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1596429375347</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -328,10 +336,15 @@
     <state x="309" y="9" key="#SSH_Configurations/0.0.1676.902@0.0.1676.902" timestamp="1595366856508" />
     <state x="514" y="0" key="CommitChangelistDialog2" timestamp="1596429913644">
       <screen x="0" y="0" width="1676" height="902" />
+    <state x="589" y="79" key="CommitChangelistDialog2" timestamp="1596429374628">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="514" y="0" key="CommitChangelistDialog2/0.0.1676.902@0.0.1676.902" timestamp="1596429913644" />
     <state x="589" y="79" key="CommitChangelistDialog2/0.0.1920.1080@0.0.1920.1080" timestamp="1596428655047" />
     <state x="92" y="92" width="1491" height="717" key="DirDiffDialog" timestamp="1596430354096">
+    <state x="514" y="0" key="CommitChangelistDialog2/0.0.1676.902@0.0.1676.902" timestamp="1595644765468" />
+    <state x="589" y="79" key="CommitChangelistDialog2/0.0.1920.1080@0.0.1920.1080" timestamp="1596429374628" />
+    <state x="92" y="92" width="1491" height="717" key="DirDiffDialog" timestamp="1595368198310">
       <screen x="0" y="0" width="1676" height="902" />
     </state>
     <state x="92" y="92" width="1491" height="717" key="DirDiffDialog/0.0.1676.902@0.0.1676.902" timestamp="1596430354096" />
@@ -370,9 +383,13 @@
     <state x="521" y="155" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1595550215270" />
     <state x="488" y="203" key="Vcs.Push.Dialog.v2" timestamp="1596429994555">
       <screen x="0" y="0" width="1676" height="902" />
+    <state x="559" y="243" key="Vcs.Push.Dialog.v2" timestamp="1596429381206">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="488" y="203" key="Vcs.Push.Dialog.v2/0.0.1676.902@0.0.1676.902" timestamp="1596429994555" />
     <state x="559" y="243" key="Vcs.Push.Dialog.v2/0.0.1920.1080@0.0.1920.1080" timestamp="1596428661219" />
+    <state x="488" y="203" key="Vcs.Push.Dialog.v2/0.0.1676.902@0.0.1676.902" timestamp="1595644558686" />
+    <state x="559" y="243" key="Vcs.Push.Dialog.v2/0.0.1920.1080@0.0.1920.1080" timestamp="1596429381206" />
     <state x="92" y="92" width="1491" height="717" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1595371587747">
       <screen x="0" y="0" width="1676" height="902" />
     </state>
