@@ -318,8 +318,8 @@
 
     let getvalue = JSON.parse(localStorage.getItem("getvalue"));
     let editUser = getvalue[0];
-    console.log(getvalue);
-    console.log(editUser);
+    //console.log(getvalue);
+    //console.log(editUser);
     let queryStr1 = "&editUser=" + editUser;
     document.getElementById('username').value = getvalue[0];
     document.getElementById('firstName').value = getvalue[1];
@@ -386,7 +386,7 @@
         if (checkbox.checked === true) {
             let newP = document.getElementById("newPassword").value;
             let confirmP = document.getElementById("confirmPassword").value;
-            console.log("pass:" + newP);
+            //console.log("pass:" + newP);
             if (confirmP !== "" && newP !== "") {
                 if (newP === confirmP) {
                     $.ajax({
@@ -435,15 +435,15 @@
 
     grecaptcha.ready(function() {
         grecaptcha.execute('6LcI7LgZAAAAAIl8kDHY2BDminATB5SWG86wzPx9', {action: '/edituserform'}).then(function (token) {
-            console.log(token);
+            //console.log(token);
             document.getElementById("token").value = token;
         });
     });
 
     function verifyemail(){
         for (let i =0; i< newusername.length; i++){
-            console.log(document.getElementById("username").value);
-            console.log(newusername[i].username);
+            //console.log(document.getElementById("username").value);
+            //console.log(newusername[i].username);
             if(document.getElementById("username").value === newusername[i].username && document.getElementById("username").value !== UserName){
                 document.getElementById("emailc").innerHTML = "This user name already exists!";
                 break;
@@ -464,8 +464,8 @@
             success: function (results) {
                 for (let i = 0; i < results.length; i++) {
                     // let newRes = JSON.stringify(results);
-                    console.log(value);
-                    console.log(results[i].username);
+                    //console.log(value);
+                    //console.log(results[i].username);
                     if (value === results[i].username && value !== LoginUser) {
                         alert("This username is already taken. Please use a different one.");
                         document.getElementById("emailUser").innerHTML = "This username is already taken. Please use a different one.";

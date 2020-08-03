@@ -157,9 +157,9 @@ module.exports = function (app, passport) {
         myStat = "SELECT question1, question2, answer1, answer2 FROM userlogin WHERE username = '" + req.user.username + "'";
 
         con_CS.query(myStat, function (err, result) {
-            console.log("Here is the result:");
-            console.log(result);
-            console.log(result[0].question1);
+            //console.log("Here is the result:");
+            //console.log(result);
+            //console.log(result[0].question1);
 
             if (err) {
                 res.send('An unexpected error occurred.');
@@ -384,6 +384,7 @@ module.exports = function (app, passport) {
     app.get('/stuff', function(req, res){
         let sqlStat = "SELECT * FROM timelog WHERE username = '" + req.user.username + "';"
         con_CS.query(sqlStat, function(err, result){
+            //console.log(result);
             res.json(result);
         })
     })
@@ -397,10 +398,10 @@ module.exports = function (app, passport) {
 
     //Don't delete this this is also for the timelog tables
     app.get('/dateStuff', function(req,res){
-        let start = Number(req.query.startDate.slice(5, 7)) - 1;
+        let start = Number(req.query.startDate.slice(5, 7));
 
         start = req.query.startDate.slice(0, 4) + '-' + start + "-" + req.query.startDate.slice(8);
-        let end = Number(req.query.endDate.slice(5, 7)) - 1;
+        let end = Number(req.query.endDate.slice(5, 7));
 
         end = req.query.endDate.slice(0, 4) + '-' + end + "-" + req.query.endDate.slice(8);
         let statement = "SELECT * FROM timelog WHERE logDate >= ? AND logDate <= ? AND username = '" + req.user.username + "';"
