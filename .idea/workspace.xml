@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="90a3b8f6-6b98-4bc1-a7c5-b9d9a56f7166" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/views/userHome.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/userHome.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/dataHistory.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/dataHistory.ejs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,7 +63,8 @@
     <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="javascript.nodejs.core.library.configured.version" value="14.5.0" />
+    <property name="javascript.nodejs.core.library.configured.version" value="13.11.0" />
+    <property name="javascript.nodejs.core.library.typings.version" value="13.11.0" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/views" />
     <property name="nodejs_interpreter_path" value="node" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -85,17 +87,6 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="TimeLog_Svr.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/TimeLog_Svr.js" working-dir="$PROJECT_DIR$">
       <method v="2" />
     </configuration>
@@ -105,6 +96,7 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -152,6 +144,7 @@
       <workItem from="1596311812285" duration="2761000" />
       <workItem from="1596408528427" duration="9143000" />
       <workItem from="1596426606396" duration="2670000" />
+      <workItem from="1596431307270" duration="404000" />
     </task>
     <task id="LOCAL-00003" summary="Up to date timelog">
       <created>1594751548755</created>
@@ -300,11 +293,18 @@
       <option name="project" value="LOCAL" />
       <updated>1596429915103</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="V2.3">
+      <created>1596430368143</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1596430368143</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="2" />
+    <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
@@ -315,7 +315,8 @@
     <MESSAGE value="V2.1.2 Added functionality on the userManagement" />
     <MESSAGE value="V2.2" />
     <MESSAGE value="xml" />
-    <option name="LAST_COMMIT_MESSAGE" value="xml" />
+    <MESSAGE value="V2.3" />
+    <option name="LAST_COMMIT_MESSAGE" value="V2.3" />
   </component>
   <component name="WindowStateProjectService">
     <state x="329" y="26" key="#Deployment" timestamp="1595366930162">
@@ -326,38 +327,38 @@
       <screen x="0" y="0" width="1676" height="902" />
     </state>
     <state x="309" y="9" key="#SSH_Configurations/0.0.1676.902@0.0.1676.902" timestamp="1595366856508" />
-    <state x="514" y="0" key="CommitChangelistDialog2" timestamp="1596429913644">
+    <state x="514" y="0" key="CommitChangelistDialog2" timestamp="1596430366828">
       <screen x="0" y="0" width="1676" height="902" />
     </state>
-    <state x="514" y="0" key="CommitChangelistDialog2/0.0.1676.902@0.0.1676.902" timestamp="1596429913644" />
+    <state x="514" y="0" key="CommitChangelistDialog2/0.0.1676.902@0.0.1676.902" timestamp="1596430366828" />
     <state x="589" y="79" key="CommitChangelistDialog2/0.0.1920.1080@0.0.1920.1080" timestamp="1596428655047" />
-    <state x="92" y="92" width="1491" height="717" key="DirDiffDialog" timestamp="1596430354096">
+    <state x="92" y="92" width="1491" height="717" key="DirDiffDialog" timestamp="1596430681437">
       <screen x="0" y="0" width="1676" height="902" />
     </state>
-    <state x="92" y="92" width="1491" height="717" key="DirDiffDialog/0.0.1676.902@0.0.1676.902" timestamp="1596430354096" />
+    <state x="92" y="92" width="1491" height="717" key="DirDiffDialog/0.0.1676.902@0.0.1676.902" timestamp="1596430681437" />
     <state x="800" y="251" key="FileChooserDialogImpl" timestamp="1594681515091">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="800" y="251" key="FileChooserDialogImpl/0.0.1920.1080@0.0.1920.1080" timestamp="1594681515091" />
-    <state width="810" height="189" key="GridCell.Tab.0.bottom" timestamp="1596430031377">
+    <state width="810" height="189" key="GridCell.Tab.0.bottom" timestamp="1596430378806">
       <screen x="0" y="0" width="1676" height="902" />
     </state>
-    <state width="810" height="189" key="GridCell.Tab.0.bottom/0.0.1676.902@0.0.1676.902" timestamp="1596430031377" />
+    <state width="810" height="189" key="GridCell.Tab.0.bottom/0.0.1676.902@0.0.1676.902" timestamp="1596430378806" />
     <state width="1527" height="266" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1596428101390" />
-    <state width="810" height="189" key="GridCell.Tab.0.center" timestamp="1596430031377">
+    <state width="810" height="189" key="GridCell.Tab.0.center" timestamp="1596430378806">
       <screen x="0" y="0" width="1676" height="902" />
     </state>
-    <state width="810" height="189" key="GridCell.Tab.0.center/0.0.1676.902@0.0.1676.902" timestamp="1596430031377" />
+    <state width="810" height="189" key="GridCell.Tab.0.center/0.0.1676.902@0.0.1676.902" timestamp="1596430378806" />
     <state width="1527" height="266" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1596428101390" />
-    <state width="810" height="189" key="GridCell.Tab.0.left" timestamp="1596430031377">
+    <state width="810" height="189" key="GridCell.Tab.0.left" timestamp="1596430378806">
       <screen x="0" y="0" width="1676" height="902" />
     </state>
-    <state width="810" height="189" key="GridCell.Tab.0.left/0.0.1676.902@0.0.1676.902" timestamp="1596430031377" />
+    <state width="810" height="189" key="GridCell.Tab.0.left/0.0.1676.902@0.0.1676.902" timestamp="1596430378806" />
     <state width="1527" height="266" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1596428101390" />
-    <state width="810" height="189" key="GridCell.Tab.0.right" timestamp="1596430031377">
+    <state width="810" height="189" key="GridCell.Tab.0.right" timestamp="1596430378806">
       <screen x="0" y="0" width="1676" height="902" />
     </state>
-    <state width="810" height="189" key="GridCell.Tab.0.right/0.0.1676.902@0.0.1676.902" timestamp="1596430031377" />
+    <state width="810" height="189" key="GridCell.Tab.0.right/0.0.1676.902@0.0.1676.902" timestamp="1596430378806" />
     <state width="1527" height="266" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1596428101390" />
     <state x="543" y="303" key="MultipleFileMergeDialog" timestamp="1596314056613">
       <screen x="0" y="0" width="1920" height="1080" />
@@ -368,10 +369,10 @@
     </state>
     <state x="455" y="19" key="SettingsEditor/0.0.1676.902@0.0.1676.902" timestamp="1595378504891" />
     <state x="521" y="155" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1595550215270" />
-    <state x="488" y="203" key="Vcs.Push.Dialog.v2" timestamp="1596429994555">
+    <state x="488" y="203" key="Vcs.Push.Dialog.v2" timestamp="1596430611227">
       <screen x="0" y="0" width="1676" height="902" />
     </state>
-    <state x="488" y="203" key="Vcs.Push.Dialog.v2/0.0.1676.902@0.0.1676.902" timestamp="1596429994555" />
+    <state x="488" y="203" key="Vcs.Push.Dialog.v2/0.0.1676.902@0.0.1676.902" timestamp="1596430611227" />
     <state x="559" y="243" key="Vcs.Push.Dialog.v2/0.0.1920.1080@0.0.1920.1080" timestamp="1596428661219" />
     <state x="92" y="92" width="1491" height="717" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1595371587747">
       <screen x="0" y="0" width="1676" height="902" />
