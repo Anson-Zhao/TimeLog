@@ -12,6 +12,5 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="jquerysctipttop" level="application" />
     <orderEntry type="library" name="@types/jquery" level="application" />
-    <orderEntry type="library" name="Python 3.8 (venv) interpreter library" level="application" />
   </component>
 </module>

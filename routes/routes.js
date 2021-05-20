@@ -8,6 +8,7 @@ const nodemailer = require('nodemailer');
 const async = require('async');
 const crypto = require('crypto');
 const con_CS = mysql.createConnection(serverConfig.commondb_connection);
+const generator = require('generate-password');
 const smtpTrans = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
@@ -118,6 +119,11 @@ module.exports = function (app, passport) {
 
     app.post('/eauth', function (req, res) {
         res.setHeader("Access-Control-Allow-Origin", "*"); // Allow cross domain header
+
+        if (req.user.username == null || req.user == null) {
+            res.render('homepage.ejs');
+        }
+
         let statement = "SELECT * FROM userlogin WHERE username = '" + req.user.username + "';";
 
         let password = generator.generateMultiple(1, {
@@ -142,8 +148,8 @@ module.exports = function (app, passport) {
                     Code: password
                 });
                 let username = req.user.username;
-                let subject = "Email Authentication for CitySmart";
-                let text = 'an email authentication for logging in your admin account.';
+                let subject = "Email Authentication for Time Log";
+                let text = 'an email authentication for logging in your account.';
                 let url = ""+ password +"";
                 console.log(url);
                 sendToken3(username, subject, text, url, res);
@@ -153,6 +159,10 @@ module.exports = function (app, passport) {
 
     app.post('/kauth', function (req, res) {
         res.setHeader("Access-Control-Allow-Origin", "*"); // Allow cross domain header
+
+        if (req.user.username == null || req.user == null) {
+            res.render('homepage.ejs');
+        }
 
         myStat = "SELECT question1, question2, answer1, answer2 FROM userlogin WHERE username = '" + req.user.username + "'";
 
@@ -180,6 +190,10 @@ module.exports = function (app, passport) {
     app.post('/pauth', function (req, res) {
         let phoneNumber;
         res.setHeader("Access-Control-Allow-Origin", "*");
+
+        if (req.user.username == null || req.user == null) {
+            res.render('homepage.ejs');
+        }
 
         myStat = "SELECT Phone_Number FROM userprofile WHERE username = '" + req.user.username + "'";
 
@@ -1018,7 +1032,7 @@ module.exports = function (app, passport) {
 
     app.get('/SearchUsername', function (req, res) {
         res.setHeader("Access-Control-Allow-Origin", "*");
-        con_CS.query("SELECT username FROM timelog.userLogin", function (err, results) {
+        con_CS.query("SELECT username FROM timelog.userlogin", function (err, results) {
             if (err) throw err;
             res.json(results);
         });

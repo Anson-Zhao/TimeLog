@@ -2,7 +2,7 @@
 <project version="4">
   <component name="SshConfigs">
     <configs>
-      <sshConfig authType="PASSWORD" host="aworldbridgelabs.com" id="bb76746c-97a5-4b8c-a97f-7fd04b343a57" port="5532" nameFormat="DESCRIPTIVE" username="ansonz" />
+      <sshConfig authType="PASSWORD" connectionConfig="{&quot;serverAliveInterval&quot;:300}" host="aworldbridgelabs.com" id="bb76746c-97a5-4b8c-a97f-7fd04b343a57" port="5532" nameFormat="DESCRIPTIVE" username="ansonz" />
     </configs>
   </component>
 </project>
