@@ -59,7 +59,7 @@ let options = {
     createDatabaseTable: true,// Whether or not to create the sessions database table, if one does not already exist.
     connectionLimit: 10,// Number of connections when creating a connection pool
     schema: {
-        tableName: 'Sessions',
+        tableName: 'sessions',
         columnNames: {
             session_id: 'Session_ID',
             expires: 'Expires',
